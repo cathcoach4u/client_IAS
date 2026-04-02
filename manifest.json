@@ -1,0 +1,25 @@
+{
+  "name": "IAS - AI Project Communications Strategy & Roadmap",
+  "short_name": "IAS Project",
+  "description": "Communications strategy, roadmap, and project tracking for Insurance Advisory Service AI project",
+  "start_url": "/client_IAS/",
+  "scope": "/client_IAS/",
+  "display": "standalone",
+  "background_color": "#1B2A4A",
+  "theme_color": "#CC0000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
