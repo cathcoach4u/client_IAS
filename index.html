@@ -137,15 +137,27 @@
         .month-title{font-size:1rem;color:var(--teal);font-weight:700;margin-bottom:3px}
         .month-theme{font-size:.8rem;color:var(--text-light);font-style:italic;margin-bottom:14px}
         @media print{.sidebar,.topbar,.save-toast{display:none}.main{margin:0;padding:16px;max-width:100%}.panel{display:block!important;break-inside:avoid;box-shadow:none}}
-        @media(max-width:768px){.sidebar{display:none}.main{margin-left:0;padding:14px}}
+        .menu-btn{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:pointer;padding:4px 8px;line-height:1}
+        .sidebar-close{display:none;position:absolute;top:12px;right:14px;background:none;border:none;color:var(--text-light);font-size:1.2rem;cursor:pointer}
+        .sidebar-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.4);z-index:40}
+        .sidebar-overlay.show{display:block}
+        @media(max-width:768px){
+            .menu-btn{display:block}
+            .sidebar{transform:translateX(-100%);transition:transform .25s;z-index:60}
+            .sidebar.open{transform:translateX(0)}
+            .sidebar-close{display:block}
+            .main{margin-left:0;padding:14px}
+        }
     </style>
 </head>
 <body>
 <div class="topbar">
-    <div class="topbar-left"><div class="topbar-logo">I</div><h1>IAS Working Folder</h1></div>
+    <div class="topbar-left"><button class="menu-btn" onclick="toggleMenu()">&#9776;</button><div class="topbar-logo">I</div><h1>IAS Working Folder</h1></div>
     <div class="topbar-actions"><a href="https://netorgft4053847.sharepoint.com/:f:/s/Practioners/IgAeoCWSYvg-TZOJT5SkqtAvAeJjhbtGDJu0jG688Fq3Ilo?e=r8Cb4h" target="_blank" style="background:rgba(255,255,255,.12);color:#fff;padding:6px 14px;border-radius:6px;font-size:.78rem;text-decoration:none;display:inline-flex;align-items:center;gap:5px">&#128193; OneDrive</a><button onclick="expandAll()">Expand All</button><button onclick="exportData()">Export</button></div>
 </div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMenu()"></div>
 <nav class="sidebar" id="sidebar">
+    <button class="sidebar-close" onclick="toggleMenu()">&times;</button>
     <div class="sidebar-year" data-year="2025" onclick="toggleYear(this)"><span class="arrow">&#9660;</span> 2025/26</div>
     <div class="sidebar-group" data-year-group="2025">
         <div class="sidebar-item project" data-panel="engagement">Business Builder Proposal</div>
@@ -578,6 +590,11 @@ function showToast() {
 // ══════════════════════════════════════════
 // SIDEBAR NAVIGATION
 // ══════════════════════════════════════════
+function toggleMenu() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
 function toggleYear(el) {
     el.classList.toggle('collapsed');
 }
@@ -592,7 +609,8 @@ document.querySelectorAll('.sidebar-item').forEach(item => {
         // Active state
         document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
         this.classList.add('active');
-        // Scroll top
+        // Close mobile menu & scroll top
+        if (window.innerWidth <= 768) toggleMenu();
         window.scrollTo(0, 0);
     });
 });
