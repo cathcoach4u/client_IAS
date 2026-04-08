@@ -117,6 +117,17 @@
         .week-tracker textarea{width:100%;min-height:50px;border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.82rem;resize:vertical;outline:none;transition:.2s;background:var(--white)}
         .week-tracker textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
         .ai-badge{font-size:.68rem;color:var(--text-light);font-style:italic}
+        .practice-block{background:var(--white);border:2px solid var(--teal-bg);border-radius:10px;padding:20px;margin:16px 0}
+        .practice-block h3{margin:0 0 14px;color:var(--teal);font-size:.9rem}
+        .practice-week{margin-bottom:14px}
+        .practice-week-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+        .practice-week-num{font-size:.75rem;font-weight:600;color:var(--navy);white-space:nowrap}
+        .practice-week-head input{flex:1;border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-family:inherit;font-size:.82rem;font-weight:500;outline:none;transition:.2s}
+        .practice-week-head input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
+        .practice-bullets{padding-left:28px;margin-top:4px}
+        .practice-bullets input{width:100%;border:none;border-bottom:1px solid #f0f0f0;padding:4px 0;font-family:inherit;font-size:.8rem;color:var(--text-sec);outline:none;transition:.2s}
+        .practice-bullets input:focus{border-bottom-color:var(--teal)}
+        .practice-bullets input::placeholder{color:#CBD5E0}
         .btn-ai{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}
         .btn-ai:hover{opacity:.9}
         .month-block{border:2px solid var(--teal-bg);border-radius:10px;padding:22px;margin:18px 0}
@@ -238,6 +249,26 @@
 <!-- ═══ APRIL ═══ -->
 <div class="panel" id="april">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>April 2026</h2></div>
+    <div class="practice-block" id="practice-april">
+        <h3>What the weeks looked like in practice</h3>
+        <div class="practice-week" data-pw="april-w1">
+            <div class="practice-week-head"><span class="practice-week-num">Week 1:</span><input type="text" data-pwtitle="april-w1" placeholder="Week 1 theme..." oninput="savePractice('april')"></div>
+            <div class="practice-bullets"><input type="text" data-pwbullet="april-w1-0" placeholder="Key action or outcome..." oninput="savePractice('april')"><input type="text" data-pwbullet="april-w1-1" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w1-2" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w1-3" placeholder="" oninput="savePractice('april')"></div>
+        </div>
+        <div class="practice-week" data-pw="april-w2">
+            <div class="practice-week-head"><span class="practice-week-num">Week 2:</span><input type="text" data-pwtitle="april-w2" placeholder="Week 2 theme..." oninput="savePractice('april')"></div>
+            <div class="practice-bullets"><input type="text" data-pwbullet="april-w2-0" placeholder="Key action or outcome..." oninput="savePractice('april')"><input type="text" data-pwbullet="april-w2-1" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w2-2" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w2-3" placeholder="" oninput="savePractice('april')"></div>
+        </div>
+        <div class="practice-week" data-pw="april-w3">
+            <div class="practice-week-head"><span class="practice-week-num">Week 3:</span><input type="text" data-pwtitle="april-w3" placeholder="Week 3 theme..." oninput="savePractice('april')"></div>
+            <div class="practice-bullets"><input type="text" data-pwbullet="april-w3-0" placeholder="Key action or outcome..." oninput="savePractice('april')"><input type="text" data-pwbullet="april-w3-1" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w3-2" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w3-3" placeholder="" oninput="savePractice('april')"></div>
+        </div>
+        <div class="practice-week" data-pw="april-w4">
+            <div class="practice-week-head"><span class="practice-week-num">Week 4:</span><input type="text" data-pwtitle="april-w4" placeholder="Week 4 theme..." oninput="savePractice('april')"></div>
+            <div class="practice-bullets"><input type="text" data-pwbullet="april-w4-0" placeholder="Key action or outcome..." oninput="savePractice('april')"><input type="text" data-pwbullet="april-w4-1" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w4-2" placeholder="" oninput="savePractice('april')"><input type="text" data-pwbullet="april-w4-3" placeholder="" oninput="savePractice('april')"></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('april')">Copy Summary</button></div>
+    </div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="april" style="outline:none" onblur="saveIntent('april',this.textContent)"></span></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('april')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('april')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-april"></div>
@@ -302,6 +333,14 @@
 <!-- ═══ MAY ═══ -->
 <div class="panel" id="may">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>May 2026</h2></div>
+    <div class="practice-block" id="practice-may">
+        <h3>What the weeks looked like in practice</h3>
+        <div class="practice-week" data-pw="may-w5"><div class="practice-week-head"><span class="practice-week-num">Week 5:</span><input type="text" data-pwtitle="may-w5" placeholder="Week 5 theme..." oninput="savePractice('may')"></div><div class="practice-bullets"><input type="text" data-pwbullet="may-w5-0" placeholder="Key action or outcome..." oninput="savePractice('may')"><input type="text" data-pwbullet="may-w5-1" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w5-2" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w5-3" placeholder="" oninput="savePractice('may')"></div></div>
+        <div class="practice-week" data-pw="may-w6"><div class="practice-week-head"><span class="practice-week-num">Week 6:</span><input type="text" data-pwtitle="may-w6" placeholder="Week 6 theme..." oninput="savePractice('may')"></div><div class="practice-bullets"><input type="text" data-pwbullet="may-w6-0" placeholder="Key action or outcome..." oninput="savePractice('may')"><input type="text" data-pwbullet="may-w6-1" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w6-2" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w6-3" placeholder="" oninput="savePractice('may')"></div></div>
+        <div class="practice-week" data-pw="may-w7"><div class="practice-week-head"><span class="practice-week-num">Week 7:</span><input type="text" data-pwtitle="may-w7" placeholder="Week 7 theme..." oninput="savePractice('may')"></div><div class="practice-bullets"><input type="text" data-pwbullet="may-w7-0" placeholder="Key action or outcome..." oninput="savePractice('may')"><input type="text" data-pwbullet="may-w7-1" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w7-2" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w7-3" placeholder="" oninput="savePractice('may')"></div></div>
+        <div class="practice-week" data-pw="may-w8"><div class="practice-week-head"><span class="practice-week-num">Week 8:</span><input type="text" data-pwtitle="may-w8" placeholder="Week 8 theme..." oninput="savePractice('may')"></div><div class="practice-bullets"><input type="text" data-pwbullet="may-w8-0" placeholder="Key action or outcome..." oninput="savePractice('may')"><input type="text" data-pwbullet="may-w8-1" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w8-2" placeholder="" oninput="savePractice('may')"><input type="text" data-pwbullet="may-w8-3" placeholder="" oninput="savePractice('may')"></div></div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('may')">Copy Summary</button></div>
+    </div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="may" style="outline:none" onblur="saveIntent('may',this.textContent)"></span></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('may')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('may')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-may"></div>
@@ -366,6 +405,14 @@
 <!-- ═══ JUNE ═══ -->
 <div class="panel" id="june">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>June 2026</h2></div>
+    <div class="practice-block" id="practice-june">
+        <h3>What the weeks looked like in practice</h3>
+        <div class="practice-week" data-pw="june-w9"><div class="practice-week-head"><span class="practice-week-num">Week 9:</span><input type="text" data-pwtitle="june-w9" placeholder="Week 9 theme..." oninput="savePractice('june')"></div><div class="practice-bullets"><input type="text" data-pwbullet="june-w9-0" placeholder="Key action or outcome..." oninput="savePractice('june')"><input type="text" data-pwbullet="june-w9-1" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w9-2" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w9-3" placeholder="" oninput="savePractice('june')"></div></div>
+        <div class="practice-week" data-pw="june-w10"><div class="practice-week-head"><span class="practice-week-num">Week 10:</span><input type="text" data-pwtitle="june-w10" placeholder="Week 10 theme..." oninput="savePractice('june')"></div><div class="practice-bullets"><input type="text" data-pwbullet="june-w10-0" placeholder="Key action or outcome..." oninput="savePractice('june')"><input type="text" data-pwbullet="june-w10-1" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w10-2" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w10-3" placeholder="" oninput="savePractice('june')"></div></div>
+        <div class="practice-week" data-pw="june-w11"><div class="practice-week-head"><span class="practice-week-num">Week 11:</span><input type="text" data-pwtitle="june-w11" placeholder="Week 11 theme..." oninput="savePractice('june')"></div><div class="practice-bullets"><input type="text" data-pwbullet="june-w11-0" placeholder="Key action or outcome..." oninput="savePractice('june')"><input type="text" data-pwbullet="june-w11-1" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w11-2" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w11-3" placeholder="" oninput="savePractice('june')"></div></div>
+        <div class="practice-week" data-pw="june-w12"><div class="practice-week-head"><span class="practice-week-num">Week 12:</span><input type="text" data-pwtitle="june-w12" placeholder="Week 12 theme..." oninput="savePractice('june')"></div><div class="practice-bullets"><input type="text" data-pwbullet="june-w12-0" placeholder="Key action or outcome..." oninput="savePractice('june')"><input type="text" data-pwbullet="june-w12-1" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w12-2" placeholder="" oninput="savePractice('june')"><input type="text" data-pwbullet="june-w12-3" placeholder="" oninput="savePractice('june')"></div></div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('june')">Copy Summary</button></div>
+    </div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="june" style="outline:none" onblur="saveIntent('june',this.textContent)"></span></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('june')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('june')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-june"></div>
@@ -779,6 +826,52 @@ function aiAssist(month) {
     setTimeout(() => output.classList.remove('visible'), 8000);
 }
 
+function savePractice(month) {
+    const s = loadState();
+    if (!s.practice) s.practice = {};
+    if (!s.practice[month]) s.practice[month] = {};
+    const block = document.getElementById('practice-' + month);
+    block.querySelectorAll('[data-pwtitle]').forEach(inp => {
+        s.practice[month][inp.dataset.pwtitle] = inp.value;
+    });
+    block.querySelectorAll('[data-pwbullet]').forEach(inp => {
+        s.practice[month][inp.dataset.pwbullet] = inp.value;
+    });
+    saveState(s);
+}
+
+function initPractice() {
+    const state = loadState();
+    const practice = state.practice || {};
+    ['april','may','june'].forEach(m => {
+        const data = practice[m] || {};
+        Object.keys(data).forEach(key => {
+            const el = document.querySelector(`[data-pwtitle="${key}"]`) || document.querySelector(`[data-pwbullet="${key}"]`);
+            if (el && data[key]) el.value = data[key];
+        });
+    });
+}
+
+function copyPractice(month) {
+    const s = loadState();
+    const data = (s.practice && s.practice[month]) || {};
+    const meta = monthMeta[month];
+    let text = `What the weeks looked like in practice - ${meta.title}\n`;
+    const block = document.getElementById('practice-' + month);
+    block.querySelectorAll('.practice-week').forEach(pw => {
+        const key = pw.dataset.pw;
+        const title = data[key] || '';
+        const num = key.split('-')[1].replace('w','');
+        if (!title) return;
+        text += `\nWeek ${num}: ${title}\n`;
+        for (let i = 0; i < 4; i++) {
+            const bullet = data[key + '-' + i] || '';
+            if (bullet) text += `- ${bullet}\n`;
+        }
+    });
+    navigator.clipboard.writeText(text.trim()).then(() => showToast()).catch(() => {});
+}
+
 function copyWeekSummary(week) {
     const s = loadState();
     const num = week.replace('w','');
@@ -1025,6 +1118,7 @@ function exportData() {
 // ══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
     initGoals();
+    initPractice();
     initCheckboxes();
     initMetrics();
     renderValueLog();
