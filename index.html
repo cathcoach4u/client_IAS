@@ -3,832 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IAS AI Project - Communications Strategy & Roadmap</title>
-
-    <!-- PWA Meta Tags -->
+    <title>IAS Working Folder</title>
     <meta name="theme-color" content="#CC0000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="IAS Project">
-    <meta name="description" content="IAS AI Project - Communications Strategy & Roadmap">
-
-    <!-- Manifest & Icons -->
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/svg+xml" href="icons/favicon.svg">
     <link rel="apple-touch-icon" href="icons/icon-192.svg">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #1B2A4A;
-            --navy-light: #2A3D66;
-            --teal: #00838F;
-            --teal-light: #00ACC1;
-            --teal-bg: #E0F2F1;
-            --bg-light: #F5F7FA;
-            --bg-white: #FFFFFF;
-            --text-primary: #1B2A4A;
-            --text-secondary: #4A5568;
-            --text-light: #718096;
-            --border: #E2E8F0;
-            --success: #38A169;
-            --warning: #D69E2E;
-            --accent: #E8F4F8;
+            --navy:#1B2A4A;--navy-light:#2A3D66;--teal:#00838F;--teal-light:#00ACC1;
+            --teal-bg:#E0F2F1;--red:#CC0000;--red-light:#FF1A1A;--bg:#F5F7FA;
+            --white:#FFFFFF;--text:#1B2A4A;--text-sec:#4A5568;--text-light:#718096;
+            --border:#E2E8F0;--success:#38A169;--warning:#D69E2E;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-primary);
-            background: var(--bg-light);
-            line-height: 1.6;
-        }
-
-        /* Top Header Bar */
-        .top-header {
-            background: var(--navy);
-            color: white;
-            padding: 16px 32px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .top-header h1 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-        }
-
-        .top-header .subtitle {
-            font-size: 0.8rem;
-            opacity: 0.7;
-            font-weight: 300;
-        }
-
-        .header-badge {
-            background: var(--teal);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            width: 260px;
-            height: calc(100vh - 60px);
-            background: var(--bg-white);
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-            padding: 24px 0;
-            z-index: 500;
-        }
-
-        .sidebar-section {
-            padding: 0 20px;
-            margin-bottom: 8px;
-        }
-
-        .sidebar-section-title {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-light);
-            font-weight: 600;
-            padding: 8px 0 4px;
-        }
-
-        .sidebar a {
-            display: block;
-            padding: 7px 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.82rem;
-            border-left: 3px solid transparent;
-            transition: all 0.2s;
-        }
-
-        .sidebar a:hover, .sidebar a.active {
-            color: var(--teal);
-            background: var(--teal-bg);
-            border-left-color: var(--teal);
-        }
-
-        /* Main Content */
-        .main {
-            margin-left: 260px;
-            margin-top: 60px;
-            padding: 32px 40px;
-            max-width: 960px;
-        }
-
-        /* Section styling */
-        .section {
-            background: var(--bg-white);
-            border-radius: 10px;
-            padding: 32px;
-            margin-bottom: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            border: 1px solid var(--border);
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--teal-bg);
-        }
-
-        .section-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--teal-bg);
-            color: var(--teal);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .section-header h2 {
-            font-size: 1.25rem;
-            color: var(--navy);
-            font-weight: 600;
-        }
-
-        h3 {
-            font-size: 1rem;
-            color: var(--navy);
-            margin: 20px 0 10px;
-            font-weight: 600;
-        }
-
-        h4 {
-            font-size: 0.9rem;
-            color: var(--teal);
-            margin: 16px 0 8px;
-            font-weight: 600;
-        }
-
-        p { margin-bottom: 12px; font-size: 0.9rem; color: var(--text-secondary); }
-
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 0.85rem;
-        }
-
-        thead th {
-            background: var(--navy);
-            color: white;
-            padding: 10px 14px;
-            text-align: left;
-            font-weight: 500;
-            font-size: 0.8rem;
-        }
-
-        thead th:first-child { border-radius: 6px 0 0 0; }
-        thead th:last-child { border-radius: 0 6px 0 0; }
-
-        tbody td {
-            padding: 10px 14px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        tbody tr:hover { background: var(--bg-light); }
-        tbody tr.total-row { background: var(--teal-bg); font-weight: 600; }
-        tbody tr.total-row td { color: var(--navy); }
-
-        /* Callout boxes */
-        .callout {
-            background: var(--teal-bg);
-            border-left: 4px solid var(--teal);
-            padding: 16px 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 16px 0;
-        }
-
-        .callout.navy {
-            background: #EBF0F7;
-            border-left-color: var(--navy);
-        }
-
-        .callout.warning {
-            background: #FEFCE8;
-            border-left-color: var(--warning);
-        }
-
-        .callout p { margin-bottom: 6px; }
-        .callout p:last-child { margin-bottom: 0; }
-
-        /* Email draft */
-        .email-draft {
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-            margin: 16px 0;
-            font-size: 0.88rem;
-        }
-
-        .email-draft .email-subject {
-            font-weight: 600;
-            color: var(--navy);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Checkboxes */
-        .task-list { list-style: none; padding: 0; }
-
-        .task-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            border-bottom: 1px solid #F0F0F0;
-        }
-
-        .task-list li:last-child { border-bottom: none; }
-
-        .task-list input[type="checkbox"] {
-            margin-top: 3px;
-            accent-color: var(--teal);
-            width: 16px;
-            height: 16px;
-            flex-shrink: 0;
-        }
-
-        .task-list li.checked { color: var(--text-light); text-decoration: line-through; }
-
-        /* Week header */
-        .week-header {
-            background: var(--navy);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 0.82rem;
-            font-weight: 500;
-            margin: 20px 0 10px;
-        }
-
-        /* Month card */
-        .month-card {
-            border: 2px solid var(--teal-bg);
-            border-radius: 10px;
-            padding: 24px;
-            margin: 20px 0;
-        }
-
-        .month-card .month-title {
-            font-size: 1.05rem;
-            color: var(--teal);
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .month-card .month-theme {
-            font-size: 0.82rem;
-            color: var(--text-light);
-            font-style: italic;
-            margin-bottom: 16px;
-        }
-
-        .deliverables {
-            background: var(--teal-bg);
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-
-        .deliverables h4 { color: var(--teal); margin-top: 0; }
-
-        .deliverables ol {
-            padding-left: 20px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .deliverables li { margin-bottom: 4px; }
-
-        /* Option cards */
-        .option-card {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 12px 0;
-            transition: border-color 0.2s;
-        }
-
-        .option-card:hover { border-color: var(--teal); }
-
-        .option-label {
-            display: inline-block;
-            background: var(--navy);
-            color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .option-card h4 { color: var(--navy); margin-top: 4px; }
-
-        /* Value log editable */
-        .editable-cell {
-            min-height: 24px;
-            padding: 4px;
-            border-radius: 4px;
-            cursor: text;
-        }
-
-        .editable-cell:hover { background: var(--teal-bg); }
-        .editable-cell:focus { outline: 2px solid var(--teal); background: white; }
-
-        /* Status badges */
-        .badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 0.72rem;
-            font-weight: 500;
-        }
-
-        .badge-ongoing { background: #DCFCE7; color: #166534; }
-        .badge-scoped { background: #FEF3C7; color: #92400E; }
-        .badge-out { background: #FEE2E2; color: #991B1B; }
-
-        /* Print */
-        @media print {
-            .sidebar, .top-header { display: none; }
-            .main { margin: 0; padding: 20px; max-width: 100%; }
-            .section { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .sidebar { display: none; }
-            .main { margin-left: 0; padding: 16px; }
-            .top-header { padding: 12px 16px; }
-        }
-
-        /* Comparison highlight */
-        .vs-table tbody td:nth-child(3) {
-            background: #F0FFF4;
-            color: var(--teal);
-            font-weight: 500;
-        }
-
-        /* Template box */
-        .template-box {
-            background: #F8FAFC;
-            border: 1px dashed var(--border);
-            border-radius: 8px;
-            padding: 20px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            white-space: pre-line;
-            margin: 12px 0;
-        }
-
-        strong { color: var(--text-primary); }
-
-        ul, ol { padding-left: 20px; margin-bottom: 12px; font-size: 0.9rem; color: var(--text-secondary); }
-        li { margin-bottom: 4px; }
-
-        .key-considerations li {
-            padding: 6px 0;
-            border-bottom: 1px solid #F0F0F0;
-        }
-
-        .last-updated {
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-light);
-            padding: 20px 0;
-        }
-
-        a { color: var(--teal); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+        .topbar{background:var(--navy);color:#fff;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+        .topbar-left{display:flex;align-items:center;gap:12px}
+        .topbar-logo{width:32px;height:32px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;color:#fff}
+        .topbar h1{font-size:1rem;font-weight:600}
+        .topbar-actions{display:flex;gap:8px}
+        .topbar-actions button{background:rgba(255,255,255,.12);border:none;color:#fff;padding:6px 14px;border-radius:6px;font-size:.78rem;cursor:pointer;font-family:inherit;transition:.2s}
+        .topbar-actions button:hover{background:rgba(255,255,255,.25)}
+        .sidebar{position:fixed;top:56px;left:0;width:250px;height:calc(100vh - 56px);background:var(--white);border-right:1px solid var(--border);overflow-y:auto;padding:16px 0;z-index:50}
+        .sidebar-year{padding:6px 20px;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-light);font-weight:600;margin-top:12px;cursor:pointer;display:flex;align-items:center;gap:6px;user-select:none}
+        .sidebar-year .arrow{transition:transform .2s;font-size:.6rem}
+        .sidebar-year.collapsed .arrow{transform:rotate(-90deg)}
+        .sidebar-year.collapsed+.sidebar-group{display:none}
+        .sidebar-item{display:block;padding:7px 20px 7px 32px;color:var(--text-sec);font-size:.82rem;cursor:pointer;border-left:3px solid transparent;text-decoration:none;transition:.15s}
+        .sidebar-item:hover,.sidebar-item.active{color:var(--teal);background:var(--teal-bg);border-left-color:var(--teal)}
+        .sidebar-item.project{font-weight:600;padding-left:28px;color:var(--navy)}
+        .sidebar-item.sub{padding-left:42px;font-size:.78rem}
+        .main{margin-left:250px;margin-top:56px;padding:24px 32px;max-width:920px}
+        .panel{background:var(--white);border-radius:10px;padding:28px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.05);border:1px solid var(--border);display:none}
+        .panel.visible{display:block}
+        .panel-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--teal-bg)}
+        .panel-icon{width:36px;height:36px;background:var(--teal-bg);color:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+        .panel-head h2{font-size:1.15rem;color:var(--navy)}
+        table{width:100%;border-collapse:collapse;font-size:.84rem;margin:12px 0}
+        thead th{background:var(--navy);color:#fff;padding:9px 12px;text-align:left;font-weight:500;font-size:.78rem}
+        thead th:first-child{border-radius:6px 0 0 0}thead th:last-child{border-radius:0 6px 0 0}
+        tbody td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text-sec)}
+        tbody tr:hover{background:var(--bg)}
+        .total-row{background:var(--teal-bg);font-weight:600}.total-row td{color:var(--navy)}
+        td[contenteditable]{cursor:text;min-height:20px;outline:none;border-radius:3px}
+        td[contenteditable]:hover{background:var(--teal-bg)}
+        td[contenteditable]:focus{box-shadow:inset 0 0 0 2px var(--teal);background:#fff}
+        .btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:6px;font-size:.78rem;font-family:inherit;cursor:pointer;border:none;transition:.15s}
+        .btn-teal{background:var(--teal);color:#fff}.btn-teal:hover{background:var(--teal-light)}
+        .btn-red{background:var(--red);color:#fff}.btn-red:hover{background:var(--red-light)}
+        .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-sec)}.btn-outline:hover{border-color:var(--teal);color:var(--teal)}
+        .btn-sm{padding:4px 10px;font-size:.72rem}
+        .btn-row{display:flex;gap:8px;margin-top:12px}
+        .del-row{color:var(--text-light);cursor:pointer;font-size:.72rem;opacity:.4;transition:.15s;background:none;border:none}.del-row:hover{opacity:1;color:var(--red)}
+        .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500}
+        .badge-ongoing{background:#DCFCE7;color:#166534}.badge-scoped{background:#FEF3C7;color:#92400E}
+        .badge-out{background:#FEE2E2;color:#991B1B}.badge-future{background:#EDE9FE;color:#5B21B6}
+        .callout{background:var(--teal-bg);border-left:4px solid var(--teal);padding:14px 18px;border-radius:0 8px 8px 0;margin:14px 0;font-size:.85rem;color:var(--text-sec)}
+        .callout.navy{background:#EBF0F7;border-left-color:var(--navy)}
+        .callout.warning{background:#FEFCE8;border-left-color:var(--warning)}
+        .email-box{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:22px;margin:14px 0;font-size:.86rem;color:var(--text-sec)}
+        .email-box .subj{font-weight:600;color:var(--navy);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+        .tasks{list-style:none;padding:0}.tasks li{display:flex;align-items:flex-start;gap:9px;padding:7px 0;font-size:.84rem;color:var(--text-sec);border-bottom:1px solid #f0f0f0}
+        .tasks li:last-child{border-bottom:none}
+        .tasks input[type=checkbox]{margin-top:3px;accent-color:var(--teal);width:15px;height:15px;flex-shrink:0}
+        .tasks li.done{color:var(--text-light);text-decoration:line-through}
+        .wk{background:var(--navy);color:#fff;padding:7px 14px;border-radius:6px;font-size:.8rem;font-weight:500;margin:16px 0 8px}
+        .deliverables{background:var(--teal-bg);border-radius:8px;padding:14px 18px;margin-top:14px}
+        .deliverables h4{color:var(--teal);font-size:.85rem;margin:0 0 8px}.deliverables ol{padding-left:18px;font-size:.83rem;color:var(--text-sec)}
+        .note-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:10px;position:relative}
+        .note-card .note-date{font-size:.7rem;color:var(--text-light);margin-bottom:6px}
+        .note-card .note-text{font-size:.84rem;color:var(--text-sec);white-space:pre-wrap}
+        .note-card .note-del{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text-light);cursor:pointer;font-size:.7rem;opacity:.4}
+        .note-card .note-del:hover{opacity:1;color:var(--red)}
+        #noteInput{width:100%;min-height:80px;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:inherit;font-size:.84rem;resize:vertical;outline:none;transition:.2s}
+        #noteInput:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
+        .opt-card{border:1px solid var(--border);border-radius:10px;padding:18px;margin:10px 0;transition:.2s}
+        .opt-card:hover{border-color:var(--teal)}
+        .opt-label{display:inline-block;background:var(--navy);color:#fff;padding:2px 10px;border-radius:4px;font-size:.72rem;font-weight:600;margin-bottom:6px}
+        .vs-table tbody td:nth-child(3){background:#F0FFF4;color:var(--teal);font-weight:500}
+        .tpl-box{background:#F8FAFC;border:1px dashed var(--border);border-radius:8px;padding:18px;font-size:.83rem;color:var(--text-sec);white-space:pre-line;margin:10px 0}
+        .save-toast{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:8px 18px;border-radius:8px;font-size:.78rem;opacity:0;transition:opacity .3s;z-index:200;pointer-events:none}
+        .save-toast.show{opacity:1}
+        p{margin-bottom:10px;font-size:.88rem;color:var(--text-sec)}
+        h3{font-size:.95rem;color:var(--navy);margin:18px 0 8px;font-weight:600}
+        h4{font-size:.87rem;color:var(--teal);margin:14px 0 6px;font-weight:600}
+        ul,ol{padding-left:18px;margin-bottom:10px;font-size:.88rem;color:var(--text-sec)}
+        li{margin-bottom:3px}a{color:var(--teal);text-decoration:none}strong{color:var(--text)}
+        .footer{text-align:center;font-size:.72rem;color:var(--text-light);padding:20px 0}
+        .month-block{border:2px solid var(--teal-bg);border-radius:10px;padding:22px;margin:18px 0}
+        .month-title{font-size:1rem;color:var(--teal);font-weight:700;margin-bottom:3px}
+        .month-theme{font-size:.8rem;color:var(--text-light);font-style:italic;margin-bottom:14px}
+        @media print{.sidebar,.topbar,.save-toast{display:none}.main{margin:0;padding:16px;max-width:100%}.panel{display:block!important;break-inside:avoid;box-shadow:none}}
+        @media(max-width:768px){.sidebar{display:none}.main{margin-left:0;padding:14px}}
     </style>
 </head>
 <body>
-
-<!-- Top Header -->
-<div class="top-header">
-    <div>
-        <h1>IAS &mdash; AI Project Communications Strategy &amp; Roadmap</h1>
-        <div class="subtitle">Insurance Advisory Service &bull; Coach4U</div>
+<div class="topbar">
+    <div class="topbar-left"><div class="topbar-logo">I</div><h1>IAS Working Folder</h1></div>
+    <div class="topbar-actions"><button onclick="expandAll()">Expand All</button><button onclick="exportData()">Export</button></div>
+</div>
+<nav class="sidebar" id="sidebar">
+    <div class="sidebar-year" data-year="2025" onclick="toggleYear(this)"><span class="arrow">&#9660;</span> 2025/26</div>
+    <div class="sidebar-group" data-year-group="2025">
+        <div class="sidebar-item project" data-panel="engagement">Business Builder Proposal</div>
+        <div class="sidebar-item project" data-panel="ai-project">AI Project (Apr-Jun)</div>
+        <div class="sidebar-item sub" data-panel="email-draft">Draft Email to Jo</div>
+        <div class="sidebar-item sub" data-panel="roadmap">Roadmap</div>
+        <div class="sidebar-item sub" data-panel="value-log">Value Log</div>
+        <div class="sidebar-item sub" data-panel="metrics">Success Metrics</div>
+        <div class="sidebar-item sub" data-panel="comms-plan">Communication Plan</div>
+        <div class="sidebar-item sub" data-panel="copilot-ref">Copilot Tuning Brief</div>
     </div>
-    <span class="header-badge">Apr &ndash; Jun 2026</span>
+    <div class="sidebar-year" data-year="2026" onclick="toggleYear(this)"><span class="arrow">&#9660;</span> 2026/27</div>
+    <div class="sidebar-group" data-year-group="2026">
+        <div class="sidebar-item project" data-panel="outlook-2027">Engagement Options</div>
+    </div>
+    <div class="sidebar-year" data-year="cross" onclick="toggleYear(this)"><span class="arrow">&#9660;</span> Working Notes</div>
+    <div class="sidebar-group" data-year-group="cross">
+        <div class="sidebar-item project" data-panel="notes">Notes</div>
+        <div class="sidebar-item project" data-panel="decisions">Decisions Log</div>
+    </div>
+</nav>
+<div class="main" id="mainContent">
+<!-- ═══ ENGAGEMENT FOUNDATION ═══ -->
+<div class="panel" id="engagement">
+    <div class="panel-head"><div class="panel-icon">&#128200;</div><h2>Engagement Foundation: 2025/26 Business Builder Proposal</h2></div>
+    <h3>Objective</h3>
+    <p>To support the CEO and leadership team at IAS to stay focused, aligned, and progressing across the year &mdash; with strategic clarity, consistent leadership support, and team development.</p>
+    <h3>Original Scope of Work</h3>
+    <table>
+        <thead><tr><th>Service</th><th>Description</th><th>2024/25 (incl. GST)</th><th>2025/26 (incl. GST, +5%)</th></tr></thead>
+        <tbody>
+            <tr><td><strong>1. Strategic Planning</strong></td><td>Facilitated planning sessions to set direction, align on priorities, reflect on progress.</td><td>$14,850.00</td><td>$15,592.50</td></tr>
+            <tr><td><strong>2. CEO Leadership Support</strong></td><td>Regular 1:1 coaching for the CEO to reflect, plan, and lead with confidence.</td><td>$15,147.00</td><td>$15,904.35</td></tr>
+            <tr><td><strong>3. Leadership Excellence</strong></td><td>Group coaching focused on leadership skills, collaboration, and shared responsibility.</td><td>$14,400.00</td><td>$15,120.00</td></tr>
+            <tr class="total-row"><td><strong>Total</strong></td><td></td><td><strong>$44,397.00</strong></td><td><strong>$46,616.85</strong></td></tr>
+            <tr class="total-row"><td><strong>Monthly Equivalent</strong></td><td></td><td><strong>$3,699.75</strong></td><td><strong>$3,884.74</strong></td></tr>
+        </tbody>
+    </table>
+    <h3>How the Engagement Evolved</h3>
+    <div class="callout navy">
+        <p><strong>Strategic Planning</strong> continues as-is</p>
+        <p><strong>CEO Leadership Support</strong> + <strong>Leadership Excellence</strong> time redirected to <strong>digital transformation advisory and AI capability development</strong></p>
+    </div>
+    <h3>Current Budget Allocation</h3>
+    <table>
+        <thead><tr><th>Bucket</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody>
+            <tr><td>Monthly engagement (coaching &rarr; AI)</td><td>$2,345/month ex GST</td><td><span class="badge badge-ongoing">Ongoing</span></td></tr>
+            <tr><td>Filing system strategy</td><td>$2,200 (one-off)</td><td><span class="badge badge-scoped">Scoped</span></td></tr>
+            <tr><td>External business coach tool</td><td>N/A</td><td><span class="badge badge-out">Out of Scope</span></td></tr>
+        </tbody>
+    </table>
+    <p><strong>Time:</strong> Original coaching = 5 hrs/month &rarr; AI sessions = 4 hrs/month (1 hr/week). Lou&rsquo;s 1.5 hr/day funded separately by IAS.</p>
 </div>
 
-<!-- Sidebar Navigation -->
-<nav class="sidebar">
-    <div class="sidebar-section">
-        <div class="sidebar-section-title">Foundation</div>
+<!-- ═══ AI PROJECT OVERVIEW ═══ -->
+<div class="panel" id="ai-project">
+    <div class="panel-head"><div class="panel-icon">&#128640;</div><h2>AI Project Overview (Apr&ndash;Jun 2026)</h2></div>
+    <div class="callout">
+        <p><strong>Project Period:</strong> April &ndash; June 2026</p>
+        <p><strong>Project Manager:</strong> Leah Miranda</p>
+        <p><strong>Budget:</strong> $2,345/month + $2,200 filing system strategy</p>
+        <p><strong>Weekly Sessions:</strong> 1 hour/week (Cath &amp; Lou)</p>
+        <p><strong>Lou&rsquo;s Allocation:</strong> 1.5 hrs/day (funded separately by IAS)</p>
     </div>
-    <a href="#overview">Overview</a>
-    <a href="#engagement">Engagement Foundation 2025/26</a>
+    <h3>Direction</h3>
+    <p>Rather than building a custom communications agent, we configure <strong>Microsoft Copilot</strong> to enforce IAS&rsquo;s communication style using Copilot Tuning, Outlook Draft Instructions, and prompt templates. This uses tools IAS already pays for.</p>
+    <h3>Three-Month Summary</h3>
+    <ul>
+        <li><strong>April:</strong> Style Guide, Draft Instructions, Copilot training</li>
+        <li><strong>May:</strong> Filing system strategy, prompt template library</li>
+        <li><strong>June:</strong> Handover, Copilot Tuning prep, final value assessment</li>
+    </ul>
+</div>
 
-    <div class="sidebar-section">
-        <div class="sidebar-section-title">Action</div>
+<!-- ═══ DRAFT EMAIL ═══ -->
+<div class="panel" id="email-draft">
+    <div class="panel-head"><div class="panel-icon">&#9993;</div><h2>Draft Email to Jo Brassett</h2></div>
+    <div class="email-box">
+        <div class="subj">Subject: AI Project &mdash; Next 3 Months Action Plan</div>
+        <p>Hi Jo,</p>
+        <p>Following our discussion about keeping the focus within the Microsoft ecosystem, here&rsquo;s the clear direction for the remaining three months.</p>
+        <p><strong>On the Communications Agent</strong></p>
+        <p>Rather than maintaining a separate agent that duplicates what your Copilot subscription already does, I recommend we configure Copilot itself to enforce IAS&rsquo;s communication style. Microsoft now offers Copilot Tuning &ndash; we can train it on ~20 of your best writing samples plus a style guide so every staff member&rsquo;s AI-generated emails automatically match IAS&rsquo;s tone. This uses tools you&rsquo;re already paying for, needs no separate maintenance, and scales to everyone.</p>
+        <p><strong>April &ndash; June Plan:</strong></p>
+        <ul>
+            <li><strong>April:</strong> Create IAS Communications Style Guide, set up Outlook Draft Instructions for all staff, train Leah and team on Copilot prompting</li>
+            <li><strong>May:</strong> Filing system strategy implementation, build prompt template library for common IAS communications</li>
+            <li><strong>June:</strong> Refine based on feedback, document processes for Leah to maintain independently, prepare for Copilot Tuning</li>
+        </ul>
+        <p><strong>Value commitment:</strong> Every session focused on practical outcomes Leah and the team can use immediately. I&rsquo;ll send fortnightly progress summaries so you have full visibility.</p>
+        <p>Happy to discuss.</p>
+        <p>Kind regards,<br>Cath</p>
     </div>
-    <a href="#email-draft">Draft Email to Jo</a>
-    <a href="#roadmap">Three-Month Roadmap</a>
-    <a href="#april">April &ndash; Quick Wins</a>
-    <a href="#may">May &ndash; Filing &amp; Efficiency</a>
-    <a href="#june">June &ndash; Polish &amp; Handover</a>
+</div>
 
-    <div class="sidebar-section">
-        <div class="sidebar-section-title">Tracking</div>
+<!-- ═══ ROADMAP ═══ -->
+<div class="panel" id="roadmap">
+    <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>Three-Month Roadmap</h2></div>
+    <div class="month-block">
+        <div class="month-title">April 2026 &mdash; Foundation &amp; Quick Wins</div>
+        <div class="month-theme">Get the basics right so every Copilot email sounds like IAS</div>
+        <div class="wk">Week 1 (w/c 6 Apr)</div>
+        <ul class="tasks" data-group="w1"><li><input type="checkbox" data-task="w1-0"><span>Audit current email communication patterns across IAS</span></li><li><input type="checkbox" data-task="w1-1"><span>Collect 5-10 examples of best IAS emails</span></li><li><input type="checkbox" data-task="w1-2"><span>Begin drafting IAS Communications Style Guide</span></li></ul>
+        <div class="wk">Week 2 (w/c 13 Apr)</div>
+        <ul class="tasks" data-group="w2"><li><input type="checkbox" data-task="w2-0"><span>Complete IAS Communications Style Guide</span></li><li><input type="checkbox" data-task="w2-1"><span>Set up Outlook Draft Instructions template for all staff</span></li><li><input type="checkbox" data-task="w2-2"><span>Walk Leah through Draft Instructions setup</span></li></ul>
+        <div class="wk">Week 3 (w/c 20 Apr)</div>
+        <ul class="tasks" data-group="w3"><li><input type="checkbox" data-task="w3-0"><span>Train Leah and team on Copilot prompting (hands-on)</span></li><li><input type="checkbox" data-task="w3-1"><span>Create 5 prompt templates for common IAS emails</span></li><li><input type="checkbox" data-task="w3-2"><span>Begin scoping filing system strategy</span></li></ul>
+        <div class="wk">Week 4 (w/c 27 Apr)</div>
+        <ul class="tasks" data-group="w4"><li><input type="checkbox" data-task="w4-0"><span>Review first month outcomes with Leah</span></li><li><input type="checkbox" data-task="w4-1"><span>Gather feedback on Draft Instructions effectiveness</span></li><li><input type="checkbox" data-task="w4-2"><span>Send first fortnightly progress summary to Jo</span></li></ul>
+        <div class="deliverables"><h4>April Deliverables</h4><ol><li>IAS Communications Style Guide</li><li>Outlook Draft Instructions template</li><li>5 prompt templates for common emails</li><li>Training session completed</li></ol></div>
     </div>
-    <a href="#value-log">Value Log</a>
-    <a href="#metrics">Success Metrics</a>
-    <a href="#comms-plan">Communication Plan</a>
-
-    <div class="sidebar-section">
-        <div class="sidebar-section-title">Reference</div>
+    <div class="month-block">
+        <div class="month-title">May 2026 &mdash; Efficiency &amp; Filing System</div>
+        <div class="month-theme">Filing system strategy + expand the prompt library</div>
+        <div class="wk">Week 5 (w/c 4 May)</div>
+        <ul class="tasks" data-group="w5"><li><input type="checkbox" data-task="w5-0"><span>Filing system: current state assessment</span></li><li><input type="checkbox" data-task="w5-1"><span>Map existing file structures and pain points</span></li><li><input type="checkbox" data-task="w5-2"><span>Expand prompt template library (+5 templates)</span></li></ul>
+        <div class="wk">Week 6 (w/c 11 May)</div>
+        <ul class="tasks" data-group="w6"><li><input type="checkbox" data-task="w6-0"><span>Filing system: design recommended structure</span></li><li><input type="checkbox" data-task="w6-1"><span>Explore Copilot Studio style-checking agent</span></li><li><input type="checkbox" data-task="w6-2"><span>Send fortnightly progress summary to Jo</span></li></ul>
+        <div class="wk">Week 7 (w/c 18 May)</div>
+        <ul class="tasks" data-group="w7"><li><input type="checkbox" data-task="w7-0"><span>Filing system: begin implementation</span></li><li><input type="checkbox" data-task="w7-1"><span>Test style-checking agent with Leah</span></li><li><input type="checkbox" data-task="w7-2"><span>Measure time savings vs baseline</span></li></ul>
+        <div class="wk">Week 8 (w/c 25 May)</div>
+        <ul class="tasks" data-group="w8"><li><input type="checkbox" data-task="w8-0"><span>Filing system: complete and document</span></li><li><input type="checkbox" data-task="w8-1"><span>Refine prompt templates from feedback</span></li><li><input type="checkbox" data-task="w8-2"><span>Mid-project value assessment</span></li></ul>
+        <div class="deliverables"><h4>May Deliverables</h4><ol><li>Filing system strategy completed ($2,200)</li><li>Prompt template library (10+ templates)</li><li>Copilot Studio style-checking agent (if feasible)</li><li>Time savings measurement report</li></ol></div>
     </div>
-    <a href="#copilot-tuning">Copilot Tuning Brief</a>
-    <a href="#outlook-2027">2026/27 Outlook</a>
-    <a href="#decisions">Notes &amp; Decisions</a>
-</nav>
-
-
-<!-- Main Content -->
-<div class="main">
-
-    <!-- OVERVIEW -->
-    <div class="section" id="overview">
-        <div class="section-header">
-            <div class="section-icon">&#128640;</div>
-            <h2>Overview</h2>
-        </div>
-        <p>Working document for the IAS AI Project. Covers the engagement foundation, communications strategy direction, 3-month roadmap, progress tracking, and reference materials.</p>
-        <div class="callout">
-            <p><strong>Project Period:</strong> April &ndash; June 2026</p>
-            <p><strong>Project Manager:</strong> Leah Miranda</p>
-            <p><strong>Budget:</strong> $2,345/month (coaching redirected to AI project) + $2,200 filing system strategy</p>
-            <p><strong>Weekly Sessions:</strong> 1 hour/week with Cath &amp; Lou</p>
-            <p><strong>Lou&rsquo;s Allocation:</strong> 1.5 hours/day (funded separately by IAS)</p>
-        </div>
+    <div class="month-block">
+        <div class="month-title">June 2026 &mdash; Polish &amp; Handover</div>
+        <div class="month-theme">Make everything self-sustaining for Leah from July</div>
+        <div class="wk">Week 9 (w/c 1 Jun)</div>
+        <ul class="tasks" data-group="w9"><li><input type="checkbox" data-task="w9-0"><span>Collect 20+ writing samples for Copilot Tuning</span></li><li><input type="checkbox" data-task="w9-1"><span>Refine all tools from 2 months feedback</span></li><li><input type="checkbox" data-task="w9-2"><span>Document all processes in handover guide</span></li></ul>
+        <div class="wk">Week 10 (w/c 8 Jun)</div>
+        <ul class="tasks" data-group="w10"><li><input type="checkbox" data-task="w10-0"><span>Complete handover documentation</span></li><li><input type="checkbox" data-task="w10-1"><span>Train Leah on maintaining tools independently</span></li><li><input type="checkbox" data-task="w10-2"><span>Send fortnightly progress summary to Jo</span></li></ul>
+        <div class="wk">Week 11 (w/c 15 Jun)</div>
+        <ul class="tasks" data-group="w11"><li><input type="checkbox" data-task="w11-0"><span>Final refinements to style guide, prompts, filing</span></li><li><input type="checkbox" data-task="w11-1"><span>Prepare Copilot Tuning package for GA</span></li><li><input type="checkbox" data-task="w11-2"><span>Draft recommendations for July onwards</span></li></ul>
+        <div class="wk">Week 12 (w/c 22 Jun)</div>
+        <ul class="tasks" data-group="w12"><li><input type="checkbox" data-task="w12-0"><span>Final value assessment: outcomes and time savings</span></li><li><input type="checkbox" data-task="w12-1"><span>Present end-of-project summary to Jo</span></li><li><input type="checkbox" data-task="w12-2"><span>Handover complete</span></li></ul>
+        <div class="deliverables"><h4>June Deliverables</h4><ol><li>Complete handover guide for Leah</li><li>Copilot Tuning package (20+ samples + guide)</li><li>Final value assessment report</li><li>Recommendations for July onwards</li></ol></div>
     </div>
+</div>
 
-    <!-- ENGAGEMENT FOUNDATION -->
-    <div class="section" id="engagement">
-        <div class="section-header">
-            <div class="section-icon">&#128200;</div>
-            <h2>Engagement Foundation: 2025/26 Business Builder Proposal</h2>
-        </div>
+<!-- ═══ VALUE LOG ═══ -->
+<div class="panel" id="value-log">
+    <div class="panel-head"><div class="panel-icon">&#128176;</div><h2>Value Log</h2></div>
+    <p>Track tangible outcomes after each session. Builds the &ldquo;value for money&rdquo; case for Jo.</p>
+    <table id="valueTable">
+        <thead><tr><th>Date</th><th>What Was Done</th><th>Outcome / Benefit</th><th>Est. Time Saved</th><th style="width:30px"></th></tr></thead>
+        <tbody id="valueBody"></tbody>
+    </table>
+    <div class="btn-row"><button class="btn btn-teal" onclick="addValueRow()">+ Add Entry</button></div>
+</div>
 
-        <h3>Objective</h3>
-        <p>To support the CEO and leadership team at IAS to stay focused, aligned, and progressing across the year &mdash; with strategic clarity, consistent leadership support, and team development.</p>
+<!-- ═══ SUCCESS METRICS ═══ -->
+<div class="panel" id="metrics">
+    <div class="panel-head"><div class="panel-icon">&#127919;</div><h2>Success Metrics</h2></div>
+    <table>
+        <thead><tr><th>Metric</th><th>How to Measure</th><th>Result</th></tr></thead>
+        <tbody>
+            <tr><td>Email drafting time saved</td><td>Before/after comparison</td><td contenteditable="true" data-metric="m1"></td></tr>
+            <tr><td>Staff adoption of Draft Instructions</td><td>% of staff configured</td><td contenteditable="true" data-metric="m2"></td></tr>
+            <tr><td>Prompt template usage</td><td>Number actively used</td><td contenteditable="true" data-metric="m3"></td></tr>
+            <tr><td>Communication consistency</td><td>Qualitative assessment</td><td contenteditable="true" data-metric="m4"></td></tr>
+            <tr><td>Filing system efficiency</td><td>Time saved on retrieval</td><td contenteditable="true" data-metric="m5"></td></tr>
+            <tr><td>Leah&rsquo;s independence</td><td>Can maintain without support?</td><td contenteditable="true" data-metric="m6"></td></tr>
+        </tbody>
+    </table>
+</div>
 
-        <h3>Original Scope of Work (2025/26)</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Service</th>
-                    <th>Description</th>
-                    <th>2024/25 (incl. GST)</th>
-                    <th>2025/26 (incl. GST, +5%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>1. Strategic Planning</strong></td>
-                    <td>Facilitated planning sessions to set direction, align on business priorities, and reflect on progress.</td>
-                    <td>$14,850.00</td>
-                    <td>$15,592.50</td>
-                </tr>
-                <tr>
-                    <td><strong>2. CEO Leadership Support</strong></td>
-                    <td>Regular 1:1 coaching for the CEO to reflect, plan, and lead with confidence.</td>
-                    <td>$15,147.00</td>
-                    <td>$15,904.35</td>
-                </tr>
-                <tr>
-                    <td><strong>3. Leadership Excellence</strong></td>
-                    <td>Group coaching focused on strengthening leadership skills, collaboration, and shared responsibility.</td>
-                    <td>$14,400.00</td>
-                    <td>$15,120.00</td>
-                </tr>
-                <tr class="total-row">
-                    <td><strong>Total</strong></td>
-                    <td></td>
-                    <td><strong>$44,397.00</strong></td>
-                    <td><strong>$46,616.85</strong></td>
-                </tr>
-                <tr class="total-row">
-                    <td><strong>Monthly Equivalent</strong></td>
-                    <td></td>
-                    <td><strong>$3,699.75</strong></td>
-                    <td><strong>$3,884.74</strong></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>How the Engagement Has Evolved</h3>
-        <div class="callout navy">
-            <p>Following the IAS Planning Day, the agreed structure shifted:</p>
-            <p>&bull; <strong>Strategic Planning</strong> continues as-is</p>
-            <p>&bull; <strong>CEO Leadership Support</strong> and <strong>Leadership Excellence</strong> time redirected to <strong>digital transformation advisory and AI capability development</strong></p>
-        </div>
-
-        <h3>Current Budget Allocation</h3>
-        <table>
-            <thead>
-                <tr><th>Bucket</th><th>Amount</th><th>Status</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Monthly engagement (coaching &rarr; AI project)</td>
-                    <td>$2,345/month ex GST</td>
-                    <td><span class="badge badge-ongoing">Ongoing</span></td>
-                </tr>
-                <tr>
-                    <td>Filing system strategy</td>
-                    <td>$2,200 (one-off)</td>
-                    <td><span class="badge badge-scoped">Scoped</span></td>
-                </tr>
-                <tr>
-                    <td>External business coach tool</td>
-                    <td>N/A</td>
-                    <td><span class="badge badge-out">Out of Scope</span></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p><strong>Time comparison:</strong> Original coaching = 5 hours/month &rarr; AI sessions = 4 hours/month (1 hr/week). Lou&rsquo;s 1.5 hr/day allocation is funded by IAS separately, outside the Coach4U arrangement.</p>
-    </div>
-
-    <!-- DRAFT EMAIL -->
-    <div class="section" id="email-draft">
-        <div class="section-header">
-            <div class="section-icon">&#9993;</div>
-            <h2>Draft Email to Jo Brassett</h2>
-        </div>
-        <div class="email-draft">
-            <div class="email-subject">Subject: AI Project &mdash; Next 3 Months Action Plan</div>
-            <p>Hi Jo,</p>
-            <p>Following our discussion about keeping the focus within the Microsoft ecosystem, here&rsquo;s the clear direction for the remaining three months.</p>
-            <p><strong>On the Communications Agent</strong></p>
-            <p>Rather than maintaining a separate agent that duplicates what your Copilot subscription already does, I recommend we configure Copilot itself to enforce IAS&rsquo;s communication style. Microsoft now offers Copilot Tuning &ndash; we can train it on ~20 of your best writing samples plus a style guide so every staff member&rsquo;s AI-generated emails automatically match IAS&rsquo;s tone. This uses tools you&rsquo;re already paying for, needs no separate maintenance, and scales to everyone.</p>
-            <p><strong>April &ndash; June Plan:</strong></p>
-            <ul>
-                <li><strong>April:</strong> Create IAS Communications Style Guide, set up Outlook Draft Instructions for all staff, train Leah and team on Copilot prompting for consistent emails</li>
-                <li><strong>May:</strong> Filing system strategy implementation, build prompt template library for common IAS communications (claims, policy queries, client updates)</li>
-                <li><strong>June:</strong> Refine based on feedback, document processes for Leah to maintain independently, prepare writing samples for Copilot Tuning (ready for when it becomes generally available)</li>
-            </ul>
-            <p><strong>Value commitment:</strong> Every session focused on practical outcomes Leah and the team can use immediately. I&rsquo;ll send fortnightly progress summaries so you have full visibility.</p>
-            <p>Happy to discuss.</p>
-            <p>Kind regards,<br>Cath</p>
-        </div>
-    </div>
-
-    <!-- THREE-MONTH ROADMAP -->
-    <div class="section" id="roadmap">
-        <div class="section-header">
-            <div class="section-icon">&#128197;</div>
-            <h2>Three-Month Roadmap</h2>
-        </div>
-
-        <!-- APRIL -->
-        <div class="month-card" id="april">
-            <div class="month-title">Month 1: April 2026 &mdash; Foundation &amp; Quick Wins</div>
-            <div class="month-theme">Get the basics right so every Copilot-generated email sounds like IAS</div>
-
-            <div class="week-header">Week 1 (w/c 6 April)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Audit current email communication patterns across IAS</li>
-                <li><input type="checkbox"> Collect 5&ndash;10 examples of &ldquo;best&rdquo; IAS emails (client comms, internal comms)</li>
-                <li><input type="checkbox"> Begin drafting IAS Communications Style Guide</li>
-            </ul>
-
-            <div class="week-header">Week 2 (w/c 13 April)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Complete IAS Communications Style Guide (tone, terminology, formatting, sign-offs)</li>
-                <li><input type="checkbox"> Set up Outlook Draft Instructions template for all staff</li>
-                <li><input type="checkbox"> Walk Leah through Draft Instructions setup process</li>
-            </ul>
-
-            <div class="week-header">Week 3 (w/c 20 April)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Train Leah and team on Copilot prompting for emails (hands-on session)</li>
-                <li><input type="checkbox"> Create 5 prompt templates for most common IAS email types</li>
-                <li><input type="checkbox"> Begin scoping filing system strategy in detail</li>
-            </ul>
-
-            <div class="week-header">Week 4 (w/c 27 April)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Review first month outcomes with Leah</li>
-                <li><input type="checkbox"> Gather feedback on Draft Instructions effectiveness</li>
-                <li><input type="checkbox"> Send first fortnightly progress summary to Jo</li>
-            </ul>
-
-            <div class="deliverables">
-                <h4>April Deliverables</h4>
-                <ol>
-                    <li>IAS Communications Style Guide (document)</li>
-                    <li>Outlook Draft Instructions template (ready for all staff)</li>
-                    <li>5 prompt templates for common email types</li>
-                    <li>Training session completed with Leah/team</li>
-                </ol>
-            </div>
-        </div>
-
-        <!-- MAY -->
-        <div class="month-card" id="may">
-            <div class="month-title">Month 2: May 2026 &mdash; Efficiency &amp; Filing System</div>
-            <div class="month-theme">Filing system strategy + expand the prompt library</div>
-
-            <div class="week-header">Week 5 (w/c 4 May)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Filing system strategy: current state assessment</li>
-                <li><input type="checkbox"> Map existing file structures and pain points</li>
-                <li><input type="checkbox"> Expand prompt template library (add 5 more templates)</li>
-            </ul>
-
-            <div class="week-header">Week 6 (w/c 11 May)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Filing system strategy: design recommended structure</li>
-                <li><input type="checkbox"> Explore Copilot Studio for lightweight style-checking agent using IAS style guide</li>
-                <li><input type="checkbox"> Send fortnightly progress summary to Jo</li>
-            </ul>
-
-            <div class="week-header">Week 7 (w/c 18 May)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Filing system strategy: begin implementation</li>
-                <li><input type="checkbox"> Test style-checking agent with Leah</li>
-                <li><input type="checkbox"> Measure time savings from Copilot email drafting vs baseline</li>
-            </ul>
-
-            <div class="week-header">Week 8 (w/c 25 May)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Filing system strategy: complete implementation and document</li>
-                <li><input type="checkbox"> Refine prompt templates based on user feedback</li>
-                <li><input type="checkbox"> Mid-project value assessment</li>
-            </ul>
-
-            <div class="deliverables">
-                <h4>May Deliverables</h4>
-                <ol>
-                    <li>Filing system strategy completed and documented ($2,200 deliverable)</li>
-                    <li>Expanded prompt template library (10+ templates)</li>
-                    <li>Copilot Studio style-checking agent (if feasible)</li>
-                    <li>Time savings measurement report</li>
-                </ol>
-            </div>
-        </div>
-
-        <!-- JUNE -->
-        <div class="month-card" id="june">
-            <div class="month-title">Month 3: June 2026 &mdash; Polish &amp; Handover</div>
-            <div class="month-theme">Make everything self-sustaining for Leah from July</div>
-
-            <div class="week-header">Week 9 (w/c 1 June)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Collect 20+ best writing samples for Copilot Tuning preparation</li>
-                <li><input type="checkbox"> Refine all tools based on 2 months of feedback</li>
-                <li><input type="checkbox"> Document all processes in a handover guide</li>
-            </ul>
-
-            <div class="week-header">Week 10 (w/c 8 June)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Complete handover documentation</li>
-                <li><input type="checkbox"> Train Leah on maintaining and updating all tools independently</li>
-                <li><input type="checkbox"> Send fortnightly progress summary to Jo</li>
-            </ul>
-
-            <div class="week-header">Week 11 (w/c 15 June)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Final refinements to style guide, prompt library, filing system</li>
-                <li><input type="checkbox"> Prepare Copilot Tuning package (samples + style guide ready for GA)</li>
-                <li><input type="checkbox"> Draft recommendations for July onwards</li>
-            </ul>
-
-            <div class="week-header">Week 12 (w/c 22 June)</div>
-            <ul class="task-list">
-                <li><input type="checkbox"> Final value assessment: document all outcomes and time savings</li>
-                <li><input type="checkbox"> Present end-of-project summary to Jo</li>
-                <li><input type="checkbox"> Handover complete</li>
-            </ul>
-
-            <div class="deliverables">
-                <h4>June Deliverables</h4>
-                <ol>
-                    <li>Complete handover guide for Leah</li>
-                    <li>Copilot Tuning preparation package (20+ writing samples + style guide)</li>
-                    <li>Final value assessment report</li>
-                    <li>Recommendations document for July onwards</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- VALUE LOG -->
-    <div class="section" id="value-log">
-        <div class="section-header">
-            <div class="section-icon">&#128176;</div>
-            <h2>Value Log</h2>
-        </div>
-        <p>Track tangible outcomes here after each session. This builds the &ldquo;value for money&rdquo; case Jo wants to see at project end.</p>
-        <table>
-            <thead>
-                <tr><th>Date</th><th>What Was Done</th><th>Outcome / Benefit</th><th>Est. Time Saved</th></tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- SUCCESS METRICS -->
-    <div class="section" id="metrics">
-        <div class="section-header">
-            <div class="section-icon">&#127919;</div>
-            <h2>Success Metrics</h2>
-        </div>
-        <table>
-            <thead>
-                <tr><th>Metric</th><th>How to Measure</th><th>Result</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Email drafting time saved</td><td>Before/after comparison of time to draft common emails</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-                <tr><td>Staff adoption of Draft Instructions</td><td>% of staff with Draft Instructions configured</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-                <tr><td>Prompt template usage</td><td>Number of templates being actively used</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-                <tr><td>Communication consistency</td><td>Qualitative assessment &ndash; are emails more consistent?</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-                <tr><td>Filing system efficiency</td><td>Time saved on document retrieval</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-                <tr><td>Leah&rsquo;s independence</td><td>Can maintain and update all tools without support?</td><td><div class="editable-cell" contenteditable="true"></div></td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- COMMUNICATION PLAN -->
-    <div class="section" id="comms-plan">
-        <div class="section-header">
-            <div class="section-icon">&#128172;</div>
-            <h2>Communication Plan</h2>
-        </div>
-
-        <h3>Fortnightly Progress Email to Jo</h3>
-        <p><strong>When:</strong> Every second Monday &nbsp;|&nbsp; <strong>Format:</strong> 5&ndash;6 bullet points max</p>
-        <div class="template-box"><strong>Subject:</strong> IAS AI Project &ndash; Fortnightly Update [Date]
+<!-- ═══ COMMS PLAN ═══ -->
+<div class="panel" id="comms-plan">
+    <div class="panel-head"><div class="panel-icon">&#128172;</div><h2>Communication Plan</h2></div>
+    <h3>Fortnightly Progress Email to Jo</h3>
+    <p><strong>When:</strong> Every second Monday &nbsp;|&nbsp; <strong>Format:</strong> 5&ndash;6 bullets max</p>
+    <div class="tpl-box"><strong>Subject:</strong> IAS AI Project &ndash; Fortnightly Update [Date]
 
 Hi Jo,
 
@@ -845,217 +296,377 @@ Quick update on the AI project:
 <strong>Any blockers:</strong> None / [brief description]
 
 Happy to discuss.
-
 Kind regards, Cath</div>
-
-        <h3>Session Management</h3>
-        <ul>
-            <li><strong>Agendas:</strong> Sent 24 hours before each session (3 items max)</li>
-            <li><strong>Meeting summaries:</strong> Leah sends Teams summary after each session</li>
-            <li><strong>Monthly check-in with Jo:</strong> End of each month (30 mins max)</li>
-        </ul>
-
-        <h3>Key Principles</h3>
-        <div class="callout">
-            <p><strong>Stay in your lane.</strong> Only discuss work within the 3 agreed buckets.</p>
-            <p><strong>Let Microsoft be the hero.</strong> Frame everything as &ldquo;here&rsquo;s how to get more from what you already pay for.&rdquo;</p>
-            <p><strong>Make Leah look good.</strong> She&rsquo;s the project manager. Support her success.</p>
-            <p><strong>Document everything.</strong> If it&rsquo;s not written down, it didn&rsquo;t happen.</p>
-            <p><strong>Underpromise, overdeliver.</strong> Hit achievable goals consistently.</p>
-        </div>
+    <h3>Session Management</h3>
+    <ul>
+        <li><strong>Agendas:</strong> Sent 24 hours before each session (3 items max)</li>
+        <li><strong>Meeting summaries:</strong> Leah sends Teams summary after each session</li>
+        <li><strong>Monthly check-in with Jo:</strong> End of each month (30 mins max)</li>
+    </ul>
+    <h3>Key Principles</h3>
+    <div class="callout">
+        <p><strong>Stay in your lane.</strong> Only discuss work within the 3 agreed buckets.</p>
+        <p><strong>Let Microsoft be the hero.</strong> Frame as &ldquo;get more from what you already pay for.&rdquo;</p>
+        <p><strong>Make Leah look good.</strong> She&rsquo;s the project manager. Support her success.</p>
+        <p><strong>Document everything.</strong> If it&rsquo;s not written down, it didn&rsquo;t happen.</p>
+        <p><strong>Underpromise, overdeliver.</strong> Hit achievable goals consistently.</p>
     </div>
+</div>
 
-    <!-- COPILOT TUNING REFERENCE -->
-    <div class="section" id="copilot-tuning">
-        <div class="section-header">
-            <div class="section-icon">&#9881;</div>
-            <h2>Copilot Tuning Reference</h2>
-        </div>
+<!-- ═══ COPILOT TUNING ═══ -->
+<div class="panel" id="copilot-ref">
+    <div class="panel-head"><div class="panel-icon">&#9881;</div><h2>Copilot Tuning Brief</h2></div>
+    <h3>Why Copilot Tuning Beats a Custom Agent</h3>
+    <table class="vs-table">
+        <thead><tr><th>Factor</th><th>Custom Agent</th><th>Copilot Tuning</th></tr></thead>
+        <tbody>
+            <tr><td>Email creation</td><td>Separate tool &ndash; copy/paste</td><td>Native in Outlook</td></tr>
+            <tr><td>Maintenance</td><td>You maintain it</td><td>Microsoft maintains it</td></tr>
+            <tr><td>Integration</td><td>Limited</td><td>Full M365</td></tr>
+            <tr><td>Scalability</td><td>Deploy/manage per user</td><td>Assign a licence</td></tr>
+            <tr><td>Cost</td><td>Dev + maintenance + API</td><td>Already in subscription</td></tr>
+            <tr><td>Updates</td><td>You build features</td><td>Microsoft ships automatically</td></tr>
+            <tr><td>Tone control</td><td>Hardcoded rules</td><td>Flexible, stays on-brand</td></tr>
+        </tbody>
+    </table>
+    <h3>Quick Wins Available Now</h3>
+    <h4>1. Outlook Draft Instructions</h4>
+    <div class="callout">&ldquo;Write emails in a warm, professional tone. Use plain language. Keep paragraphs to 2&ndash;3 sentences. Use bullet points for complex info. Greet by first name. Close with &lsquo;Kind regards&rsquo; + IAS signature.&rdquo;</div>
+    <h4>2. Prompt Template Library</h4>
+    <p>Shared prompts for claims acknowledgment, policy renewal reminders, internal updates, client onboarding.</p>
+    <h4>3. Organisation-Wide Default Tone</h4>
+    <p>Admin sets tenant-wide default tone so all AI-drafted content matches IAS voice.</p>
+    <h3>Preparation for Copilot Tuning</h3>
+    <ol>
+        <li><strong>20+ writing samples</strong> &ndash; best client emails, well-crafted internal comms</li>
+        <li><strong>Style guide</strong> &ndash; tone, vocabulary, formatting, compliance</li>
+        <li><strong>A champion</strong> (Leah) to manage tuning and test outputs</li>
+    </ol>
+</div>
 
-        <h3>Why Copilot Tuning Beats a Custom Communications Agent</h3>
-        <table class="vs-table">
-            <thead>
-                <tr><th>Factor</th><th>Custom Agent</th><th>Copilot Tuning</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>Email creation</td><td>Separate tool &ndash; copy/paste into Outlook</td><td>Native in Outlook compose window</td></tr>
-                <tr><td>Maintenance</td><td>You maintain it</td><td>Microsoft maintains it</td></tr>
-                <tr><td>Integration</td><td>Limited</td><td>Full M365 (emails, files, calendar, contacts)</td></tr>
-                <tr><td>Scalability</td><td>Deploy/manage per user</td><td>Assign a licence, done</td></tr>
-                <tr><td>Cost</td><td>Dev + maintenance + API fees</td><td>Already in Copilot subscription</td></tr>
-                <tr><td>Updates</td><td>You build features</td><td>Microsoft ships automatically</td></tr>
-                <tr><td>Tone control</td><td>Hardcoded rules, less flexible</td><td>Flexible per context, stays on-brand</td></tr>
-            </tbody>
-        </table>
+<!-- ═══ 2026/27 OUTLOOK ═══ -->
+<div class="panel" id="outlook-2027">
+    <div class="panel-head"><div class="panel-icon">&#128302;</div><h2>2026/27 Engagement Options</h2></div>
+    <h3>Where We&rsquo;ll Be by June 2026</h3>
+    <ul>
+        <li>Functioning Copilot communications framework</li>
+        <li>Streamlined filing system</li>
+        <li>Leah trained and independent</li>
+        <li>Copilot Tuning preparation complete</li>
+    </ul>
+    <h3>Potential Directions</h3>
+    <div class="opt-card"><span class="opt-label">OPTION A</span><h4>Return to Core Coaching + AI Maintenance</h4>
+        <ul><li>Strategic Planning continues</li><li>CEO Leadership Support resumes (1:1 with Jo)</li><li>Leadership Excellence resumes (group)</li><li>Quarterly AI review sessions</li></ul>
+        <p><strong>Est. investment:</strong> ~$46,600&ndash;$49,000 (incl. GST, ~5% increase)</p></div>
+    <div class="opt-card"><span class="opt-label">OPTION B</span><h4>Blended &mdash; Coaching + Digital Transformation</h4>
+        <ul><li>Strategic Planning continues</li><li>CEO Support resumes (reduced frequency)</li><li>Ongoing AI development (Copilot Tuning, efficiency tools)</li><li>Monthly leadership sessions on digital change</li></ul>
+        <p><strong>Est. investment:</strong> Similar to current, as retainer</p></div>
+    <div class="opt-card"><span class="opt-label">OPTION C</span><h4>Digital Transformation Focus</h4>
+        <ul><li>Implement Copilot Tuning once GA</li><li>Expand AI to claims, policy admin, onboarding</li><li>Build Copilot Studio agents</li><li>Strategic Planning as anchor</li></ul>
+        <p><strong>Est. investment:</strong> To be scoped</p></div>
+    <h3>Key Considerations</h3>
+    <ul>
+        <li><strong>Copilot Tuning:</strong> Expected GA H2 2026</li>
+        <li><strong>Leah&rsquo;s growth:</strong> Less external support needed over time</li>
+        <li><strong>Value for money:</strong> 2026/27 proposal must show ROI</li>
+        <li><strong>Microsoft commitment:</strong> All work stays in Microsoft tools</li>
+        <li><strong>Decision point:</strong> June 2026 review</li>
+    </ul>
+</div>
 
-        <h3>What IAS Can Do Now (Before Tuning Is Available)</h3>
+<!-- ═══ NOTES ═══ -->
+<div class="panel" id="notes">
+    <div class="panel-head"><div class="panel-icon">&#128221;</div><h2>Working Notes</h2></div>
+    <textarea id="noteInput" placeholder="Add a note..."></textarea>
+    <div class="btn-row"><button class="btn btn-teal" onclick="addNote()">+ Add Note</button></div>
+    <div id="notesList" style="margin-top:16px"></div>
+</div>
 
-        <h4>Quick Win 1: Outlook Draft Instructions</h4>
-        <p>Every user sets persistent drafting preferences in Copilot settings. Example:</p>
-        <div class="callout">
-            <p>&ldquo;Write emails in a warm, professional tone. Use plain language &ndash; avoid insurance jargon. Keep paragraphs to 2&ndash;3 sentences. Use bullet points for complex information. Always include a greeting using the recipient&rsquo;s first name. Close with &lsquo;Kind regards&rsquo; followed by the IAS signature block.&rdquo;</p>
-        </div>
+<!-- ═══ DECISIONS LOG ═══ -->
+<div class="panel" id="decisions">
+    <div class="panel-head"><div class="panel-icon">&#9989;</div><h2>Decisions &amp; Actions Log</h2></div>
+    <table id="decisionTable">
+        <thead><tr><th>Date</th><th>Decision / Action</th><th>Owner</th><th style="width:30px"></th></tr></thead>
+        <tbody id="decisionBody"></tbody>
+    </table>
+    <div class="btn-row"><button class="btn btn-teal" onclick="addDecisionRow()">+ Add Entry</button></div>
+</div>
 
-        <h4>Quick Win 2: Prompt Template Library</h4>
-        <p>Shared set of ready-to-use prompts for common IAS communications: claims acknowledgment, policy renewal reminders, internal updates, client onboarding.</p>
-
-        <h4>Quick Win 3: Organisation-Wide Default Tone</h4>
-        <p>Admin capability to set a tenant-wide default tone for Copilot. All AI-drafted content matches IAS&rsquo;s voice by default.</p>
-
-        <h3>What IAS Needs to Prepare for Copilot Tuning</h3>
-        <ol>
-            <li><strong>20+ writing samples</strong> &ndash; best client emails, well-crafted internal comms that capture IAS&rsquo;s ideal voice</li>
-            <li><strong>Style guide</strong> covering tone, vocabulary, formatting, compliance requirements</li>
-            <li><strong>A champion</strong> (Leah) to manage the tuning process and test outputs</li>
-        </ol>
-
-        <div class="callout warning">
-            <p><strong>Bottom line:</strong> IAS is already paying for Copilot. Building a separate agent means paying twice for the same outcome, with inferior integration and ongoing maintenance. The smart move is to make Copilot work in IAS&rsquo;s voice.</p>
-        </div>
-    </div>
-
-    <!-- 2026/27 OUTLOOK -->
-    <div class="section" id="outlook-2027">
-        <div class="section-header">
-            <div class="section-icon">&#128302;</div>
-            <h2>Looking Ahead: 2026/27 Engagement Options</h2>
-        </div>
-
-        <h3>Where We&rsquo;ll Be by June 2026</h3>
-        <p>By end of the current engagement, IAS should have:</p>
-        <ul>
-            <li>A functioning Copilot-powered communications framework (style guide, draft instructions, prompt library)</li>
-            <li>A streamlined filing system</li>
-            <li>Leah trained and confident to maintain these tools independently</li>
-            <li>Writing samples and style guide ready for Copilot Tuning when it becomes GA</li>
-        </ul>
-
-        <h3>Potential Directions</h3>
-
-        <div class="option-card">
-            <span class="option-label">OPTION A</span>
-            <h4>Return to Core Coaching + AI Maintenance</h4>
-            <p>Resume the original coaching structure with periodic AI check-ins:</p>
-            <ul>
-                <li>Strategic Planning sessions continue</li>
-                <li>CEO Leadership Support resumes (1:1 with Jo)</li>
-                <li>Leadership Excellence resumes (group coaching)</li>
-                <li>Quarterly AI review sessions to assess tools, update prompts, adopt new Copilot features</li>
-            </ul>
-            <p><strong>Estimated investment:</strong> ~$46,600&ndash;$49,000 (incl. GST, ~5% increase)</p>
-        </div>
-
-        <div class="option-card">
-            <span class="option-label">OPTION B</span>
-            <h4>Blended Model &mdash; Coaching + Digital Transformation</h4>
-            <p>Continue a hybrid approach with coaching and AI development:</p>
-            <ul>
-                <li>Strategic Planning sessions continue</li>
-                <li>CEO Leadership Support resumes (reduced frequency)</li>
-                <li>Ongoing AI capability development (Copilot Tuning implementation, new efficiency tools)</li>
-                <li>Monthly leadership sessions focused on leading through digital change</li>
-            </ul>
-            <p><strong>Estimated investment:</strong> Similar to current, structured as a retainer</p>
-        </div>
-
-        <div class="option-card">
-            <span class="option-label">OPTION C</span>
-            <h4>Digital Transformation Focus</h4>
-            <p>If IAS wants to accelerate AI adoption from July:</p>
-            <ul>
-                <li>Implement Copilot Tuning (Style Editing agent) once GA</li>
-                <li>Expand AI tools to other business areas (claims, policy admin, client onboarding)</li>
-                <li>Build more sophisticated Copilot Studio agents</li>
-                <li>Strategic Planning continues as anchor</li>
-            </ul>
-            <p><strong>Estimated investment:</strong> To be scoped based on ambition and capacity</p>
-        </div>
-
-        <h3>Key Considerations for 2026/27</h3>
-        <ul class="key-considerations">
-            <li><strong>Copilot Tuning availability:</strong> Expected GA in H2 2026 &ndash; major value-add if IAS wants to deeply customise their AI</li>
-            <li><strong>Leah&rsquo;s capability growth:</strong> The more capable Leah becomes, the less external support IAS needs for day-to-day AI management</li>
-            <li><strong>Jo&rsquo;s preference for value for money:</strong> Any 2026/27 proposal must demonstrate ROI from the current project</li>
-            <li><strong>Microsoft ecosystem commitment:</strong> All future work stays within Microsoft tools</li>
-            <li><strong>Decision point:</strong> End-of-project review in June 2026 will inform direction</li>
-        </ul>
-    </div>
-
-    <!-- NOTES & DECISIONS -->
-    <div class="section" id="decisions">
-        <div class="section-header">
-            <div class="section-icon">&#128221;</div>
-            <h2>Notes &amp; Decisions Log</h2>
-        </div>
-        <table>
-            <thead>
-                <tr><th>Date</th><th>Decision / Note</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>31 Mar 2026</td><td>Confirmed focus on Microsoft ecosystem only</td></tr>
-                <tr><td>31 Mar 2026</td><td>Business planning tool confirmed out of scope</td></tr>
-                <tr><td>31 Mar 2026</td><td>3 months remaining on project (Apr&ndash;Jun)</td></tr>
-                <tr><td>31 Mar 2026</td><td>Jo wants focus on value for money at project end</td></tr>
-                <tr><td>31 Mar 2026</td><td>Leah managing project; verifying Lou works 7.5 hours</td></tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-                <tr>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                    <td><div class="editable-cell" contenteditable="true"></div></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="last-updated">
-        IAS AI Project &bull; Coach4U &bull; Last updated: 1 April 2026
-    </div>
-
+<div class="footer">IAS Working Folder &bull; Coach4U &bull; Auto-saves to your browser</div>
 </div><!-- end main -->
+<div class="save-toast" id="saveToast">Saved</div>
 
 <script>
-// Sidebar active state on scroll
-const sections = document.querySelectorAll('.section[id]');
-const navLinks = document.querySelectorAll('.sidebar a');
+// ══════════════════════════════════════════
+// STATE & PERSISTENCE
+// ══════════════════════════════════════════
+const STORE_KEY = 'ias-working-folder';
 
-window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        if (window.scrollY >= sectionTop) {
-            current = section.getAttribute('id');
-        }
-    });
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-        }
+function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e) { return {}; }
+}
+
+function saveState(state) {
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    showToast();
+}
+
+function showToast() {
+    const t = document.getElementById('saveToast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1200);
+}
+
+// ══════════════════════════════════════════
+// SIDEBAR NAVIGATION
+// ══════════════════════════════════════════
+function toggleYear(el) {
+    el.classList.toggle('collapsed');
+}
+
+document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const panelId = this.dataset.panel;
+        // Hide all panels
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('visible'));
+        // Show selected
+        document.getElementById(panelId).classList.add('visible');
+        // Active state
+        document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+        this.classList.add('active');
+        // Scroll top
+        window.scrollTo(0, 0);
     });
 });
 
-// Checkbox strike-through
-document.querySelectorAll('.task-list input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', function() {
-        this.parentElement.classList.toggle('checked', this.checked);
+function expandAll() {
+    document.querySelectorAll('.panel').forEach(p => p.classList.add('visible'));
+    document.querySelectorAll('.sidebar-year').forEach(y => y.classList.remove('collapsed'));
+    document.querySelectorAll('.sidebar-group').forEach(g => g.style.display = '');
+}
+
+// ══════════════════════════════════════════
+// CHECKBOXES (persist)
+// ══════════════════════════════════════════
+function initCheckboxes() {
+    const state = loadState();
+    const checks = state.checks || {};
+    document.querySelectorAll('.tasks input[type=checkbox]').forEach(cb => {
+        const key = cb.dataset.task;
+        if (checks[key]) {
+            cb.checked = true;
+            cb.closest('li').classList.add('done');
+        }
+        cb.addEventListener('change', function() {
+            const s = loadState();
+            if (!s.checks) s.checks = {};
+            s.checks[key] = this.checked;
+            this.closest('li').classList.toggle('done', this.checked);
+            saveState(s);
+        });
     });
+}
+
+// ══════════════════════════════════════════
+// METRICS (persist)
+// ══════════════════════════════════════════
+function initMetrics() {
+    const state = loadState();
+    const metrics = state.metrics || {};
+    document.querySelectorAll('td[data-metric]').forEach(td => {
+        const key = td.dataset.metric;
+        if (metrics[key]) td.textContent = metrics[key];
+        td.addEventListener('blur', function() {
+            const s = loadState();
+            if (!s.metrics) s.metrics = {};
+            s.metrics[key] = this.textContent;
+            saveState(s);
+        });
+    });
+}
+
+// ══════════════════════════════════════════
+// VALUE LOG (dynamic rows, persist)
+// ══════════════════════════════════════════
+function renderValueLog() {
+    const state = loadState();
+    const rows = state.valueLog || [];
+    const tbody = document.getElementById('valueBody');
+    tbody.innerHTML = '';
+    rows.forEach((row, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td contenteditable="true" data-vl="${i}-0">${row[0]||''}</td>
+            <td contenteditable="true" data-vl="${i}-1">${row[1]||''}</td>
+            <td contenteditable="true" data-vl="${i}-2">${row[2]||''}</td>
+            <td contenteditable="true" data-vl="${i}-3">${row[3]||''}</td>
+            <td><button class="del-row" onclick="deleteValueRow(${i})">&#10005;</button></td>`;
+        tr.querySelectorAll('td[contenteditable]').forEach(td => {
+            td.addEventListener('blur', function() {
+                const s = loadState();
+                const [r,c] = this.dataset.vl.split('-').map(Number);
+                if (!s.valueLog) s.valueLog = [];
+                if (!s.valueLog[r]) s.valueLog[r] = ['','','',''];
+                s.valueLog[r][c] = this.textContent;
+                saveState(s);
+            });
+        });
+        tbody.appendChild(tr);
+    });
+    if (rows.length === 0) addValueRow();
+}
+
+function addValueRow() {
+    const s = loadState();
+    if (!s.valueLog) s.valueLog = [];
+    s.valueLog.push(['','','','']);
+    saveState(s);
+    renderValueLog();
+}
+
+function deleteValueRow(i) {
+    const s = loadState();
+    s.valueLog.splice(i, 1);
+    saveState(s);
+    renderValueLog();
+}
+
+// ══════════════════════════════════════════
+// DECISIONS LOG (dynamic rows, persist)
+// ══════════════════════════════════════════
+const defaultDecisions = [
+    ['31 Mar 2026', 'Confirmed focus on Microsoft ecosystem only', 'All'],
+    ['31 Mar 2026', 'Business planning tool confirmed out of scope', 'Cath'],
+    ['31 Mar 2026', '3 months remaining on project (Apr-Jun)', 'All'],
+    ['31 Mar 2026', 'Jo wants focus on value for money', 'Jo'],
+    ['31 Mar 2026', 'Leah managing project; verifying Lou 7.5 hrs', 'Leah']
+];
+
+function renderDecisions() {
+    const state = loadState();
+    let rows = state.decisions;
+    if (!rows || rows.length === 0) {
+        rows = defaultDecisions;
+        const s = loadState();
+        s.decisions = rows;
+        localStorage.setItem(STORE_KEY, JSON.stringify(s));
+    }
+    const tbody = document.getElementById('decisionBody');
+    tbody.innerHTML = '';
+    rows.forEach((row, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td contenteditable="true" data-dl="${i}-0">${row[0]||''}</td>
+            <td contenteditable="true" data-dl="${i}-1">${row[1]||''}</td>
+            <td contenteditable="true" data-dl="${i}-2">${row[2]||''}</td>
+            <td><button class="del-row" onclick="deleteDecisionRow(${i})">&#10005;</button></td>`;
+        tr.querySelectorAll('td[contenteditable]').forEach(td => {
+            td.addEventListener('blur', function() {
+                const s = loadState();
+                const [r,c] = this.dataset.dl.split('-').map(Number);
+                if (!s.decisions[r]) s.decisions[r] = ['','',''];
+                s.decisions[r][c] = this.textContent;
+                saveState(s);
+            });
+        });
+        tbody.appendChild(tr);
+    });
+}
+
+function addDecisionRow() {
+    const s = loadState();
+    if (!s.decisions) s.decisions = [];
+    const today = new Date().toLocaleDateString('en-AU', {day:'numeric',month:'short',year:'numeric'});
+    s.decisions.push([today, '', '']);
+    saveState(s);
+    renderDecisions();
+}
+
+function deleteDecisionRow(i) {
+    const s = loadState();
+    s.decisions.splice(i, 1);
+    saveState(s);
+    renderDecisions();
+}
+
+// ══════════════════════════════════════════
+// NOTES (persist)
+// ══════════════════════════════════════════
+function renderNotes() {
+    const state = loadState();
+    const notes = state.notes || [];
+    const container = document.getElementById('notesList');
+    container.innerHTML = '';
+    notes.forEach((note, i) => {
+        const card = document.createElement('div');
+        card.className = 'note-card';
+        card.innerHTML = `
+            <div class="note-date">${note.date}</div>
+            <div class="note-text">${escapeHtml(note.text)}</div>
+            <button class="note-del" onclick="deleteNote(${i})">&#10005; delete</button>`;
+        container.appendChild(card);
+    });
+}
+
+function addNote() {
+    const input = document.getElementById('noteInput');
+    const text = input.value.trim();
+    if (!text) return;
+    const s = loadState();
+    if (!s.notes) s.notes = [];
+    const now = new Date();
+    const date = now.toLocaleDateString('en-AU', {weekday:'short',day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    s.notes.unshift({date, text});
+    saveState(s);
+    input.value = '';
+    renderNotes();
+}
+
+function deleteNote(i) {
+    const s = loadState();
+    s.notes.splice(i, 1);
+    saveState(s);
+    renderNotes();
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// ══════════════════════════════════════════
+// EXPORT
+// ══════════════════════════════════════════
+function exportData() {
+    const state = loadState();
+    const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'ias-working-folder-' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    initCheckboxes();
+    initMetrics();
+    renderValueLog();
+    renderDecisions();
+    renderNotes();
+    // Show first panel
+    document.getElementById('engagement').classList.add('visible');
+    document.querySelector('[data-panel="engagement"]').classList.add('active');
 });
 
-// Register Service Worker
+// Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js')
-            .then(reg => console.log('SW registered:', reg.scope))
-            .catch(err => console.log('SW registration failed:', err));
+        navigator.serviceWorker.register('sw.js').catch(() => {});
     });
 }
 </script>
-
 </body>
 </html>
