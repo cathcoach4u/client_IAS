@@ -116,8 +116,9 @@
         .intent-box{display:block;width:100%;margin-top:8px;border:1px solid rgba(42,61,102,.2);border-radius:6px;padding:10px 12px;font-family:inherit;font-size:.85rem;color:var(--text);background:var(--white);resize:vertical;min-height:60px;outline:none;transition:.2s}
         .intent-box:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
         .intent-box::placeholder{color:#A0AEC0}
-        .week-intent{background:var(--teal-bg);border-radius:6px;padding:8px 12px;margin:6px 0 4px;font-size:.82rem;display:flex;align-items:center;gap:8px}
-        .week-intent span{flex:1;outline:none;color:var(--text-sec);min-height:18px}
+        .week-intent{background:var(--teal-bg);border-radius:6px;padding:10px 14px;margin:6px 0 8px;font-size:.82rem}
+        .week-intent-label{font-size:.75rem;font-weight:600;color:var(--teal);margin-bottom:4px}
+        .week-intent span{display:block;outline:none;color:var(--text-sec);min-height:22px}
         .week-intent span:empty::before{content:attr(data-placeholder);color:#A0AEC0}
         .week-nextsteps{margin:8px 0}
         .week-nextsteps label{font-size:.78rem;font-weight:600;color:var(--teal);display:block;margin-bottom:4px}
@@ -155,6 +156,9 @@
             .sidebar.open{transform:translateX(0)}
             .sidebar-close{display:block}
             .main{margin-left:0;padding:14px}
+            .intent-box{min-height:100px;font-size:1rem;padding:14px}
+            .callout{padding:16px}
+            .callout strong{display:block;margin-bottom:6px;font-size:.9rem}
         }
     </style>
 </head>
@@ -308,24 +312,24 @@
         <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('april')">Copy Summary</button></div>
     </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w1" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w1',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w1" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w1',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w1" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w1',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 1 &ndash; What happened / Notes</label><textarea id="wt-w1" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w1',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w1" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w1',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w1')">Copy Week Summary</button></div>
     <div class="wk">Week 2 (w/c 13 Apr)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w2" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w2',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w2" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w2',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w2" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w2',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 2 &ndash; What happened / Notes</label><textarea id="wt-w2" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w2',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w2" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w2',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w2')">Copy Week Summary</button></div>
     <div class="wk">Week 3 (w/c 20 Apr)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w3" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w3',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w3" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w3',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w3" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w3',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 3 &ndash; What happened / Notes</label><textarea id="wt-w3" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w3',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w3" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w3',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w3')">Copy Week Summary</button></div>
     <div class="wk">Week 4 (w/c 27 Apr)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w4" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w4',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w4" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w4',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w4" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w4',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 4 &ndash; What happened / Notes</label><textarea id="wt-w4" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w4',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w4" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w4',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w4')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>April Deliverables</h4><ol><li>IAS Communications Style Guide</li><li>Outlook Draft Instructions template</li><li>5 prompt templates for common emails</li><li>Training session completed</li></ol></div>
 </div>
@@ -356,24 +360,24 @@
         <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('may')">Copy Summary</button></div>
     </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w5" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w5',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w5" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w5',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w5" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w5',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 5 &ndash; What happened / Notes</label><textarea id="wt-w5" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w5',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w5" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w5',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w5')">Copy Week Summary</button></div>
     <div class="wk">Week 6 (w/c 11 May)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w6" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w6',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w6" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w6',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w6" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w6',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 6 &ndash; What happened / Notes</label><textarea id="wt-w6" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w6',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w6" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w6',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w6')">Copy Week Summary</button></div>
     <div class="wk">Week 7 (w/c 18 May)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w7" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w7',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w7" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w7',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w7" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w7',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 7 &ndash; What happened / Notes</label><textarea id="wt-w7" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w7',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w7" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w7',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w7')">Copy Week Summary</button></div>
     <div class="wk">Week 8 (w/c 25 May)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w8" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w8',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w8" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w8',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w8" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w8',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 8 &ndash; What happened / Notes</label><textarea id="wt-w8" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w8',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w8" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w8',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w8')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>May Deliverables</h4><ol><li>Filing system strategy completed ($2,200)</li><li>Prompt template library (10+ templates)</li><li>Copilot Studio style-checking agent (if feasible)</li><li>Time savings measurement report</li></ol></div>
 </div>
@@ -404,24 +408,24 @@
         <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copyPractice('june')">Copy Summary</button></div>
     </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w9" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w9',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w9" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w9',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w9" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w9',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 9 &ndash; What happened / Notes</label><textarea id="wt-w9" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w9',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w9" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w9',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w9')">Copy Week Summary</button></div>
     <div class="wk">Week 10 (w/c 8 Jun)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w10" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w10',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w10" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w10',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w10" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w10',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 10 &ndash; What happened / Notes</label><textarea id="wt-w10" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w10',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w10" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w10',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w10')">Copy Week Summary</button></div>
     <div class="wk">Week 11 (w/c 15 Jun)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w11" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w11',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w11" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w11',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w11" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w11',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 11 &ndash; What happened / Notes</label><textarea id="wt-w11" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w11',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w11" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w11',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w11')">Copy Week Summary</button></div>
     <div class="wk">Week 12 (w/c 22 Jun)</div>
-    <div class="week-intent"><span contenteditable="true" data-weekintent="w12" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w12',this.textContent)"></span></div>
-    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w12" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w12',this.value)"></textarea></div>
+    <div class="week-intent"><div class="week-intent-label">Plan</div><span contenteditable="true" data-weekintent="w12" data-placeholder="Plan for this week..." onblur="saveWeekIntent('w12',this.textContent)"></span></div>
     <div class="week-tracker"><label>Week 12 &ndash; What happened / Notes</label><textarea id="wt-w12" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w12',this.value)"></textarea></div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w12" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w12',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w12')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>June Deliverables</h4><ol><li>Complete handover guide for Leah</li><li>Copilot Tuning package (20+ samples + guide)</li><li>Final value assessment report</li><li>Recommendations for July onwards</li></ol></div>
 </div>
@@ -604,6 +608,7 @@ Kind regards, Cath</div>
     <div class="btn-row" style="margin:16px 0">
         <button class="btn btn-teal" onclick="generateReport()">Generate Report</button>
         <button class="btn btn-outline" onclick="copyReport()">Copy to Clipboard</button>
+        <button class="btn btn-red" onclick="printReport()">Print / Save PDF</button>
     </div>
 
     <div id="report-preview" style="display:none;margin-top:16px">
@@ -1231,6 +1236,103 @@ function generateReport() {
     document.getElementById('report-output').textContent = rpt;
     document.getElementById('report-preview').style.display = 'block';
 }
+
+function printReport() {
+    const output = document.getElementById('report-output').textContent;
+    if (!output) generateReport();
+    const text = document.getElementById('report-output').textContent;
+    const s = loadState();
+    const meta = monthMeta[reportMonth];
+    const intent = (s.intents && s.intents[reportMonth]) || '';
+    const goals = ((s.goalItems && s.goalItems[reportMonth]) || []).filter(g => g && g.trim());
+
+    // Build HTML sections based on checkboxes
+    let sections = '';
+
+    if (document.getElementById('rpt-intent').checked && intent) {
+        sections += '<div class="section"><h2>Core Intent</h2><p>' + esc(intent) + '</p></div>';
+    }
+
+    if (document.getElementById('rpt-goals').checked && goals.length > 0) {
+        sections += '<div class="section"><h2>Monthly Goals</h2><ol>' + goals.map(g => '<li>' + esc(g) + '</li>').join('') + '</ol></div>';
+    }
+
+    if (document.getElementById('rpt-plan').checked) {
+        const practice = (s.practice && s.practice[reportMonth]) || {};
+        const weekMap = {april:['w1','w2','w3','w4'], may:['w5','w6','w7','w8'], june:['w9','w10','w11','w12']};
+        let planHtml = '';
+        weekMap[reportMonth].forEach(w => {
+            const title = practice[reportMonth + '-' + w] || '';
+            if (!title) return;
+            planHtml += '<h3>Week ' + w.replace('w','') + ': ' + esc(title) + '</h3>';
+            for (let b = 0; b < 4; b++) {
+                const bullet = practice[reportMonth + '-' + w + '-' + b] || '';
+                if (bullet) planHtml += '<p class="bullet">&bull; ' + esc(bullet) + '</p>';
+            }
+        });
+        if (planHtml) sections += '<div class="section"><h2>Monthly Plan Overview</h2>' + planHtml + '</div>';
+    }
+
+    if (document.getElementById('rpt-weeks').checked) {
+        const weekMap = {april:[1,2,3,4], may:[5,6,7,8], june:[9,10,11,12]};
+        let weekHtml = '';
+        weekMap[reportMonth].forEach(num => {
+            const wk = 'w' + num;
+            const plan = (s.weekIntents && s.weekIntents[wk]) || '';
+            const next = (s.weekNextSteps && s.weekNextSteps[wk]) || '';
+            const notes = (s.weekTracks && s.weekTracks[wk]) || '';
+            if (!plan && !next && !notes) return;
+            weekHtml += '<div class="week-block"><h3>Week ' + num + '</h3>';
+            if (plan) weekHtml += '<div class="sub"><strong>Plan</strong><p>' + esc(plan) + '</p></div>';
+            if (notes) weekHtml += '<div class="sub"><strong>What Happened</strong><p>' + esc(notes) + '</p></div>';
+            if (next) weekHtml += '<div class="sub"><strong>Next Steps</strong><p class="pre">' + esc(next) + '</p></div>';
+            weekHtml += '</div>';
+        });
+        if (weekHtml) sections += '<div class="section"><h2>Weekly Reporting</h2>' + weekHtml + '</div>';
+    }
+
+    if (document.getElementById('rpt-decisions').checked) {
+        const decisions = (s.decisions || []).filter(d => d[0] && d[1]);
+        if (decisions.length > 0) {
+            sections += '<div class="section"><h2>Decisions &amp; Actions</h2><table><thead><tr><th>Date</th><th>Decision</th><th>Owner</th></tr></thead><tbody>' +
+                decisions.map(d => '<tr><td>' + esc(d[0]) + '</td><td>' + esc(d[1]) + '</td><td>' + esc(d[2]||'') + '</td></tr>').join('') +
+                '</tbody></table></div>';
+        }
+    }
+
+    const html = '<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>IAS Report - ' + meta.title + '</title>' +
+    '<style>' +
+    '@page{margin:20mm 18mm}' +
+    'body{font-family:Inter,Calibri,Arial,sans-serif;color:#1B2A4A;line-height:1.6;max-width:700px;margin:0 auto;padding:20px}' +
+    '.header{border-bottom:3px solid #CC0000;padding-bottom:16px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end}' +
+    '.header h1{font-size:1.4rem;color:#1B2A4A;margin:0}.header .logo{width:36px;height:36px;background:#CC0000;border-radius:6px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}' +
+    '.header-left{display:flex;align-items:center;gap:12px}.header-right{font-size:.75rem;color:#718096;text-align:right}' +
+    '.section{margin-bottom:24px}.section h2{font-size:1rem;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:6px;margin-bottom:12px}' +
+    '.section h3{font-size:.9rem;color:#1B2A4A;margin:14px 0 6px}' +
+    '.section p{font-size:.85rem;color:#4A5568;margin-bottom:8px}' +
+    '.bullet{padding-left:12px}.pre{white-space:pre-line}' +
+    'ol{padding-left:20px;font-size:.85rem;color:#4A5568}li{margin-bottom:4px}' +
+    '.week-block{background:#F5F7FA;border-radius:8px;padding:14px 18px;margin:10px 0}' +
+    '.sub{margin:8px 0}.sub strong{font-size:.78rem;color:#00838F;display:block;margin-bottom:2px}' +
+    'table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0}' +
+    'thead th{background:#1B2A4A;color:#fff;padding:8px 10px;text-align:left;font-size:.78rem}' +
+    'tbody td{padding:7px 10px;border-bottom:1px solid #E2E8F0;color:#4A5568}' +
+    '.footer{margin-top:30px;padding-top:12px;border-top:2px solid #E2E8F0;font-size:.72rem;color:#718096;text-align:center}' +
+    '@media print{body{padding:0}' +
+    '</style></head><body>' +
+    '<div class=\"header\"><div class=\"header-left\"><div class=\"logo\">I</div><h1>IAS AI Project &mdash; ' + esc(meta.title) + '</h1></div>' +
+    '<div class=\"header-right\">Insurance Advisory Service<br>Coach4U</div></div>' +
+    sections +
+    '<div class=\"footer\">Generated ' + new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}) + ' &bull; IAS Working Folder &bull; Coach4U</div>' +
+    '</body></html>';
+
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+    setTimeout(() => win.print(), 500);
+}
+
+function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
 function copyReport() {
     const output = document.getElementById('report-output').textContent;
