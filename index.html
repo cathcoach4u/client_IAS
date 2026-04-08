@@ -250,6 +250,7 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="april-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('april',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="april-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('april',4,this.value)"></div>
         </div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary('april')">Copy Intent + Goals</button></div>
     </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
     <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w1" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w1',this.textContent)"></span></div>
@@ -285,6 +286,7 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="may-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('may',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="may-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('may',4,this.value)"></div>
         </div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary('may')">Copy Intent + Goals</button></div>
     </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
     <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w5" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w5',this.textContent)"></span></div>
@@ -320,6 +322,7 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="june-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('june',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="june-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('june',4,this.value)"></div>
         </div>
+        <div class="btn-row"><button class="btn btn-outline btn-sm" onclick="copySummary('june')">Copy Intent + Goals</button></div>
     </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
     <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w9" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w9',this.textContent)"></span></div>
@@ -673,6 +676,19 @@ function aiAssist(month) {
     navigator.clipboard.writeText(prompt).then(() => showToast()).catch(() => {});
     // Auto-hide after 8 seconds
     setTimeout(() => output.classList.remove('visible'), 8000);
+}
+
+function copySummary(month) {
+    const s = loadState();
+    const meta = monthMeta[month];
+    const intent = (s.intents && s.intents[month]) || '';
+    const goals = getGoalsList(month);
+    let text = `${meta.title}\n\nCore Intent: ${intent || '(not set)'}`;
+    if (goals.length > 0) {
+        text += '\n\nMonthly Goals:';
+        goals.forEach((g, i) => { text += `\n${i + 1}. ${g}`; });
+    }
+    navigator.clipboard.writeText(text).then(() => showToast()).catch(() => {});
 }
 
 function copyGoalsPrompt(month) {
