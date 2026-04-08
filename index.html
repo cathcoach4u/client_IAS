@@ -108,6 +108,9 @@
         .goal-row input{flex:1;border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:.83rem;outline:none;transition:.2s}
         .goal-row input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
         .goal-row input::placeholder{color:#CBD5E0}
+        .intent-box{display:block;width:100%;margin-top:8px;border:1px solid rgba(42,61,102,.2);border-radius:6px;padding:10px 12px;font-family:inherit;font-size:.85rem;color:var(--text);background:var(--white);resize:vertical;min-height:60px;outline:none;transition:.2s}
+        .intent-box:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
+        .intent-box::placeholder{color:#A0AEC0}
         .week-intent{background:var(--teal-bg);border-radius:6px;padding:8px 12px;margin:6px 0 4px;font-size:.82rem;display:flex;align-items:center;gap:8px}
         .week-intent span{flex:1;outline:none;color:var(--text-sec);min-height:18px}
         .week-intent span:empty::before{content:attr(data-placeholder);color:#A0AEC0}
@@ -264,7 +267,7 @@
 <!-- ═══ APRIL ═══ -->
 <div class="panel" id="april">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>April 2026</h2></div>
-    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="april" style="outline:none" onblur="saveIntent('april',this.textContent)"></span></div>
+    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong><textarea class="intent-box" id="intent-april" placeholder="Type your core intent for this month..." oninput="saveIntent('april',this.value)"></textarea></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('april')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('april')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-april"></div>
     <div class="month-goals" style="margin-top:14px">
@@ -324,7 +327,7 @@
 <!-- ═══ MAY ═══ -->
 <div class="panel" id="may">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>May 2026</h2></div>
-    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="may" style="outline:none" onblur="saveIntent('may',this.textContent)"></span></div>
+    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong><textarea class="intent-box" id="intent-may" placeholder="Type your core intent for this month..." oninput="saveIntent('may',this.value)"></textarea></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('may')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('may')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-may"></div>
     <div class="month-goals" style="margin-top:14px">
@@ -372,7 +375,7 @@
 <!-- ═══ JUNE ═══ -->
 <div class="panel" id="june">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>June 2026</h2></div>
-    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="june" style="outline:none" onblur="saveIntent('june',this.textContent)"></span></div>
+    <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong><textarea class="intent-box" id="intent-june" placeholder="Type your core intent for this month..." oninput="saveIntent('june',this.value)"></textarea></div>
     <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('june')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('june')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
     <div class="ai-output" id="ai-output-june"></div>
     <div class="month-goals" style="margin-top:14px">
@@ -684,8 +687,8 @@ function initGoals() {
     // Core intents
     const intents = state.intents || {};
     ['april','may','june'].forEach(m => {
-        const el = document.querySelector(`[data-intent="${m}"]`);
-        if (el && intents[m]) el.textContent = intents[m];
+        const el = document.getElementById('intent-' + m);
+        if (el && intents[m]) el.value = intents[m];
     });
     // Monthly goal items
     ['april','may','june'].forEach(m => {
