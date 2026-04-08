@@ -108,6 +108,10 @@
         .goal-row input{flex:1;border:1px solid var(--border);border-radius:6px;padding:7px 10px;font-family:inherit;font-size:.83rem;outline:none;transition:.2s}
         .goal-row input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
         .goal-row input::placeholder{color:#CBD5E0}
+        .week-intent{background:var(--teal-bg);border-radius:6px;padding:8px 12px;margin:6px 0 4px;font-size:.82rem;display:flex;align-items:center;gap:8px}
+        .week-intent strong{color:var(--teal);font-size:.75rem;white-space:nowrap}
+        .week-intent span{flex:1;outline:none;color:var(--text-sec);min-height:18px}
+        .week-intent span:empty::before{content:attr(data-placeholder);color:#A0AEC0}
         .week-tracker{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin:8px 0}
         .week-tracker label{font-size:.75rem;font-weight:600;color:var(--navy);display:block;margin-bottom:4px}
         .week-tracker textarea{width:100%;min-height:50px;border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.82rem;resize:vertical;outline:none;transition:.2s;background:var(--white)}
@@ -248,15 +252,19 @@
         </div>
     </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w1" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w1',this.textContent)"></span></div>
     <ul class="tasks" data-group="w1"><li><input type="checkbox" data-task="w1-0"><span>Audit current email communication patterns across IAS</span></li><li><input type="checkbox" data-task="w1-1"><span>Collect 5-10 examples of best IAS emails</span></li><li><input type="checkbox" data-task="w1-2"><span>Begin drafting IAS Communications Style Guide</span></li></ul>
     <div class="week-tracker"><label>Week 1 &ndash; What happened / Notes</label><textarea id="wt-w1" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w1',this.value)"></textarea></div>
     <div class="wk">Week 2 (w/c 13 Apr)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w2" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w2',this.textContent)"></span></div>
     <ul class="tasks" data-group="w2"><li><input type="checkbox" data-task="w2-0"><span>Complete IAS Communications Style Guide</span></li><li><input type="checkbox" data-task="w2-1"><span>Set up Outlook Draft Instructions template for all staff</span></li><li><input type="checkbox" data-task="w2-2"><span>Walk Leah through Draft Instructions setup</span></li></ul>
     <div class="week-tracker"><label>Week 2 &ndash; What happened / Notes</label><textarea id="wt-w2" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w2',this.value)"></textarea></div>
     <div class="wk">Week 3 (w/c 20 Apr)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w3" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w3',this.textContent)"></span></div>
     <ul class="tasks" data-group="w3"><li><input type="checkbox" data-task="w3-0"><span>Train Leah and team on Copilot prompting (hands-on)</span></li><li><input type="checkbox" data-task="w3-1"><span>Create 5 prompt templates for common IAS emails</span></li><li><input type="checkbox" data-task="w3-2"><span>Begin scoping filing system strategy</span></li></ul>
     <div class="week-tracker"><label>Week 3 &ndash; What happened / Notes</label><textarea id="wt-w3" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w3',this.value)"></textarea></div>
     <div class="wk">Week 4 (w/c 27 Apr)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w4" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w4',this.textContent)"></span></div>
     <ul class="tasks" data-group="w4"><li><input type="checkbox" data-task="w4-0"><span>Review first month outcomes with Leah</span></li><li><input type="checkbox" data-task="w4-1"><span>Gather feedback on Draft Instructions effectiveness</span></li><li><input type="checkbox" data-task="w4-2"><span>Send first fortnightly progress summary to Jo</span></li></ul>
     <div class="week-tracker"><label>Week 4 &ndash; What happened / Notes</label><textarea id="wt-w4" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w4',this.value)"></textarea></div>
     <div class="deliverables"><h4>April Deliverables</h4><ol><li>IAS Communications Style Guide</li><li>Outlook Draft Instructions template</li><li>5 prompt templates for common emails</li><li>Training session completed</li></ol></div>
@@ -279,15 +287,19 @@
         </div>
     </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w5" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w5',this.textContent)"></span></div>
     <ul class="tasks" data-group="w5"><li><input type="checkbox" data-task="w5-0"><span>Filing system: current state assessment</span></li><li><input type="checkbox" data-task="w5-1"><span>Map existing file structures and pain points</span></li><li><input type="checkbox" data-task="w5-2"><span>Expand prompt template library (+5 templates)</span></li></ul>
     <div class="week-tracker"><label>Week 5 &ndash; What happened / Notes</label><textarea id="wt-w5" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w5',this.value)"></textarea></div>
     <div class="wk">Week 6 (w/c 11 May)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w6" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w6',this.textContent)"></span></div>
     <ul class="tasks" data-group="w6"><li><input type="checkbox" data-task="w6-0"><span>Filing system: design recommended structure</span></li><li><input type="checkbox" data-task="w6-1"><span>Explore Copilot Studio style-checking agent</span></li><li><input type="checkbox" data-task="w6-2"><span>Send fortnightly progress summary to Jo</span></li></ul>
     <div class="week-tracker"><label>Week 6 &ndash; What happened / Notes</label><textarea id="wt-w6" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w6',this.value)"></textarea></div>
     <div class="wk">Week 7 (w/c 18 May)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w7" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w7',this.textContent)"></span></div>
     <ul class="tasks" data-group="w7"><li><input type="checkbox" data-task="w7-0"><span>Filing system: begin implementation</span></li><li><input type="checkbox" data-task="w7-1"><span>Test style-checking agent with Leah</span></li><li><input type="checkbox" data-task="w7-2"><span>Measure time savings vs baseline</span></li></ul>
     <div class="week-tracker"><label>Week 7 &ndash; What happened / Notes</label><textarea id="wt-w7" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w7',this.value)"></textarea></div>
     <div class="wk">Week 8 (w/c 25 May)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w8" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w8',this.textContent)"></span></div>
     <ul class="tasks" data-group="w8"><li><input type="checkbox" data-task="w8-0"><span>Filing system: complete and document</span></li><li><input type="checkbox" data-task="w8-1"><span>Refine prompt templates from feedback</span></li><li><input type="checkbox" data-task="w8-2"><span>Mid-project value assessment</span></li></ul>
     <div class="week-tracker"><label>Week 8 &ndash; What happened / Notes</label><textarea id="wt-w8" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w8',this.value)"></textarea></div>
     <div class="deliverables"><h4>May Deliverables</h4><ol><li>Filing system strategy completed ($2,200)</li><li>Prompt template library (10+ templates)</li><li>Copilot Studio style-checking agent (if feasible)</li><li>Time savings measurement report</li></ol></div>
@@ -310,15 +322,19 @@
         </div>
     </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w9" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w9',this.textContent)"></span></div>
     <ul class="tasks" data-group="w9"><li><input type="checkbox" data-task="w9-0"><span>Collect 20+ writing samples for Copilot Tuning</span></li><li><input type="checkbox" data-task="w9-1"><span>Refine all tools from 2 months feedback</span></li><li><input type="checkbox" data-task="w9-2"><span>Document all processes in handover guide</span></li></ul>
     <div class="week-tracker"><label>Week 9 &ndash; What happened / Notes</label><textarea id="wt-w9" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w9',this.value)"></textarea></div>
     <div class="wk">Week 10 (w/c 8 Jun)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w10" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w10',this.textContent)"></span></div>
     <ul class="tasks" data-group="w10"><li><input type="checkbox" data-task="w10-0"><span>Complete handover documentation</span></li><li><input type="checkbox" data-task="w10-1"><span>Train Leah on maintaining tools independently</span></li><li><input type="checkbox" data-task="w10-2"><span>Send fortnightly progress summary to Jo</span></li></ul>
     <div class="week-tracker"><label>Week 10 &ndash; What happened / Notes</label><textarea id="wt-w10" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w10',this.value)"></textarea></div>
     <div class="wk">Week 11 (w/c 15 Jun)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w11" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w11',this.textContent)"></span></div>
     <ul class="tasks" data-group="w11"><li><input type="checkbox" data-task="w11-0"><span>Final refinements to style guide, prompts, filing</span></li><li><input type="checkbox" data-task="w11-1"><span>Prepare Copilot Tuning package for GA</span></li><li><input type="checkbox" data-task="w11-2"><span>Draft recommendations for July onwards</span></li></ul>
     <div class="week-tracker"><label>Week 11 &ndash; What happened / Notes</label><textarea id="wt-w11" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w11',this.value)"></textarea></div>
     <div class="wk">Week 12 (w/c 22 Jun)</div>
+    <div class="week-intent"><strong>Intent:</strong> <span contenteditable="true" data-weekintent="w12" data-placeholder="What is the focus for this week?" onblur="saveWeekIntent('w12',this.textContent)"></span></div>
     <ul class="tasks" data-group="w12"><li><input type="checkbox" data-task="w12-0"><span>Final value assessment: outcomes and time savings</span></li><li><input type="checkbox" data-task="w12-1"><span>Present end-of-project summary to Jo</span></li><li><input type="checkbox" data-task="w12-2"><span>Handover complete</span></li></ul>
     <div class="week-tracker"><label>Week 12 &ndash; What happened / Notes</label><textarea id="wt-w12" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w12',this.value)"></textarea></div>
     <div class="deliverables"><h4>June Deliverables</h4><ol><li>Complete handover guide for Leah</li><li>Copilot Tuning package (20+ samples + guide)</li><li>Final value assessment report</li><li>Recommendations for July onwards</li></ol></div>
@@ -553,6 +569,13 @@ function saveGoalItem(month, idx, text) {
     saveState(s);
 }
 
+function saveWeekIntent(week, text) {
+    const s = loadState();
+    if (!s.weekIntents) s.weekIntents = {};
+    s.weekIntents[week] = text;
+    saveState(s);
+}
+
 function saveWeekTrack(week, text) {
     const s = loadState();
     if (!s.weekTracks) s.weekTracks = {};
@@ -582,6 +605,12 @@ function initGoals() {
             if (inp && val) inp.value = val;
         });
     });
+    // Weekly intents
+    const weekIntents = state.weekIntents || {};
+    for (let w = 1; w <= 12; w++) {
+        const el = document.querySelector(`[data-weekintent="w${w}"]`);
+        if (el && weekIntents['w' + w]) el.textContent = weekIntents['w' + w];
+    }
     // Weekly trackers
     for (let w = 1; w <= 12; w++) {
         const el = document.getElementById('wt-w' + w);
