@@ -1060,7 +1060,75 @@ function exportData() {
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// DEFAULT APRIL DATA
+// ══════════════════════════════════════════
+function loadDefaults() {
+    const s = loadState();
+    if (s._defaultsLoaded) return;
+
+    // Overall objective
+    if (!s.goals) s.goals = {};
+    if (!s.goals.overall) s.goals.overall = 'Define, design and test a clear Version 1 AI efficiency solution for IAS that improves day-to-day communication consistency, reduces manual cognitive load, and is ready for controlled testing within the business.';
+
+    // April intent
+    if (!s.intents) s.intents = {};
+    if (!s.intents.april) s.intents.april = 'Define, design and test a clear Version 1 AI efficiency solution for IAS that improves day-to-day communication consistency, reduces manual cognitive load, and is ready for controlled testing within the business.';
+
+    // April goals
+    if (!s.goalItems) s.goalItems = {};
+    if (!s.goalItems.april) s.goalItems.april = [
+        'Clearly define the priority AI communication use cases for IAS operations and leadership',
+        'Design a Version 1 solution aligned to IAS workflows, compliance requirements and risk profile',
+        'Agree the Copilot architecture required to support both General Insurance and Financial Planning',
+        'Prepare the Communications Copilot to be Version 1 build-ready',
+        'Establish clear next steps to move from design into controlled testing'
+    ];
+
+    // April practice (monthly plan overview)
+    if (!s.practice) s.practice = {};
+    if (!s.practice.april) s.practice.april = {
+        'april-w1': 'Define scope and success',
+        'april-w1-0': 'Agreed problem statements, scope boundaries and success measures for the Version 1 Communications Copilot, ensuring work stayed focused and risk-aware',
+        'april-w2': 'Design Version 1 solution and governance',
+        'april-w2-0': 'Documented end-to-end design covering use cases, Copilot behaviour, governance rules, and architectural decisions required to support IAS safely and consistently',
+        'april-w3': '',
+        'april-w4': ''
+    };
+
+    // Week 1 detail
+    if (!s.weekIntents) s.weekIntents = {};
+    if (!s.weekIntents.w1) s.weekIntents.w1 = 'Focused on clarifying the problem the AI solution must solve, who it is for, and what success looks like. This ensured the work remained practical and aligned to IAS priorities rather than feature-driven.';
+    if (!s.weekNextSteps) s.weekNextSteps = {};
+    if (!s.weekNextSteps.w1) s.weekNextSteps.w1 = 'Finalise priority communication use cases.\nConfirm success measures.\nLock Version 1 scope and boundaries.';
+    if (!s.weekTracks) s.weekTracks = {};
+    if (!s.weekTracks.w1) s.weekTracks.w1 = 'Define and Design discussions completed. Key communication workflows, risks and pain points identified. Decision made to focus Version 1 on controlled communications efficiency rather than broad AI capability.';
+
+    // Week 2 detail
+    if (!s.weekIntents.w2) s.weekIntents.w2 = 'Translated defined needs into a practical Version 1 design, with emphasis on safety, simplicity and repeatability across IAS teams.';
+    if (!s.weekNextSteps.w2) s.weekNextSteps.w2 = 'Confirm which rules and behaviours sit in the parent agent versus child agents.\nConfigure General Insurance and Financial Planning Communications child agents.\nLock and attach approved SharePoint source documents.\nPrepare the Communications Copilot to be Version 1 build-ready for testing.';
+    if (!s.weekTracks.w2) s.weekTracks.w2 = 'Design options reviewed and risks assessed. Decision made to adopt a parent and child agent architecture, with governance handled centrally and complexity managed through design rather than user behaviour. Confirmed Copilot is a drafting and refinement tool only, not an advice engine. Version 1 design direction agreed.';
+
+    // Decisions log
+    if (!s.decisions) s.decisions = [
+        ['31 Mar 2026', 'Confirmed focus on Microsoft ecosystem only', 'All'],
+        ['31 Mar 2026', 'Business planning tool confirmed out of scope', 'Cath'],
+        ['31 Mar 2026', '3 months remaining on project (Apr-Jun)', 'All'],
+        ['31 Mar 2026', 'Jo wants focus on value for money', 'Jo'],
+        ['31 Mar 2026', 'Leah managing project; verifying Lou 7.5 hrs', 'Leah'],
+        ['8 Apr 2026', 'Finalise parent and child agent rule separation to ensure governance is centralised', 'Cath/Lou'],
+        ['8 Apr 2026', 'Create and configure GI and FP Communications child agents under agreed architecture', 'Lou'],
+        ['8 Apr 2026', 'Attach approved IAS source documents including FP Communication Rules', 'Lou'],
+        ['8 Apr 2026', 'Develop a small starter prompt library to support real-world use', 'Cath/Lou'],
+        ['8 Apr 2026', 'Prepare for limited internal testing once Version 1 build is complete', 'Leah']
+    ];
+
+    s._defaultsLoaded = true;
+    localStorage.setItem(STORE_KEY, JSON.stringify(s));
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    loadDefaults();
     initGoals();
     initPractice();
     initCheckboxes();
