@@ -235,7 +235,9 @@
 <div class="panel" id="april">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>April 2026</h2></div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="april" style="outline:none" onblur="saveIntent('april',this.textContent)"></span></div>
-    <div class="month-goals">
+    <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('april')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('april')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
+    <div class="ai-output" id="ai-output-april"></div>
+    <div class="month-goals" style="margin-top:14px">
         <label>Monthly Goals</label>
         <div class="goal-inputs" id="goal-inputs-april">
             <div class="goal-row"><span class="goal-num">1</span><input type="text" data-goal="april-0" placeholder="Goal 1..." oninput="saveGoalItem('april',0,this.value)"></div>
@@ -244,12 +246,6 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="april-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('april',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="april-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('april',4,this.value)"></div>
         </div>
-        <div class="ai-row">
-            <button class="btn btn-ai" onclick="aiAssist('april')">AI Assist &ndash; Expand Goals</button>
-            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('april')">Copy Prompt</button>
-            <span class="ai-badge">Includes overall objective + your goals</span>
-        </div>
-        <div class="ai-output" id="ai-output-april"></div>
     </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
     <ul class="tasks" data-group="w1"><li><input type="checkbox" data-task="w1-0"><span>Audit current email communication patterns across IAS</span></li><li><input type="checkbox" data-task="w1-1"><span>Collect 5-10 examples of best IAS emails</span></li><li><input type="checkbox" data-task="w1-2"><span>Begin drafting IAS Communications Style Guide</span></li></ul>
@@ -270,7 +266,9 @@
 <div class="panel" id="may">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>May 2026</h2></div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="may" style="outline:none" onblur="saveIntent('may',this.textContent)"></span></div>
-    <div class="month-goals">
+    <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('may')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('may')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
+    <div class="ai-output" id="ai-output-may"></div>
+    <div class="month-goals" style="margin-top:14px">
         <label>Monthly Goals</label>
         <div class="goal-inputs" id="goal-inputs-may">
             <div class="goal-row"><span class="goal-num">1</span><input type="text" data-goal="may-0" placeholder="Goal 1..." oninput="saveGoalItem('may',0,this.value)"></div>
@@ -279,12 +277,6 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="may-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('may',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="may-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('may',4,this.value)"></div>
         </div>
-        <div class="ai-row">
-            <button class="btn btn-ai" onclick="aiAssist('may')">AI Assist &ndash; Expand Goals</button>
-            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('may')">Copy Prompt</button>
-            <span class="ai-badge">Includes overall objective + your goals</span>
-        </div>
-        <div class="ai-output" id="ai-output-may"></div>
     </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
     <ul class="tasks" data-group="w5"><li><input type="checkbox" data-task="w5-0"><span>Filing system: current state assessment</span></li><li><input type="checkbox" data-task="w5-1"><span>Map existing file structures and pain points</span></li><li><input type="checkbox" data-task="w5-2"><span>Expand prompt template library (+5 templates)</span></li></ul>
@@ -305,7 +297,9 @@
 <div class="panel" id="june">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>June 2026</h2></div>
     <div class="callout navy" style="margin-top:0"><strong>Core Intent:</strong> <span contenteditable="true" data-intent="june" style="outline:none" onblur="saveIntent('june',this.textContent)"></span></div>
-    <div class="month-goals">
+    <div class="ai-row" style="margin:10px 0"><button class="btn btn-ai" onclick="aiAssist('june')">AI Assist &ndash; Break this into steps</button><button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('june')">Copy Prompt</button><span class="ai-badge">Uses your intent to suggest monthly goals &amp; weekly plan</span></div>
+    <div class="ai-output" id="ai-output-june"></div>
+    <div class="month-goals" style="margin-top:14px">
         <label>Monthly Goals</label>
         <div class="goal-inputs" id="goal-inputs-june">
             <div class="goal-row"><span class="goal-num">1</span><input type="text" data-goal="june-0" placeholder="Goal 1..." oninput="saveGoalItem('june',0,this.value)"></div>
@@ -314,12 +308,6 @@
             <div class="goal-row"><span class="goal-num">4</span><input type="text" data-goal="june-3" placeholder="Goal 4 (optional)..." oninput="saveGoalItem('june',3,this.value)"></div>
             <div class="goal-row"><span class="goal-num">5</span><input type="text" data-goal="june-4" placeholder="Goal 5 (optional)..." oninput="saveGoalItem('june',4,this.value)"></div>
         </div>
-        <div class="ai-row">
-            <button class="btn btn-ai" onclick="aiAssist('june')">AI Assist &ndash; Expand Goals</button>
-            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('june')">Copy Prompt</button>
-            <span class="ai-badge">Includes overall objective + your goals</span>
-        </div>
-        <div class="ai-output" id="ai-output-june"></div>
     </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
     <ul class="tasks" data-group="w9"><li><input type="checkbox" data-task="w9-0"><span>Collect 20+ writing samples for Copilot Tuning</span></li><li><input type="checkbox" data-task="w9-1"><span>Refine all tools from 2 months feedback</span></li><li><input type="checkbox" data-task="w9-2"><span>Document all processes in handover guide</span></li></ul>
@@ -612,8 +600,8 @@ function buildPrompt(month) {
     const meta = monthMeta[month];
     const s = loadState();
     const overall = (s.goals && s.goals.overall) || '';
-    if (goals.length === 0) return null;
-    const goalsText = goals.map((g, i) => `${i + 1}. ${g}`).join('\n');
+    const intent = (s.intents && s.intents[month]) || '';
+    if (!intent && goals.length === 0) return null;
     let prompt = `You are helping plan a monthly work sprint for an AI project at Insurance Advisory Service (IAS), a small insurance brokerage in Sydney.
 
 Context:
@@ -626,11 +614,16 @@ Context:
     if (overall) {
         prompt += `\n\nOverall Project Objective:\n${overall}`;
     }
-    prompt += `\n\nMonthly Goals for ${meta.title}:\n${goalsText}
-
-Please help me:
-1. Expand each goal into clear, actionable steps
-2. Suggest how to break them across the 4 weekly sessions
+    if (intent) {
+        prompt += `\n\nCore Intent for ${meta.title}:\n${intent}`;
+    }
+    if (goals.length > 0) {
+        const goalsText = goals.map((g, i) => `${i + 1}. ${g}`).join('\n');
+        prompt += `\n\nMonthly Goals already identified:\n${goalsText}`;
+    }
+    prompt += `\n\nPlease help me:
+1. Break the core intent into 3-5 clear, actionable monthly goals
+2. Map each goal across the 4 weekly sessions (what to do each week)
 3. Identify any risks or dependencies
 4. Suggest how to measure success for each goal
 5. Keep it practical and achievable within the time and budget
@@ -642,7 +635,7 @@ Format the output clearly with headings.`;
 function aiAssist(month) {
     const prompt = buildPrompt(month);
     if (!prompt) {
-        alert('Add at least one goal first.');
+        alert('Add a core intent first.');
         return;
     }
     const output = document.getElementById('ai-output-' + month);
@@ -656,7 +649,7 @@ function aiAssist(month) {
 function copyGoalsPrompt(month) {
     const prompt = buildPrompt(month);
     if (!prompt) {
-        alert('Add at least one goal first.');
+        alert('Add a core intent first.');
         return;
     }
     navigator.clipboard.writeText(prompt).then(() => showToast()).catch(() => {});
