@@ -94,6 +94,16 @@
         ul,ol{padding-left:18px;margin-bottom:10px;font-size:.88rem;color:var(--text-sec)}
         li{margin-bottom:3px}a{color:var(--teal);text-decoration:none}strong{color:var(--text)}
         .footer{text-align:center;font-size:.72rem;color:var(--text-light);padding:20px 0}
+        .month-goals{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;margin:14px 0 20px}
+        .month-goals label{font-size:.78rem;font-weight:600;color:var(--navy);display:block;margin-bottom:8px}
+        .month-goals textarea{width:100%;min-height:90px;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:inherit;font-size:.84rem;resize:vertical;outline:none;transition:.2s;background:var(--white)}
+        .month-goals textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
+        .month-goals .ai-row{display:flex;gap:8px;margin-top:10px;align-items:center}
+        .month-goals .ai-output{background:var(--white);border:1px solid var(--teal);border-radius:8px;padding:14px;margin-top:12px;font-size:.84rem;color:var(--text-sec);white-space:pre-wrap;display:none}
+        .month-goals .ai-output.visible{display:block}
+        .ai-badge{font-size:.68rem;color:var(--text-light);font-style:italic}
+        .btn-ai{background:linear-gradient(135deg,var(--navy),var(--teal));color:#fff}
+        .btn-ai:hover{opacity:.9}
         .month-block{border:2px solid var(--teal-bg);border-radius:10px;padding:22px;margin:18px 0}
         .month-title{font-size:1rem;color:var(--teal);font-weight:700;margin-bottom:3px}
         .month-theme{font-size:.8rem;color:var(--text-light);font-style:italic;margin-bottom:14px}
@@ -210,6 +220,16 @@
 <div class="panel" id="april">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>April 2026 &mdash; Foundation &amp; Quick Wins</h2></div>
     <p style="font-style:italic;color:var(--text-light)">Get the basics right so every Copilot email sounds like IAS</p>
+    <div class="month-goals">
+        <label>What do we want to achieve this month?</label>
+        <textarea id="goals-april" placeholder="Capture your goals, ideas, and priorities for April..." oninput="saveGoals('april',this.value)"></textarea>
+        <div class="ai-row">
+            <button class="btn btn-ai" onclick="aiAssist('april')">AI Assist &ndash; Expand Notes</button>
+            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('april')">Copy Prompt</button>
+            <span class="ai-badge">Builds a prompt from your notes for Copilot / ChatGPT</span>
+        </div>
+        <div class="ai-output" id="ai-output-april"></div>
+    </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
     <ul class="tasks" data-group="w1"><li><input type="checkbox" data-task="w1-0"><span>Audit current email communication patterns across IAS</span></li><li><input type="checkbox" data-task="w1-1"><span>Collect 5-10 examples of best IAS emails</span></li><li><input type="checkbox" data-task="w1-2"><span>Begin drafting IAS Communications Style Guide</span></li></ul>
     <div class="wk">Week 2 (w/c 13 Apr)</div>
@@ -225,6 +245,16 @@
 <div class="panel" id="may">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>May 2026 &mdash; Efficiency &amp; Filing System</h2></div>
     <p style="font-style:italic;color:var(--text-light)">Filing system strategy + expand the prompt library</p>
+    <div class="month-goals">
+        <label>What do we want to achieve this month?</label>
+        <textarea id="goals-may" placeholder="Capture your goals, ideas, and priorities for May..." oninput="saveGoals('may',this.value)"></textarea>
+        <div class="ai-row">
+            <button class="btn btn-ai" onclick="aiAssist('may')">AI Assist &ndash; Expand Notes</button>
+            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('may')">Copy Prompt</button>
+            <span class="ai-badge">Builds a prompt from your notes for Copilot / ChatGPT</span>
+        </div>
+        <div class="ai-output" id="ai-output-may"></div>
+    </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
     <ul class="tasks" data-group="w5"><li><input type="checkbox" data-task="w5-0"><span>Filing system: current state assessment</span></li><li><input type="checkbox" data-task="w5-1"><span>Map existing file structures and pain points</span></li><li><input type="checkbox" data-task="w5-2"><span>Expand prompt template library (+5 templates)</span></li></ul>
     <div class="wk">Week 6 (w/c 11 May)</div>
@@ -240,6 +270,16 @@
 <div class="panel" id="june">
     <div class="panel-head"><div class="panel-icon">&#128197;</div><h2>June 2026 &mdash; Polish &amp; Handover</h2></div>
     <p style="font-style:italic;color:var(--text-light)">Make everything self-sustaining for Leah from July</p>
+    <div class="month-goals">
+        <label>What do we want to achieve this month?</label>
+        <textarea id="goals-june" placeholder="Capture your goals, ideas, and priorities for June..." oninput="saveGoals('june',this.value)"></textarea>
+        <div class="ai-row">
+            <button class="btn btn-ai" onclick="aiAssist('june')">AI Assist &ndash; Expand Notes</button>
+            <button class="btn btn-outline btn-sm" onclick="copyGoalsPrompt('june')">Copy Prompt</button>
+            <span class="ai-badge">Builds a prompt from your notes for Copilot / ChatGPT</span>
+        </div>
+        <div class="ai-output" id="ai-output-june"></div>
+    </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
     <ul class="tasks" data-group="w9"><li><input type="checkbox" data-task="w9-0"><span>Collect 20+ writing samples for Copilot Tuning</span></li><li><input type="checkbox" data-task="w9-1"><span>Refine all tools from 2 months feedback</span></li><li><input type="checkbox" data-task="w9-2"><span>Document all processes in handover guide</span></li></ul>
     <div class="wk">Week 10 (w/c 8 Jun)</div>
@@ -450,6 +490,81 @@ function expandAll() {
 }
 
 // ══════════════════════════════════════════
+// MONTHLY GOALS (persist + AI assist)
+// ══════════════════════════════════════════
+const monthMeta = {
+    april: { title: 'April 2026', theme: 'Foundation & Quick Wins', tasks: 'Style Guide, Draft Instructions, Copilot training, prompt templates' },
+    may: { title: 'May 2026', theme: 'Efficiency & Filing System', tasks: 'Filing system strategy, prompt library expansion, Copilot Studio agent' },
+    june: { title: 'June 2026', theme: 'Polish & Handover', tasks: 'Handover guide, Copilot Tuning prep, final value assessment, recommendations' }
+};
+
+function saveGoals(month, text) {
+    const s = loadState();
+    if (!s.goals) s.goals = {};
+    s.goals[month] = text;
+    saveState(s);
+}
+
+function initGoals() {
+    const state = loadState();
+    const goals = state.goals || {};
+    ['april','may','june'].forEach(m => {
+        const el = document.getElementById('goals-' + m);
+        if (el && goals[m]) el.value = goals[m];
+    });
+}
+
+function buildPrompt(month) {
+    const notes = document.getElementById('goals-' + month).value.trim();
+    const meta = monthMeta[month];
+    if (!notes) return null;
+    return `You are helping plan a monthly work sprint for an AI project at Insurance Advisory Service (IAS), a small insurance brokerage in Sydney.
+
+Context:
+- This is ${meta.title}, themed "${meta.theme}"
+- Planned tasks include: ${meta.tasks}
+- The project is coaching-funded ($2,345/month), managed by Leah Miranda
+- Weekly 1-hour sessions with Cath (Coach4U) and Lou
+- All work must stay within the Microsoft ecosystem (Copilot, M365, Teams, SharePoint)
+- Jo Brassett (CEO) wants clear value for money
+
+My rough notes on what I want to achieve this month:
+${notes}
+
+Please help me:
+1. Turn these rough notes into clear, actionable objectives (3-5 max)
+2. Suggest how to break them into the weekly sessions
+3. Identify any risks or dependencies
+4. Suggest how to measure success for each objective
+5. Keep it practical and achievable within the time and budget
+
+Format the output clearly with headings.`;
+}
+
+function aiAssist(month) {
+    const prompt = buildPrompt(month);
+    if (!prompt) {
+        alert('Type some notes first, then click AI Assist to expand them.');
+        return;
+    }
+    const output = document.getElementById('ai-output-' + month);
+    output.innerHTML = '<p style="color:var(--teal);font-weight:500">Prompt copied to clipboard. Paste into Copilot or ChatGPT to get your expanded plan.</p><div style="margin-top:10px;padding:12px;background:var(--bg);border-radius:6px;font-size:.8rem;max-height:200px;overflow-y:auto;white-space:pre-wrap">' + escapeHtml(prompt) + '</div>';
+    output.classList.add('visible');
+    navigator.clipboard.writeText(prompt).catch(() => {});
+}
+
+function copyGoalsPrompt(month) {
+    const prompt = buildPrompt(month);
+    if (!prompt) {
+        alert('Type some notes first.');
+        return;
+    }
+    navigator.clipboard.writeText(prompt).then(() => {
+        showToast();
+    }).catch(() => {});
+}
+
+// ══════════════════════════════════════════
 // CHECKBOXES (persist)
 // ══════════════════════════════════════════
 function initCheckboxes() {
@@ -655,6 +770,7 @@ function exportData() {
 // INIT
 // ══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
+    initGoals();
     initCheckboxes();
     initMetrics();
     renderValueLog();
