@@ -111,6 +111,10 @@
         .week-intent{background:var(--teal-bg);border-radius:6px;padding:8px 12px;margin:6px 0 4px;font-size:.82rem;display:flex;align-items:center;gap:8px}
         .week-intent span{flex:1;outline:none;color:var(--text-sec);min-height:18px}
         .week-intent span:empty::before{content:attr(data-placeholder);color:#A0AEC0}
+        .week-nextsteps{margin:8px 0}
+        .week-nextsteps label{font-size:.78rem;font-weight:600;color:var(--teal);display:block;margin-bottom:4px}
+        .week-nextsteps textarea{width:100%;min-height:80px;border:1px solid var(--border);border-radius:8px;padding:12px;font-family:inherit;font-size:.84rem;resize:vertical;outline:none;transition:.2s;background:var(--white)}
+        .week-nextsteps textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,131,143,.1)}
         .week-tracker{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px;margin:8px 0}
         .week-tracker label{font-size:.75rem;font-weight:600;color:var(--navy);display:block;margin-bottom:4px}
         .week-tracker textarea{width:100%;min-height:50px;border:1px solid var(--border);border-radius:6px;padding:8px 10px;font-family:inherit;font-size:.82rem;resize:vertical;outline:none;transition:.2s;background:var(--white)}
@@ -284,46 +288,22 @@
     </div>
     <div class="wk">Week 1 (w/c 6 Apr)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w1" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w1',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w1">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w1-0" placeholder="Next step..." oninput="saveWeekGoal('w1',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w1-1" placeholder="Next step..." oninput="saveWeekGoal('w1',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w1-2" placeholder="Next step..." oninput="saveWeekGoal('w1',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w1-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w1',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w1-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w1',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w1" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w1',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 1 &ndash; What happened / Notes</label><textarea id="wt-w1" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w1',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w1')">Copy Week Summary</button></div>
     <div class="wk">Week 2 (w/c 13 Apr)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w2" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w2',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w2">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w2-0" placeholder="Next step..." oninput="saveWeekGoal('w2',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w2-1" placeholder="Next step..." oninput="saveWeekGoal('w2',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w2-2" placeholder="Next step..." oninput="saveWeekGoal('w2',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w2-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w2',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w2-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w2',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w2" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w2',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 2 &ndash; What happened / Notes</label><textarea id="wt-w2" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w2',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w2')">Copy Week Summary</button></div>
     <div class="wk">Week 3 (w/c 20 Apr)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w3" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w3',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w3">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w3-0" placeholder="Next step..." oninput="saveWeekGoal('w3',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w3-1" placeholder="Next step..." oninput="saveWeekGoal('w3',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w3-2" placeholder="Next step..." oninput="saveWeekGoal('w3',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w3-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w3',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w3-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w3',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w3" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w3',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 3 &ndash; What happened / Notes</label><textarea id="wt-w3" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w3',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w3')">Copy Week Summary</button></div>
     <div class="wk">Week 4 (w/c 27 Apr)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w4" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w4',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w4">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w4-0" placeholder="Next step..." oninput="saveWeekGoal('w4',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w4-1" placeholder="Next step..." oninput="saveWeekGoal('w4',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w4-2" placeholder="Next step..." oninput="saveWeekGoal('w4',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w4-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w4',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w4-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w4',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w4" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w4',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 4 &ndash; What happened / Notes</label><textarea id="wt-w4" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w4',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w4')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>April Deliverables</h4><ol><li>IAS Communications Style Guide</li><li>Outlook Draft Instructions template</li><li>5 prompt templates for common emails</li><li>Training session completed</li></ol></div>
@@ -356,46 +336,22 @@
     </div>
     <div class="wk">Week 5 (w/c 4 May)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w5" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w5',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w5">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w5-0" placeholder="Next step..." oninput="saveWeekGoal('w5',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w5-1" placeholder="Next step..." oninput="saveWeekGoal('w5',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w5-2" placeholder="Next step..." oninput="saveWeekGoal('w5',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w5-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w5',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w5-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w5',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w5" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w5',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 5 &ndash; What happened / Notes</label><textarea id="wt-w5" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w5',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w5')">Copy Week Summary</button></div>
     <div class="wk">Week 6 (w/c 11 May)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w6" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w6',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w6">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w6-0" placeholder="Next step..." oninput="saveWeekGoal('w6',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w6-1" placeholder="Next step..." oninput="saveWeekGoal('w6',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w6-2" placeholder="Next step..." oninput="saveWeekGoal('w6',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w6-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w6',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w6-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w6',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w6" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w6',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 6 &ndash; What happened / Notes</label><textarea id="wt-w6" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w6',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w6')">Copy Week Summary</button></div>
     <div class="wk">Week 7 (w/c 18 May)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w7" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w7',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w7">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w7-0" placeholder="Next step..." oninput="saveWeekGoal('w7',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w7-1" placeholder="Next step..." oninput="saveWeekGoal('w7',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w7-2" placeholder="Next step..." oninput="saveWeekGoal('w7',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w7-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w7',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w7-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w7',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w7" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w7',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 7 &ndash; What happened / Notes</label><textarea id="wt-w7" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w7',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w7')">Copy Week Summary</button></div>
     <div class="wk">Week 8 (w/c 25 May)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w8" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w8',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w8">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w8-0" placeholder="Next step..." oninput="saveWeekGoal('w8',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w8-1" placeholder="Next step..." oninput="saveWeekGoal('w8',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w8-2" placeholder="Next step..." oninput="saveWeekGoal('w8',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w8-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w8',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w8-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w8',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w8" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w8',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 8 &ndash; What happened / Notes</label><textarea id="wt-w8" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w8',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w8')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>May Deliverables</h4><ol><li>Filing system strategy completed ($2,200)</li><li>Prompt template library (10+ templates)</li><li>Copilot Studio style-checking agent (if feasible)</li><li>Time savings measurement report</li></ol></div>
@@ -428,46 +384,22 @@
     </div>
     <div class="wk">Week 9 (w/c 1 Jun)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w9" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w9',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w9">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w9-0" placeholder="Next step..." oninput="saveWeekGoal('w9',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w9-1" placeholder="Next step..." oninput="saveWeekGoal('w9',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w9-2" placeholder="Next step..." oninput="saveWeekGoal('w9',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w9-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w9',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w9-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w9',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w9" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w9',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 9 &ndash; What happened / Notes</label><textarea id="wt-w9" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w9',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w9')">Copy Week Summary</button></div>
     <div class="wk">Week 10 (w/c 8 Jun)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w10" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w10',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w10">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w10-0" placeholder="Next step..." oninput="saveWeekGoal('w10',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w10-1" placeholder="Next step..." oninput="saveWeekGoal('w10',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w10-2" placeholder="Next step..." oninput="saveWeekGoal('w10',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w10-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w10',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w10-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w10',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w10" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w10',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 10 &ndash; What happened / Notes</label><textarea id="wt-w10" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w10',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w10')">Copy Week Summary</button></div>
     <div class="wk">Week 11 (w/c 15 Jun)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w11" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w11',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w11">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w11-0" placeholder="Next step..." oninput="saveWeekGoal('w11',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w11-1" placeholder="Next step..." oninput="saveWeekGoal('w11',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w11-2" placeholder="Next step..." oninput="saveWeekGoal('w11',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w11-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w11',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w11-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w11',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w11" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w11',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 11 &ndash; What happened / Notes</label><textarea id="wt-w11" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w11',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w11')">Copy Week Summary</button></div>
     <div class="wk">Week 12 (w/c 22 Jun)</div>
     <div class="week-intent"><span contenteditable="true" data-weekintent="w12" data-placeholder="Summary of this week..." onblur="saveWeekIntent('w12',this.textContent)"></span></div>
-    <div class="goal-inputs" id="week-goals-w12">
-            <div class="goal-row"><span class="goal-num">1</span><input type="text" data-wgoal="w12-0" placeholder="Next step..." oninput="saveWeekGoal('w12',0,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">2</span><input type="text" data-wgoal="w12-1" placeholder="Next step..." oninput="saveWeekGoal('w12',1,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">3</span><input type="text" data-wgoal="w12-2" placeholder="Next step..." oninput="saveWeekGoal('w12',2,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">4</span><input type="text" data-wgoal="w12-3" placeholder="Next step (optional)..." oninput="saveWeekGoal('w12',3,this.value)"></div>
-            <div class="goal-row"><span class="goal-num">5</span><input type="text" data-wgoal="w12-4" placeholder="Next step (optional)..." oninput="saveWeekGoal('w12',4,this.value)"></div>
-        </div>
+    <div class="week-nextsteps"><label>Next Steps</label><textarea id="wns-w12" placeholder="List your next steps here..." oninput="saveWeekNextSteps('w12',this.value)"></textarea></div>
     <div class="week-tracker"><label>Week 12 &ndash; What happened / Notes</label><textarea id="wt-w12" placeholder="Track progress, outcomes, decisions..." oninput="saveWeekTrack('w12',this.value)"></textarea></div>
     <div class="btn-row" style="margin-top:6px"><button class="btn btn-outline btn-sm" onclick="copyWeekSummary('w12')">Copy Week Summary</button></div>
     <div class="deliverables"><h4>June Deliverables</h4><ol><li>Complete handover guide for Leah</li><li>Copilot Tuning package (20+ samples + guide)</li><li>Final value assessment report</li><li>Recommendations for July onwards</li></ol></div>
@@ -702,11 +634,10 @@ function saveGoalItem(month, idx, text) {
     saveState(s);
 }
 
-function saveWeekGoal(week, idx, text) {
+function saveWeekNextSteps(week, text) {
     const s = loadState();
-    if (!s.weekGoals) s.weekGoals = {};
-    if (!s.weekGoals[week]) s.weekGoals[week] = ['','','','',''];
-    s.weekGoals[week][idx] = text;
+    if (!s.weekNextSteps) s.weekNextSteps = {};
+    s.weekNextSteps[week] = text;
     saveState(s);
 }
 
@@ -746,14 +677,11 @@ function initGoals() {
             if (inp && val) inp.value = val;
         });
     });
-    // Weekly goals
-    const weekGoals = state.weekGoals || {};
+    // Weekly next steps
+    const weekNextSteps = state.weekNextSteps || {};
     for (let w = 1; w <= 12; w++) {
-        const wg = weekGoals['w' + w] || [];
-        wg.forEach((val, i) => {
-            const inp = document.querySelector(`[data-wgoal="w${w}-${i}"]`);
-            if (inp && val) inp.value = val;
-        });
+        const el = document.getElementById('wns-w' + w);
+        if (el && weekNextSteps['w' + w]) el.value = weekNextSteps['w' + w];
     }
     // Weekly intents
     const weekIntents = state.weekIntents || {};
@@ -875,15 +803,11 @@ function copyWeekSummary(week) {
     const s = loadState();
     const num = week.replace('w','');
     const intent = (s.weekIntents && s.weekIntents[week]) || '';
-    const goals = (s.weekGoals && s.weekGoals[week]) || [];
+    const nextSteps = (s.weekNextSteps && s.weekNextSteps[week]) || '';
     const notes = (s.weekTracks && s.weekTracks[week]) || '';
-    const filledGoals = goals.filter(g => g && g.trim());
     let text = `Week ${num}\n`;
     if (intent) text += `\n${intent}`;
-    if (filledGoals.length > 0) {
-        text += '\n\nNext steps:';
-        filledGoals.forEach((g, i) => { text += `\n${i + 1}. ${g}`; });
-    }
+    if (nextSteps) text += `\n\nNext Steps:\n${nextSteps}`;
     if (notes) text += `\n\nWhat happened:\n${notes}`;
     navigator.clipboard.writeText(text).then(() => showToast()).catch(() => {});
 }
