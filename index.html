@@ -93,6 +93,11 @@
         h4{font-size:.87rem;color:var(--teal);margin:14px 0 6px;font-weight:600}
         ul,ol{padding-left:18px;margin-bottom:10px;font-size:.88rem;color:var(--text-sec)}
         li{margin-bottom:3px}a{color:var(--teal);text-decoration:none}strong{color:var(--text)}
+        .report-checks{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+        .report-checks label{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--text-sec);cursor:pointer;padding:6px 10px;border-radius:6px;transition:.15s}
+        .report-checks label:hover{background:var(--teal-bg)}
+        .report-checks input[type=checkbox]{accent-color:var(--teal);width:16px;height:16px}
+        .rpt-month.active,.rpt-format.active{background:var(--teal)!important;color:#fff!important;border-color:var(--teal)!important}
         .footer{text-align:center;font-size:.72rem;color:var(--text-light);padding:20px 0}
         .month-goals{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;margin:14px 0 20px}
         .month-goals label{font-size:.78rem;font-weight:600;color:var(--navy);display:block;margin-bottom:8px}
@@ -182,6 +187,7 @@
     <div class="sidebar-group" data-year-group="cross">
         <div class="sidebar-item project" data-panel="notes">Notes</div>
         <div class="sidebar-item project" data-panel="decisions">Decisions Log</div>
+        <div class="sidebar-item project" data-panel="report-builder">Report Builder</div>
     </div>
 </nav>
 <div class="main" id="mainContent">
@@ -563,6 +569,47 @@ Kind regards, Cath</div>
         <tbody id="decisionBody"></tbody>
     </table>
     <div class="btn-row"><button class="btn btn-teal" onclick="addDecisionRow()">+ Add Entry</button></div>
+</div>
+
+<!-- ═══ REPORT BUILDER ═══ -->
+<div class="panel" id="report-builder">
+    <div class="panel-head"><div class="panel-icon">&#128203;</div><h2>Report Builder</h2></div>
+    <p>Select the sections to include, then generate a formatted summary you can copy and paste.</p>
+
+    <h3>Select Month</h3>
+    <div style="display:flex;gap:8px;margin:10px 0">
+        <button class="btn btn-outline rpt-month active" data-rptmonth="april" onclick="selectReportMonth('april',this)">April</button>
+        <button class="btn btn-outline rpt-month" data-rptmonth="may" onclick="selectReportMonth('may',this)">May</button>
+        <button class="btn btn-outline rpt-month" data-rptmonth="june" onclick="selectReportMonth('june',this)">June</button>
+    </div>
+
+    <h3>Include in Report</h3>
+    <div class="report-checks">
+        <label><input type="checkbox" id="rpt-intent" checked> Core Intent</label>
+        <label><input type="checkbox" id="rpt-goals" checked> Monthly Goals</label>
+        <label><input type="checkbox" id="rpt-plan" checked> Monthly Plan Overview</label>
+        <label><input type="checkbox" id="rpt-weeks" checked> Weekly Detail (summaries, next steps, notes)</label>
+        <label><input type="checkbox" id="rpt-decisions"> Decisions &amp; Actions</label>
+        <label><input type="checkbox" id="rpt-value"> Value Log</label>
+        <label><input type="checkbox" id="rpt-metrics"> Success Metrics</label>
+        <label><input type="checkbox" id="rpt-notes"> Working Notes</label>
+    </div>
+
+    <h3>Report Format</h3>
+    <div style="display:flex;gap:8px;margin:10px 0">
+        <button class="btn btn-outline rpt-format active" data-rptformat="full" onclick="selectReportFormat('full',this)">Full Detail</button>
+        <button class="btn btn-outline rpt-format" data-rptformat="exec" onclick="selectReportFormat('exec',this)">Executive Summary</button>
+    </div>
+
+    <div class="btn-row" style="margin:16px 0">
+        <button class="btn btn-teal" onclick="generateReport()">Generate Report</button>
+        <button class="btn btn-outline" onclick="copyReport()">Copy to Clipboard</button>
+    </div>
+
+    <div id="report-preview" style="display:none;margin-top:16px">
+        <h3>Preview</h3>
+        <div id="report-output" style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:.84rem;color:var(--text-sec);white-space:pre-wrap;max-height:500px;overflow-y:auto"></div>
+    </div>
 </div>
 
 <div class="footer">IAS Working Folder &bull; Coach4U &bull; Auto-saves to your browser</div>
@@ -1048,6 +1095,149 @@ function escapeHtml(str) {
 // ══════════════════════════════════════════
 // EXPORT
 // ══════════════════════════════════════════
+// ══════════════════════════════════════════
+// REPORT BUILDER
+// ══════════════════════════════════════════
+let reportMonth = 'april';
+let reportFormat = 'full';
+
+function selectReportMonth(month, btn) {
+    reportMonth = month;
+    document.querySelectorAll('.rpt-month').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function selectReportFormat(fmt, btn) {
+    reportFormat = fmt;
+    document.querySelectorAll('.rpt-format').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+}
+
+function generateReport() {
+    const s = loadState();
+    const m = reportMonth;
+    const meta = monthMeta[m];
+    const intent = (s.intents && s.intents[m]) || '';
+    const goals = (s.goalItems && s.goalItems[m]) || [];
+    const filledGoals = goals.filter(g => g && g.trim());
+    const practice = (s.practice && s.practice[m]) || {};
+    const weekIntents = s.weekIntents || {};
+    const weekNextSteps = s.weekNextSteps || {};
+    const weekTracks = s.weekTracks || {};
+    const isExec = reportFormat === 'exec';
+
+    let rpt = `IAS AI Project - ${meta.title} Report\n${'='.repeat(45)}\n`;
+
+    // Core Intent
+    if (document.getElementById('rpt-intent').checked && intent) {
+        rpt += `\nCore Intent\n${isExec ? intent.split('.').slice(0,2).join('.') + '.' : intent}\n`;
+    }
+
+    // Monthly Goals
+    if (document.getElementById('rpt-goals').checked && filledGoals.length > 0) {
+        rpt += `\nMonthly Goals\n`;
+        filledGoals.forEach((g, i) => { rpt += `${i+1}. ${g}\n`; });
+    }
+
+    // Monthly Plan Overview
+    if (document.getElementById('rpt-plan').checked) {
+        const weekMap = {april:['w1','w2','w3','w4'], may:['w5','w6','w7','w8'], june:['w9','w10','w11','w12']};
+        const weeks = weekMap[m];
+        let hasContent = false;
+        let planText = '\nMonthly Plan Overview\n';
+        weeks.forEach((w,i) => {
+            const title = practice[m + '-' + w] || '';
+            if (!title) return;
+            hasContent = true;
+            const num = w.replace('w','');
+            planText += `\nWeek ${num}: ${title}\n`;
+            for (let b = 0; b < 4; b++) {
+                const bullet = practice[m + '-' + w + '-' + b] || '';
+                if (bullet) planText += `- ${bullet}\n`;
+            }
+        });
+        if (hasContent) rpt += planText;
+    }
+
+    // Weekly Detail
+    if (document.getElementById('rpt-weeks').checked) {
+        const weekMap = {april:[1,2,3,4], may:[5,6,7,8], june:[9,10,11,12]};
+        const weeks = weekMap[m];
+        let hasContent = false;
+        let weekText = '\nWeekly Reporting\n';
+        weeks.forEach(num => {
+            const wk = 'w' + num;
+            const summary = weekIntents[wk] || '';
+            const next = weekNextSteps[wk] || '';
+            const notes = weekTracks[wk] || '';
+            if (!summary && !next && !notes) return;
+            hasContent = true;
+            weekText += `\n--- Week ${num} ---\n`;
+            if (summary) weekText += `\n${isExec ? 'Summary: ' : ''}${summary}\n`;
+            if (next && !isExec) weekText += `\nNext Steps:\n${next}\n`;
+            if (notes && !isExec) weekText += `\nWhat Happened:\n${notes}\n`;
+        });
+        if (hasContent) rpt += weekText;
+    }
+
+    // Decisions
+    if (document.getElementById('rpt-decisions').checked) {
+        const decisions = s.decisions || [];
+        if (decisions.length > 0) {
+            rpt += '\nDecisions & Actions\n';
+            decisions.forEach(d => {
+                if (d[0] && d[1]) rpt += `[${d[0]}] ${d[1]}${d[2] ? ' (' + d[2] + ')' : ''}\n`;
+            });
+        }
+    }
+
+    // Value Log
+    if (document.getElementById('rpt-value').checked) {
+        const vl = s.valueLog || [];
+        const filled = vl.filter(r => r[0] || r[1]);
+        if (filled.length > 0) {
+            rpt += '\nValue Log\n';
+            filled.forEach(r => {
+                rpt += `[${r[0]||''}] ${r[1]||''} | ${r[2]||''} | ${r[3]||''}\n`;
+            });
+        }
+    }
+
+    // Metrics
+    if (document.getElementById('rpt-metrics').checked) {
+        const metrics = s.metrics || {};
+        const keys = Object.keys(metrics).filter(k => metrics[k]);
+        if (keys.length > 0) {
+            rpt += '\nSuccess Metrics\n';
+            const labels = {m1:'Email drafting time saved',m2:'Staff adoption of Draft Instructions',m3:'Prompt template usage',m4:'Communication consistency',m5:'Filing system efficiency',m6:"Leah's independence"};
+            keys.forEach(k => { rpt += `${labels[k]||k}: ${metrics[k]}\n`; });
+        }
+    }
+
+    // Notes
+    if (document.getElementById('rpt-notes').checked) {
+        const notes = s.notes || [];
+        if (notes.length > 0) {
+            rpt += '\nWorking Notes\n';
+            const limit = isExec ? 3 : notes.length;
+            notes.slice(0, limit).forEach(n => {
+                rpt += `[${n.date}] ${n.text}\n\n`;
+            });
+        }
+    }
+
+    rpt += `\n${'='.repeat(45)}\nGenerated ${new Date().toLocaleDateString('en-AU',{day:'numeric',month:'short',year:'numeric'})} | IAS Working Folder | Coach4U`;
+
+    document.getElementById('report-output').textContent = rpt;
+    document.getElementById('report-preview').style.display = 'block';
+}
+
+function copyReport() {
+    const output = document.getElementById('report-output').textContent;
+    if (!output) { generateReport(); }
+    navigator.clipboard.writeText(document.getElementById('report-output').textContent).then(() => showToast()).catch(() => {});
+}
+
 function exportData() {
     const state = loadState();
     const blob = new Blob([JSON.stringify(state, null, 2)], {type: 'application/json'});
