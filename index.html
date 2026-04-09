@@ -610,7 +610,7 @@ Kind regards, Cath</div>
         <button class="btn btn-outline" onclick="copyReport()">Copy Plain Text</button>
         <button class="btn btn-ai" onclick="copyHtmlReport()">Copy for Email</button>
         <button class="btn btn-red" onclick="printReport()">Print / PDF</button>
-        <button class="btn btn-outline" onclick="shareAsLink()" style="border-color:var(--teal);color:var(--teal)">&#128279; Share as Link</button>
+        <button class="btn btn-outline" onclick="downloadReport()" style="border-color:var(--teal);color:var(--teal)">&#128229; Download HTML</button>
     </div>
 
     <div id="report-preview" style="display:none;margin-top:16px">
@@ -1336,67 +1336,130 @@ function printReport() {
 
 function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
 
-function shareAsLink() {
+function downloadReport() {
     const s = loadState();
     const m = reportMonth;
     const meta = monthMeta[m];
-    const data = {
-        title: meta.title,
-        date: new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})
-    };
+    const dateStr = new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'});
+    const intent = (s.intents && s.intents[m]) || '';
+    const goals = ((s.goalItems && s.goalItems[m]) || []).filter(g => g && g.trim());
 
-    if (document.getElementById('rpt-intent').checked) {
-        data.intent = (s.intents && s.intents[m]) || '';
+    let sections = '';
+
+    if (document.getElementById('rpt-intent').checked && intent) {
+        sections += '<div class="s"><h2>Core Intent</h2><p>' + esc(intent) + '</p></div>';
     }
-    if (document.getElementById('rpt-goals').checked) {
-        data.goals = ((s.goalItems && s.goalItems[m]) || []).filter(g => g && g.trim());
+    if (document.getElementById('rpt-goals').checked && goals.length > 0) {
+        sections += '<div class="s"><h2>Monthly Goals</h2><ol>' + goals.map(g => '<li>' + esc(g) + '</li>').join('') + '</ol></div>';
     }
     if (document.getElementById('rpt-plan').checked) {
         const practice = (s.practice && s.practice[m]) || {};
         const weekMap = {april:['w1','w2','w3','w4'], may:['w5','w6','w7','w8'], june:['w9','w10','w11','w12']};
-        data.plan = [];
+        let ph = '';
         weekMap[m].forEach(w => {
-            const title = practice[m + '-' + w] || '';
-            if (!title) return;
-            const bullets = [];
-            for (let b = 0; b < 4; b++) { const v = practice[m+'-'+w+'-'+b]||''; if(v) bullets.push(v); }
-            data.plan.push({num: w.replace('w',''), title, bullets});
+            const title = practice[m+'-'+w]||''; if(!title) return;
+            ph += '<h3>Week '+w.replace('w','')+': '+esc(title)+'</h3>';
+            for(let b=0;b<4;b++){const v=practice[m+'-'+w+'-'+b]||'';if(v)ph+='<p class="bl">&bull; '+esc(v)+'</p>';}
         });
+        if(ph) sections += '<div class="s"><h2>Monthly Plan Overview</h2>'+ph+'</div>';
     }
     if (document.getElementById('rpt-weeks').checked) {
         const weekMap = {april:[1,2,3,4], may:[5,6,7,8], june:[9,10,11,12]};
-        data.weeks = [];
+        let wh = '';
         weekMap[m].forEach(num => {
-            const wk = 'w'+num;
-            const plan = (s.weekIntents&&s.weekIntents[wk])||'';
-            const next = (s.weekNextSteps&&s.weekNextSteps[wk])||'';
-            const happened = (s.weekTracks&&s.weekTracks[wk])||'';
-            if (plan||next||happened) data.weeks.push({num,plan,next,happened});
+            const wk='w'+num;
+            const plan=(s.weekIntents&&s.weekIntents[wk])||'';
+            const next=(s.weekNextSteps&&s.weekNextSteps[wk])||'';
+            const notes=(s.weekTracks&&s.weekTracks[wk])||'';
+            if(!plan&&!next&&!notes) return;
+            wh += '<div class="wb"><h3>Week '+num+'</h3>';
+            if(plan) wh+='<div class="sub"><span class="sl">Plan</span><p>'+esc(plan)+'</p></div>';
+            if(notes) wh+='<div class="sub"><span class="sl">What Happened</span><p>'+esc(notes)+'</p></div>';
+            if(next) wh+='<div class="sub"><span class="sl">Next Steps</span><p class="pre">'+esc(next)+'</p></div>';
+            wh += '</div>';
         });
+        if(wh) sections += '<div class="s"><h2>Weekly Reporting</h2>'+wh+'</div>';
     }
     if (document.getElementById('rpt-decisions').checked) {
-        data.decisions = (s.decisions||[]).filter(d => d[0]&&d[1]);
+        const dec=(s.decisions||[]).filter(d=>d[0]&&d[1]);
+        if(dec.length>0){
+            sections+='<div class="s"><h2>Decisions &amp; Actions</h2><table><thead><tr><th>Date</th><th>Decision</th><th>Owner</th></tr></thead><tbody>';
+            dec.forEach(d=>{sections+='<tr><td>'+esc(d[0])+'</td><td>'+esc(d[1])+'</td><td>'+esc(d[2]||'')+'</td></tr>';});
+            sections+='</tbody></table></div>';
+        }
     }
     if (document.getElementById('rpt-value').checked) {
-        data.valueLog = (s.valueLog||[]).filter(r => r[0]||r[1]);
+        const vl=(s.valueLog||[]).filter(r=>r[0]||r[1]);
+        if(vl.length>0){
+            sections+='<div class="s"><h2>Value Log</h2><table><thead><tr><th>Date</th><th>What Was Done</th><th>Outcome</th><th>Time Saved</th></tr></thead><tbody>';
+            vl.forEach(r=>{sections+='<tr><td>'+esc(r[0]||'')+'</td><td>'+esc(r[1]||'')+'</td><td>'+esc(r[2]||'')+'</td><td>'+esc(r[3]||'')+'</td></tr>';});
+            sections+='</tbody></table></div>';
+        }
     }
     if (document.getElementById('rpt-metrics').checked) {
-        data.metrics = s.metrics||{};
+        const metrics=s.metrics||{};
+        const labels={m1:'Email drafting time saved',m2:'Staff adoption',m3:'Prompt template usage',m4:'Communication consistency',m5:'Filing system efficiency',m6:"Leah's independence"};
+        const keys=Object.keys(metrics).filter(k=>metrics[k]);
+        if(keys.length>0){
+            sections+='<div class="s"><h2>Success Metrics</h2><table><thead><tr><th>Metric</th><th>Result</th></tr></thead><tbody>';
+            keys.forEach(k=>{sections+='<tr><td>'+esc(labels[k]||k)+'</td><td>'+esc(metrics[k])+'</td></tr>';});
+            sections+='</tbody></table></div>';
+        }
     }
     if (document.getElementById('rpt-notes').checked) {
-        data.notes = (s.notes||[]).slice(0,5);
+        const notes=(s.notes||[]).slice(0,5);
+        if(notes.length>0){
+            sections+='<div class="s"><h2>Working Notes</h2>';
+            notes.forEach(n=>{sections+='<p class="nd">'+esc(n.date)+'</p><p>'+esc(n.text)+'</p>';});
+            sections+='</div>';
+        }
     }
 
-    const json = JSON.stringify(data);
-    const hash = btoa(encodeURIComponent(json));
-    const base = window.location.origin + window.location.pathname.replace('index.html','');
-    const url = base + 'report.html#' + hash;
+    const html = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>IAS Report - ${esc(meta.title)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',Calibri,Arial,sans-serif;color:#1B2A4A;line-height:1.7;max-width:700px;margin:0 auto;padding:32px 24px;background:#fff}
+.hdr{border-bottom:3px solid #CC0000;padding-bottom:16px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:flex-end}
+.hdr-l{display:flex;align-items:center;gap:12px}
+.logo{width:36px;height:36px;background:#CC0000;border-radius:6px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px}
+.hdr h1{font-size:1.3rem;color:#1B2A4A;margin:0}
+.hdr-r{font-size:.75rem;color:#718096;text-align:right}
+.s{margin-bottom:28px}
+.s h2{font-size:1rem;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:6px;margin:0 0 12px}
+.s h3{font-size:.9rem;color:#1B2A4A;margin:16px 0 6px}
+.s p{font-size:.85rem;color:#4A5568;margin:0 0 10px}
+.bl{padding-left:14px;margin:3px 0}
+.pre{white-space:pre-line}
+ol{padding-left:20px;font-size:.85rem;color:#4A5568;margin:0 0 12px}li{margin-bottom:5px}
+.wb{background:#F5F7FA;border-radius:8px;padding:16px 20px;margin:10px 0}
+.wb h3{margin:0 0 8px;font-size:.92rem}
+.sub{margin:8px 0}
+.sl{font-size:.75rem;font-weight:600;color:#00838F;text-transform:uppercase;letter-spacing:.03em;display:block;margin-bottom:3px}
+table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0}
+thead th{background:#1B2A4A;color:#fff;padding:8px 12px;text-align:left;font-size:.78rem;font-weight:500}
+thead th:first-child{border-radius:6px 0 0 0}thead th:last-child{border-radius:0 6px 0 0}
+tbody td{padding:7px 12px;border-bottom:1px solid #E2E8F0;color:#4A5568}
+tbody tr:hover{background:#F5F7FA}
+.nd{font-size:.72rem;color:#718096;margin:0}
+.ftr{margin-top:32px;padding-top:14px;border-top:2px solid #E2E8F0;font-size:.72rem;color:#718096;text-align:center}
+@media print{body{padding:16px}@page{margin:18mm 16mm}}
+@media(max-width:600px){body{padding:16px 14px}.hdr h1{font-size:1.1rem}}
+</style></head><body>
+<div class="hdr"><div class="hdr-l"><div class="logo">I</div><h1>IAS AI Project &mdash; ${esc(meta.title)}</h1></div>
+<div class="hdr-r">Insurance Advisory Service<br>Coach4U<br>${esc(dateStr)}</div></div>
+${sections}
+<div class="ftr">Generated ${esc(dateStr)} &bull; IAS Working Folder &bull; Coach4U</div>
+</body></html>`;
 
-    navigator.clipboard.writeText(url).then(() => {
-        alert('Link copied! Paste it into Teams, email, or any chat.\n\nAnyone with the link can view the styled report.');
-    }).catch(() => {
-        prompt('Copy this link:', url);
-    });
+    const blob = new Blob([html], {type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'IAS-Report-' + meta.title.replace(/\s/g,'-') + '-' + new Date().toISOString().slice(0,10) + '.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    alert('Report downloaded!\\n\\nTo share in Teams:\\n1. Upload to your OneDrive or SharePoint\\n2. Copy the OneDrive link\\n3. Paste in Teams');
 }
 
 function copyHtmlReport() {
