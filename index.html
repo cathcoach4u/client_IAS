@@ -605,9 +605,10 @@ Kind regards, Cath</div>
         <button class="btn btn-outline rpt-format" data-rptformat="exec" onclick="selectReportFormat('exec',this)">Executive Summary</button>
     </div>
 
-    <div class="btn-row" style="margin:16px 0">
+    <div class="btn-row" style="margin:16px 0;flex-wrap:wrap">
         <button class="btn btn-teal" onclick="generateReport()">Generate Report</button>
-        <button class="btn btn-outline" onclick="copyReport()">Copy to Clipboard</button>
+        <button class="btn btn-outline" onclick="copyReport()">Copy Plain Text</button>
+        <button class="btn btn-ai" onclick="copyHtmlReport()">Copy for Email (HTML)</button>
         <button class="btn btn-red" onclick="printReport()">Print / Save PDF</button>
     </div>
 
@@ -1333,6 +1334,112 @@ function printReport() {
 }
 
 function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+
+function copyHtmlReport() {
+    const s = loadState();
+    const m = reportMonth;
+    const meta = monthMeta[m];
+    const intent = (s.intents && s.intents[m]) || '';
+    const goals = ((s.goalItems && s.goalItems[m]) || []).filter(g => g && g.trim());
+
+    let html = '<div style="font-family:Calibri,Arial,sans-serif;color:#1B2A4A;max-width:650px;line-height:1.6">';
+
+    // Header
+    html += '<table width="100%" cellpadding="0" cellspacing="0" style="border-bottom:3px solid #CC0000;padding-bottom:12px;margin-bottom:20px"><tr>';
+    html += '<td><span style="display:inline-block;width:30px;height:30px;background:#CC0000;border-radius:5px;color:#fff;font-weight:700;font-size:16px;text-align:center;line-height:30px;margin-right:10px">I</span>';
+    html += '<strong style="font-size:16px;color:#1B2A4A">IAS AI Project &mdash; ' + esc(meta.title) + '</strong></td>';
+    html += '<td style="text-align:right;font-size:11px;color:#718096">Insurance Advisory Service<br>Coach4U</td></tr></table>';
+
+    // Core Intent
+    if (document.getElementById('rpt-intent').checked && intent) {
+        html += '<h2 style="font-size:14px;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:4px;margin:18px 0 8px">Core Intent</h2>';
+        html += '<p style="font-size:13px;color:#4A5568;margin:0 0 12px">' + esc(intent) + '</p>';
+    }
+
+    // Monthly Goals
+    if (document.getElementById('rpt-goals').checked && goals.length > 0) {
+        html += '<h2 style="font-size:14px;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:4px;margin:18px 0 8px">Monthly Goals</h2>';
+        html += '<ol style="font-size:13px;color:#4A5568;padding-left:18px;margin:0 0 12px">';
+        goals.forEach(g => { html += '<li style="margin-bottom:3px">' + esc(g) + '</li>'; });
+        html += '</ol>';
+    }
+
+    // Monthly Plan Overview
+    if (document.getElementById('rpt-plan').checked) {
+        const practice = (s.practice && s.practice[m]) || {};
+        const weekMap = {april:['w1','w2','w3','w4'], may:['w5','w6','w7','w8'], june:['w9','w10','w11','w12']};
+        let planHtml = '';
+        weekMap[m].forEach(w => {
+            const title = practice[m + '-' + w] || '';
+            if (!title) return;
+            planHtml += '<p style="font-size:13px;margin:10px 0 2px"><strong style="color:#1B2A4A">Week ' + w.replace('w','') + ': ' + esc(title) + '</strong></p>';
+            for (let b = 0; b < 4; b++) {
+                const bullet = practice[m + '-' + w + '-' + b] || '';
+                if (bullet) planHtml += '<p style="font-size:12px;color:#4A5568;margin:2px 0 2px 14px">&bull; ' + esc(bullet) + '</p>';
+            }
+        });
+        if (planHtml) {
+            html += '<h2 style="font-size:14px;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:4px;margin:18px 0 8px">Monthly Plan Overview</h2>' + planHtml;
+        }
+    }
+
+    // Weekly Detail
+    if (document.getElementById('rpt-weeks').checked) {
+        const weekMap = {april:[1,2,3,4], may:[5,6,7,8], june:[9,10,11,12]};
+        let weekHtml = '';
+        weekMap[m].forEach(num => {
+            const wk = 'w' + num;
+            const plan = (s.weekIntents && s.weekIntents[wk]) || '';
+            const next = (s.weekNextSteps && s.weekNextSteps[wk]) || '';
+            const notes = (s.weekTracks && s.weekTracks[wk]) || '';
+            if (!plan && !next && !notes) return;
+            weekHtml += '<div style="background:#F5F7FA;border-radius:6px;padding:12px 16px;margin:8px 0">';
+            weekHtml += '<p style="font-size:13px;font-weight:600;color:#1B2A4A;margin:0 0 6px">Week ' + num + '</p>';
+            if (plan) weekHtml += '<p style="font-size:11px;font-weight:600;color:#00838F;margin:6px 0 2px">Plan</p><p style="font-size:12px;color:#4A5568;margin:0 0 6px">' + esc(plan) + '</p>';
+            if (notes) weekHtml += '<p style="font-size:11px;font-weight:600;color:#00838F;margin:6px 0 2px">What Happened</p><p style="font-size:12px;color:#4A5568;margin:0 0 6px">' + esc(notes) + '</p>';
+            if (next) weekHtml += '<p style="font-size:11px;font-weight:600;color:#00838F;margin:6px 0 2px">Next Steps</p><p style="font-size:12px;color:#4A5568;margin:0;white-space:pre-line">' + esc(next) + '</p>';
+            weekHtml += '</div>';
+        });
+        if (weekHtml) {
+            html += '<h2 style="font-size:14px;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:4px;margin:18px 0 8px">Weekly Reporting</h2>' + weekHtml;
+        }
+    }
+
+    // Decisions
+    if (document.getElementById('rpt-decisions').checked) {
+        const decisions = (s.decisions || []).filter(d => d[0] && d[1]);
+        if (decisions.length > 0) {
+            html += '<h2 style="font-size:14px;color:#00838F;border-bottom:2px solid #E0F2F1;padding-bottom:4px;margin:18px 0 8px">Decisions &amp; Actions</h2>';
+            html += '<table width="100%" cellpadding="6" cellspacing="0" style="font-size:12px;border-collapse:collapse">';
+            html += '<tr style="background:#1B2A4A;color:#fff"><th style="padding:6px 8px;text-align:left">Date</th><th style="padding:6px 8px;text-align:left">Decision</th><th style="padding:6px 8px;text-align:left">Owner</th></tr>';
+            decisions.forEach(d => {
+                html += '<tr><td style="padding:5px 8px;border-bottom:1px solid #E2E8F0;color:#4A5568">' + esc(d[0]) + '</td><td style="padding:5px 8px;border-bottom:1px solid #E2E8F0;color:#4A5568">' + esc(d[1]) + '</td><td style="padding:5px 8px;border-bottom:1px solid #E2E8F0;color:#4A5568">' + esc(d[2]||'') + '</td></tr>';
+            });
+            html += '</table>';
+        }
+    }
+
+    // Footer
+    html += '<p style="margin-top:24px;padding-top:10px;border-top:2px solid #E2E8F0;font-size:11px;color:#718096;text-align:center">';
+    html += 'Generated ' + new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'}) + ' &bull; IAS Working Folder &bull; Coach4U</p>';
+    html += '</div>';
+
+    // Copy as rich HTML to clipboard
+    const blob = new Blob([html], {type: 'text/html'});
+    const plainBlob = new Blob([document.getElementById('report-output').textContent || 'Generate report first'], {type: 'text/plain'});
+    navigator.clipboard.write([
+        new ClipboardItem({
+            'text/html': blob,
+            'text/plain': plainBlob
+        })
+    ]).then(() => showToast()).catch(() => {
+        // Fallback: open in new tab to copy manually
+        const win = window.open('', '_blank');
+        win.document.write(html);
+        win.document.close();
+        alert('HTML opened in new tab. Select all (Ctrl+A) and copy (Ctrl+C) to paste into your email.');
+    });
+}
 
 function copyReport() {
     const output = document.getElementById('report-output').textContent;
