@@ -608,8 +608,9 @@ Kind regards, Cath</div>
     <div class="btn-row" style="margin:16px 0;flex-wrap:wrap">
         <button class="btn btn-teal" onclick="generateReport()">Generate Report</button>
         <button class="btn btn-outline" onclick="copyReport()">Copy Plain Text</button>
-        <button class="btn btn-ai" onclick="copyHtmlReport()">Copy for Email (HTML)</button>
-        <button class="btn btn-red" onclick="printReport()">Print / Save PDF</button>
+        <button class="btn btn-ai" onclick="copyHtmlReport()">Copy for Email</button>
+        <button class="btn btn-red" onclick="printReport()">Print / PDF</button>
+        <button class="btn btn-outline" onclick="shareAsLink()" style="border-color:var(--teal);color:var(--teal)">&#128279; Share as Link</button>
     </div>
 
     <div id="report-preview" style="display:none;margin-top:16px">
@@ -1334,6 +1335,69 @@ function printReport() {
 }
 
 function esc(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+
+function shareAsLink() {
+    const s = loadState();
+    const m = reportMonth;
+    const meta = monthMeta[m];
+    const data = {
+        title: meta.title,
+        date: new Date().toLocaleDateString('en-AU',{day:'numeric',month:'long',year:'numeric'})
+    };
+
+    if (document.getElementById('rpt-intent').checked) {
+        data.intent = (s.intents && s.intents[m]) || '';
+    }
+    if (document.getElementById('rpt-goals').checked) {
+        data.goals = ((s.goalItems && s.goalItems[m]) || []).filter(g => g && g.trim());
+    }
+    if (document.getElementById('rpt-plan').checked) {
+        const practice = (s.practice && s.practice[m]) || {};
+        const weekMap = {april:['w1','w2','w3','w4'], may:['w5','w6','w7','w8'], june:['w9','w10','w11','w12']};
+        data.plan = [];
+        weekMap[m].forEach(w => {
+            const title = practice[m + '-' + w] || '';
+            if (!title) return;
+            const bullets = [];
+            for (let b = 0; b < 4; b++) { const v = practice[m+'-'+w+'-'+b]||''; if(v) bullets.push(v); }
+            data.plan.push({num: w.replace('w',''), title, bullets});
+        });
+    }
+    if (document.getElementById('rpt-weeks').checked) {
+        const weekMap = {april:[1,2,3,4], may:[5,6,7,8], june:[9,10,11,12]};
+        data.weeks = [];
+        weekMap[m].forEach(num => {
+            const wk = 'w'+num;
+            const plan = (s.weekIntents&&s.weekIntents[wk])||'';
+            const next = (s.weekNextSteps&&s.weekNextSteps[wk])||'';
+            const happened = (s.weekTracks&&s.weekTracks[wk])||'';
+            if (plan||next||happened) data.weeks.push({num,plan,next,happened});
+        });
+    }
+    if (document.getElementById('rpt-decisions').checked) {
+        data.decisions = (s.decisions||[]).filter(d => d[0]&&d[1]);
+    }
+    if (document.getElementById('rpt-value').checked) {
+        data.valueLog = (s.valueLog||[]).filter(r => r[0]||r[1]);
+    }
+    if (document.getElementById('rpt-metrics').checked) {
+        data.metrics = s.metrics||{};
+    }
+    if (document.getElementById('rpt-notes').checked) {
+        data.notes = (s.notes||[]).slice(0,5);
+    }
+
+    const json = JSON.stringify(data);
+    const hash = btoa(encodeURIComponent(json));
+    const base = window.location.origin + window.location.pathname.replace('index.html','');
+    const url = base + 'report.html#' + hash;
+
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied! Paste it into Teams, email, or any chat.\n\nAnyone with the link can view the styled report.');
+    }).catch(() => {
+        prompt('Copy this link:', url);
+    });
+}
 
 function copyHtmlReport() {
     const s = loadState();
