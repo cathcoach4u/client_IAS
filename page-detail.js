@@ -12,6 +12,7 @@ function renderSingleKpi(key) {
     </div>
     <div class="forecast-line"><span>Full-year forecast profit</span><strong>${money(b.forecastProfit)}</strong></div>
   </article>`;
+  document.getElementById('singleKpi').innerHTML = `<article class="card kpi-card ${key}"><div class="kpi-head"><h2>${b.name} Performance</h2><span class="tag ${key}">YTD April</span></div><div class="metric-row"><div class="metric"><span>Revenue</span><strong>${money(b.revenue)}</strong></div><div class="metric"><span>Costs</span><strong>${money(b.costs)}</strong></div><div class="metric"><span>Net Profit</span><strong class="${b.profit >= 0 ? 'profit' : 'loss'}">${money(b.profit)}</strong></div></div><div class="forecast-line"><span>Full-year forecast profit</span><strong>${money(b.forecastProfit)}</strong></div></article>`;
 }
 function renderLineItems(key) {
   const b = getBusiness(key);
@@ -35,6 +36,7 @@ function renderDetailBridge(key) {
   new Chart(document.getElementById('detailBridge'), { type: 'bar', data: { labels: ['Trading income', 'Shared income', 'Direct costs', 'Shared costs', 'Adjustments', 'Net profit'], datasets: [{ label: 'Bridge', data: [b.tradingIncome, b.sharedIncome, -(b.directCosts + b.outsourcingCost), -b.sharedCosts, -b.adjustmentsCosts, b.profit], backgroundColor: [b.color, COLORS.shared, COLORS.costs, COLORS.shared, COLORS.accent, b.profit >= 0 ? COLORS.life : COLORS.costs] }] }, options: chartOptions(false) });
 }
 function renderCommentary(key) {
+  const b = getBusiness(key);
   const copy = {
     general: `General remains the largest revenue engine, with renewal income providing the core recurring base. The Jo reallocation increases General costs by ${money(60000)}, making the view more conservative and operationally accountable.`,
     life: `Life has strong recurring and insurer ongoing income. The Jo reallocation reduces Life expenses by ${money(60000)}, while shared income and remaining shared costs are allocated equally with General.`,
