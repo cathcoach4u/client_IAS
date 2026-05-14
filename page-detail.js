@@ -1,5 +1,17 @@
 function renderSingleKpi(key) {
   const b = getBusiness(key);
+  document.getElementById('singleKpi').innerHTML = `<article class="card kpi-card single-kpi-card ${key}">
+    <div class="kpi-head">
+      <h2>${b.name} Performance</h2>
+      <span class="tag ${key}">YTD April</span>
+    </div>
+    <div class="metric-row">
+      <div class="metric"><span>Revenue</span><strong>${money(b.revenue)}</strong></div>
+      <div class="metric"><span>Costs</span><strong>${money(b.costs)}</strong></div>
+      <div class="metric"><span>Net Profit</span><strong class="${b.profit >= 0 ? 'profit' : 'loss'}">${money(b.profit)}</strong></div>
+    </div>
+    <div class="forecast-line"><span>Full-year forecast profit</span><strong>${money(b.forecastProfit)}</strong></div>
+  </article>`;
   document.getElementById('singleKpi').innerHTML = `<article class="card kpi-card ${key}"><div class="kpi-head"><h2>${b.name} Performance</h2><span class="tag ${key}">YTD April</span></div><div class="metric-row"><div class="metric"><span>Revenue</span><strong>${money(b.revenue)}</strong></div><div class="metric"><span>Costs</span><strong>${money(b.costs)}</strong></div><div class="metric"><span>Net Profit</span><strong class="${b.profit >= 0 ? 'profit' : 'loss'}">${money(b.profit)}</strong></div></div><div class="forecast-line"><span>Full-year forecast profit</span><strong>${money(b.forecastProfit)}</strong></div></article>`;
 }
 function renderLineItems(key) {
