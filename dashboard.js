@@ -87,12 +87,16 @@ function getBusinessFigures(businessKey) {
   const fwd = FORWARD_REVENUE[businessKey];
   const v = VIABILITY_OVERRIDES[businessKey];
   const ytdCosts = v && v.ytdCosts != null ? v.ytdCosts : b.costs;
+  const mayJuneCosts = (ytdCosts / 10) * 2;
   return {
     ytdRevenue: b.tradingIncome,
     ytdCosts,
     ytdCostBreakdown: v ? v.ytdCostBreakdown : null,
     mayJuneRevenue: fwd.may + fwd.june,
-    mayJuneCosts: (ytdCosts / 10) * 2
+    mayJuneCosts,
+    mayJuneCostBreakdown: businessKey === 'general'
+      ? 'Pro-rata from YTD $648,498 ÷ 10 × 2 (expenses fairly consistent month to month)'
+      : null
   };
 }
 
@@ -104,7 +108,7 @@ function buildBusinessRow(businessKey) {
 
   const cards = [
     buildCard(businessKey, 'YTD to 30 April', '10 months actual', f.ytdRevenue, f.ytdCosts, f.ytdCostBreakdown),
-    buildCard(businessKey, 'May + June', 'Forward estimate', f.mayJuneRevenue, f.mayJuneCosts),
+    buildCard(businessKey, 'May + June', 'Forward estimate', f.mayJuneRevenue, f.mayJuneCosts, f.mayJuneCostBreakdown),
     buildCard(businessKey, 'Potential FY total', 'YTD + estimate', fyRevenue, fyCosts)
   ].join('');
 
