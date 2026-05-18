@@ -84,6 +84,16 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 .kpi-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .kpi-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 @media (max-width: 1200px) { .kpi-grid--four { grid-template-columns: repeat(2, 1fr); } }
+.card-growth {
+  margin: 12px 4px 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: .82rem;
+  font-weight: 700;
+  text-align: center;
+}
+.card-growth.up { background: rgba(16,185,129,0.12); color: #047857; }
+.card-growth.down { background: rgba(220,38,38,0.12); color: #B91C1C; }
 .kpi-card { padding: 20px; min-height: 0; }
 .kpi-card .metric-row { grid-template-columns: 1fr; gap: 10px; }
 .kpi-card .metric {

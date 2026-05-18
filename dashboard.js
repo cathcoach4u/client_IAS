@@ -71,8 +71,9 @@ function metricCell(label, value, cls, breakdown) {
   return `<div class="metric"><span>${label}</span><strong${c}>${moneyRound(value)}</strong></div>`;
 }
 
-function buildCard(businessKey, period, periodSub, revenue, costs, costBreakdown) {
+function buildCard(businessKey, period, periodSub, revenue, costs, costBreakdown, growthNote) {
   const profit = (revenue == null || costs == null) ? null : revenue - costs;
+  const growthHtml = growthNote ? `<div class="card-growth ${growthNote.cls}">${growthNote.text}</div>` : '';
   return `<article class="card kpi-card ${businessKey}">
     <div class="kpi-head"><h3>${period}</h3>${periodSub ? `<span class="period-sub">${periodSub}</span>` : ''}</div>
     <div class="metric-row">
@@ -80,7 +81,18 @@ function buildCard(businessKey, period, periodSub, revenue, costs, costBreakdown
       ${metricCell('Costs', costs, null, costBreakdown)}
       ${metricCell('Net Profit', profit, profitClass(profit))}
     </div>
+    ${growthHtml}
   </article>`;
+}
+
+function growthVsPrior(currentRevenue, priorRevenue) {
+  if (priorRevenue == null || priorRevenue === 0) return null;
+  const pct = ((currentRevenue - priorRevenue) / priorRevenue) * 100;
+  const sign = pct >= 0 ? '+' : '';
+  return {
+    text: `Revenue ${sign}${pct.toFixed(1)}% vs prior FY (${moneyRound(priorRevenue)})`,
+    cls: pct >= 0 ? 'up' : 'down'
+  };
 }
 
 function getBusinessFigures(businessKey) {
@@ -119,18 +131,24 @@ function buildBusinessRow(businessKey) {
   const f = getBusinessFigures(businessKey);
   const fyRevenue = f.ytdRevenue + f.mayJuneRevenue;
   const fyCosts = f.ytdCosts + f.mayJuneCosts;
+  const prior = PRIOR_FY_BUSINESS[businessKey];
+  const growth = prior ? growthVsPrior(fyRevenue, prior.revenue) : null;
 
-  const cards = [
-    buildCard(businessKey, 'YTD to 30 April', '10 months actual', f.ytdRevenue, f.ytdCosts, f.ytdCostBreakdown),
-    buildCard(businessKey, 'May + June', 'Forward estimate', f.mayJuneRevenue, f.mayJuneCosts, f.mayJuneCostBreakdown),
-    buildCard(businessKey, 'Potential FY total', 'YTD + estimate', fyRevenue, fyCosts)
-  ].join('');
+  const cardList = [];
+  if (prior) {
+    cardList.push(buildCard(businessKey, 'Prior FY (last year)', 'Actual revenue', prior.revenue, prior.costs));
+  }
+  cardList.push(buildCard(businessKey, 'YTD to 30 April', '10 months actual', f.ytdRevenue, f.ytdCosts, f.ytdCostBreakdown));
+  cardList.push(buildCard(businessKey, 'May + June', 'Forward estimate', f.mayJuneRevenue, f.mayJuneCosts, f.mayJuneCostBreakdown));
+  cardList.push(buildCard(businessKey, 'Potential FY total', 'YTD + estimate', fyRevenue, fyCosts, null, growth));
 
+  const gridClass = cardList.length === 4 ? 'kpi-grid--four' : 'kpi-grid--three';
+  const cards = cardList.join('');
   const assumptionItems = ASSUMPTIONS[businessKey].map(t => `<li>${t}</li>`).join('');
 
   return `<section class="business-row">
     <header class="business-row__head"><h2>${meta.name}</h2></header>
-    <div class="grid kpi-grid kpi-grid--three">${cards}</div>
+    <div class="grid kpi-grid ${gridClass}">${cards}</div>
     <aside class="card business-assumptions ${businessKey}">
       <h3>${meta.name} — assumptions</h3>
       <ul>${assumptionItems}</ul>
@@ -139,6 +157,10 @@ function buildBusinessRow(businessKey) {
 }
 
 const PRIOR_FY = { revenue: 1703016, costs: 1701459 };
+const PRIOR_FY_BUSINESS = {
+  general: { revenue: 92642, costs: null },
+  life:    { revenue: 719671, costs: null }
+};
 
 function buildTotalRow() {
   const keys = ['general', 'life', 'outsourcing'];
@@ -158,7 +180,7 @@ function buildTotalRow() {
     buildCard('total', 'Prior FY (last year)', 'Actual full year', PRIOR_FY.revenue, PRIOR_FY.costs),
     buildCard('total', 'YTD to 30 April', 'All businesses · 10 months actual', totals.ytdRevenue, totals.ytdCosts, partsCost),
     buildCard('total', 'May + June', 'All businesses · forward estimate', totals.mayJuneRevenue, totals.mayJuneCosts, partsCostMJ),
-    buildCard('total', 'Potential FY total', 'All businesses · YTD + estimate', fyRevenue, fyCosts, partsCostFY)
+    buildCard('total', 'Potential FY total', 'All businesses · YTD + estimate', fyRevenue, fyCosts, partsCostFY, growthVsPrior(fyRevenue, PRIOR_FY.revenue))
   ].join('');
   return `<section class="business-row business-row--total">
     <header class="business-row__head"><h2>IAS Total — whole business</h2></header>
