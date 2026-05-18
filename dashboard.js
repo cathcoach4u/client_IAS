@@ -26,24 +26,27 @@ const BUSINESS_META = {
   outsourcing: { name: 'Outsourcing' }
 };
 
+const COMMON_ASSUMPTIONS = [
+  '<strong>Operations base:</strong> total operations $408,945 (rent, compliance, Leah &amp; Dimple salaries; excludes Jo\'s pre-March salary). 50% allocated to each of General and Life.',
+  '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.'
+];
+
 const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
     '<strong>YTD costs ($648,498):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 20% share $33,000.',
-    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.',
+    ...COMMON_ASSUMPTIONS,
     '<span class="question">Does the lead of the General team expect to end the year with the figures above? Any accounts in danger?</span>'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
-    'Receives half of the shared income pool.',
-    '<strong>Operations base:</strong> total operations $408,945 (rent, compliance, Leah & Dimple salaries; excludes Jo\'s pre-March salary). 50% allocated here.',
-    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing. <em>Life dollar share to be applied once Jo\'s full salary base is confirmed.</em>'
+    ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
     'Income shown: YTD to 30 April $48,137 · May $18,913 · June $18,913.',
     'Expenses shown: YTD to 30 April $48,795 · May $16,356 · June $16,356.',
     '<strong>20% of Leah\'s salary</strong> ($25,000) → $5,000 allocated to IAS Outsourcing.',
-    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing. <em>Outsourcing dollar share to be applied once Jo\'s full salary base is confirmed.</em>'
+    ...COMMON_ASSUMPTIONS
   ]
 };
 
