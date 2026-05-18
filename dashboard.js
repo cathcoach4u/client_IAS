@@ -158,7 +158,7 @@ function buildBusinessRow(businessKey) {
 
 const PRIOR_FY = { revenue: 1703016, costs: 1701459 };
 const PRIOR_FY_BUSINESS = {
-  general: { revenue: 92642, costs: null },
+  general: { revenue: 982642, costs: null },
   life:    { revenue: 719671, costs: null }
 };
 
