@@ -17,6 +17,10 @@ const VIABILITY_OVERRIDES = {
   general: {
     ytdCosts: 648498,
     ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 20% $33,000'
+  },
+  life: {
+    ytdCosts: 654688,
+    ytdCostBreakdown: 'April YTD: Xero $483,215 · 50% of operations less $33,000'
   }
 };
 
@@ -40,6 +44,7 @@ const ASSUMPTIONS = {
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
+    '<strong>YTD costs ($654,688):</strong> Current Xero costs $483,215 + 50% of operations less $33,000.',
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
@@ -99,7 +104,9 @@ function getBusinessFigures(businessKey) {
     mayJuneCosts,
     mayJuneCostBreakdown: businessKey === 'general'
       ? 'Pro-rata from YTD $648,498 ÷ 10 × 2 (expenses fairly consistent month to month)'
-      : null
+      : (businessKey === 'life'
+          ? 'Pro-rata from YTD $654,688 ÷ 10 × 2 (expenses fairly consistent month to month)'
+          : null)
   };
 }
 
