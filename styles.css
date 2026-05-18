@@ -81,6 +81,7 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 
 /* Readability refinements: keep board KPI figures clear and prevent currency values from being squeezed. */
 .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
+.kpi-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .kpi-card { padding: 26px; min-height: 242px; }
 .kpi-card .metric-row { grid-template-columns: 1fr; gap: 14px; }
 .kpi-card .metric {
@@ -129,7 +130,7 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 .group-row { grid-template-columns: minmax(110px, 150px) minmax(140px, 1fr) minmax(132px, auto); }
 .group-row > span:last-child { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (max-width: 980px) {
-  .kpi-grid, .single-kpi-card .metric-row { grid-template-columns: 1fr; }
+  .kpi-grid, .kpi-grid--three, .single-kpi-card .metric-row { grid-template-columns: 1fr; }
   .kpi-card .metric, .single-kpi-card .metric { display: block; min-height: auto; }
   .kpi-card .metric strong, .single-kpi-card .metric strong { text-align: left; white-space: normal; }
 }
