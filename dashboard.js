@@ -138,6 +138,8 @@ function buildBusinessRow(businessKey) {
   </section>`;
 }
 
+const PRIOR_FY = { revenue: 1703016, costs: 1701459 };
+
 function buildTotalRow() {
   const keys = ['general', 'life', 'outsourcing'];
   const figs = keys.map(getBusinessFigures);
@@ -153,13 +155,14 @@ function buildTotalRow() {
   const partsCostMJ = `General ${moneyRound(figs[0].mayJuneCosts)} · Life ${moneyRound(figs[1].mayJuneCosts)} · Outsourcing ${moneyRound(figs[2].mayJuneCosts)}`;
   const partsCostFY = `General ${moneyRound(figs[0].ytdCosts + figs[0].mayJuneCosts)} · Life ${moneyRound(figs[1].ytdCosts + figs[1].mayJuneCosts)} · Outsourcing ${moneyRound(figs[2].ytdCosts + figs[2].mayJuneCosts)}`;
   const cards = [
+    buildCard('total', 'Prior FY (last year)', 'Actual full year', PRIOR_FY.revenue, PRIOR_FY.costs),
     buildCard('total', 'YTD to 30 April', 'All businesses · 10 months actual', totals.ytdRevenue, totals.ytdCosts, partsCost),
     buildCard('total', 'May + June', 'All businesses · forward estimate', totals.mayJuneRevenue, totals.mayJuneCosts, partsCostMJ),
     buildCard('total', 'Potential FY total', 'All businesses · YTD + estimate', fyRevenue, fyCosts, partsCostFY)
   ].join('');
   return `<section class="business-row business-row--total">
     <header class="business-row__head"><h2>IAS Total — whole business</h2></header>
-    <div class="grid kpi-grid kpi-grid--three">${cards}</div>
+    <div class="grid kpi-grid kpi-grid--four">${cards}</div>
   </section>`;
 }
 
