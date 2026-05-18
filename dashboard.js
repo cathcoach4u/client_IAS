@@ -190,13 +190,6 @@ function buildTotalRow() {
   </section>`;
 }
 
-function formatPctChange(pct, isCost) {
-  const sign = pct >= 0 ? '+' : '';
-  const text = `${sign}${pct.toFixed(1)}%`;
-  const isGood = isCost ? pct <= 0 : pct >= 0;
-  return { text, cls: isGood ? 'pct-up' : 'pct-down' };
-}
-
 function formatDollarChange(diff) {
   const sign = diff >= 0 ? '+' : '';
   return { text: `${sign}${moneyRound(diff)}`, cls: diff >= 0 ? 'pct-up' : 'pct-down' };
@@ -204,7 +197,13 @@ function formatDollarChange(diff) {
 
 function rowChange(prior, projected, isCost) {
   if (prior == null || prior <= 0 || projected == null) return { text: 'n/a', cls: '' };
-  return formatPctChange((projected - prior) / prior * 100, !!isCost);
+  const diff = projected - prior;
+  const pct = (diff / prior) * 100;
+  const dollarSign = diff >= 0 ? '+' : '';
+  const pctSign = pct >= 0 ? '+' : '';
+  const text = `${dollarSign}${moneyRound(diff)} (${pctSign}${pct.toFixed(1)}%)`;
+  const isGood = isCost ? pct <= 0 : pct >= 0;
+  return { text, cls: isGood ? 'pct-up' : 'pct-down' };
 }
 
 function netCls(v) {
