@@ -30,8 +30,8 @@ const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
     '<strong>YTD costs ($648,498):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 20% share $33,000.',
-    'Receives half of the shared income pool.',
-    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.'
+    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.',
+    '<span class="question">Does the lead of the General team expect to end the year with the figures above? Any accounts in danger?</span>'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
