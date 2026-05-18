@@ -9,8 +9,8 @@ const FORWARD_REVENUE = {
 
 const OUTSOURCING_ACTUALS = {
   ytd:  { revenue: 48137, costs: 96795 },
-  may:  { revenue: 18913, costs: 16356 },
-  june: { revenue: 18913, costs: 16356 }
+  may:  { revenue: 18913, costs: 21056 },
+  june: { revenue: 18913, costs: 21056 }
 };
 
 const VIABILITY_OVERRIDES = {
@@ -53,7 +53,7 @@ const ASSUMPTIONS = {
     '<strong>25% of Leah\'s salary</strong> → $25,000 allocated to IAS Outsourcing (was previously shown as 20% / $5,000 — that figure was incorrect).',
     '<strong>10% of Jo\'s salary</strong> ($220,000) → $22,000 allocated to IAS Outsourcing.',
     'The $96,795 Outsourcing cost is carved out of total operations $408,945 before the remaining $312,150 is split 50/50 between General and Life.',
-    'May and June expenses use the supplied figures rather than the YTD pro-rata applied to General and Life.',
+    'May and June expenses: supplied Xero figure $16,356 per month + 2-month pro-rata of Leah ($5,000) and Jo ($4,400) salary allocations = $42,112 total.',
     ...COMMON_ASSUMPTIONS
   ]
 };
@@ -92,7 +92,7 @@ function getBusinessFigures(businessKey) {
       ytdCostBreakdown: 'April YTD: Xero $49,795 · Leah 25% $25,000 · Jo 10% $22,000',
       mayJuneRevenue: a.may.revenue + a.june.revenue,
       mayJuneCosts: a.may.costs + a.june.costs,
-      mayJuneCostBreakdown: 'May $16,356 + June $16,356 (supplied figures, not pro-rata)'
+      mayJuneCostBreakdown: 'Xero $32,712 ($16,356 × 2 supplied) + Leah pro-rata $5,000 + Jo pro-rata $4,400'
     };
   }
   const b = getBusiness(businessKey);
