@@ -188,9 +188,41 @@ function buildTotalRow() {
   </section>`;
 }
 
+function buildSummaryPill(label, key, priorRevenue, projectedRevenue) {
+  const hasPrior = priorRevenue != null && priorRevenue > 0;
+  const pct = hasPrior ? ((projectedRevenue - priorRevenue) / priorRevenue) * 100 : null;
+  const sign = pct != null && pct >= 0 ? '+' : '';
+  const growthClass = pct != null ? (pct >= 0 ? 'up' : 'down') : 'none';
+  const growthDisplay = pct != null ? `${sign}${pct.toFixed(1)}%` : 'n/a';
+  return `<article class="card summary-pill ${key}" data-area="${key}">
+    <header class="summary-head">
+      <h3>${label}</h3>
+      <button class="print-btn" type="button" onclick="printArea('${key}')">Print PDF</button>
+    </header>
+    <div class="pill-stat"><span>Last FY revenue</span><strong>${hasPrior ? moneyRound(priorRevenue) : '—'}</strong></div>
+    <div class="pill-stat"><span>Projected FY revenue</span><strong>${moneyRound(projectedRevenue)}</strong></div>
+    <div class="pill-growth ${growthClass}"><span class="pill-growth-label">Growth vs prior FY</span><strong>${growthDisplay}</strong></div>
+  </article>`;
+}
+
+function printArea(areaKey) {
+  document.body.classList.add('printing-' + areaKey);
+  window.print();
+  setTimeout(() => document.body.classList.remove('printing-' + areaKey), 200);
+}
+
 function renderKpis() {
   const wrap = document.getElementById('kpiGrid');
   if (!wrap) return;
-  wrap.innerHTML = buildTotalRow() + ['general', 'life', 'outsourcing'].map(buildBusinessRow).join('');
+  const keys = ['general', 'life', 'outsourcing'];
+  const figs = keys.map(getBusinessFigures);
+  const totalFY = figs.reduce((acc, f) => acc + (f.ytdRevenue || 0) + (f.mayJuneRevenue || 0), 0);
+  const pills = [
+    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFY),
+    buildSummaryPill('General', 'general', PRIOR_FY_BUSINESS.general && PRIOR_FY_BUSINESS.general.revenue, figs[0].ytdRevenue + figs[0].mayJuneRevenue),
+    buildSummaryPill('Life', 'life', PRIOR_FY_BUSINESS.life && PRIOR_FY_BUSINESS.life.revenue, figs[1].ytdRevenue + figs[1].mayJuneRevenue),
+    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue)
+  ];
+  wrap.innerHTML = `<div class="summary-grid">${pills.join('')}</div>`;
 }
 document.addEventListener('DOMContentLoaded', renderKpis);
