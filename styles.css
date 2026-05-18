@@ -154,7 +154,22 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
   text-transform: uppercase;
   margin: 0 0 8px;
 }
-.callout p { margin: 0; color: var(--text); line-height: 1.55; }
+.callout p { margin: 0 0 8px; color: var(--text); line-height: 1.55; }
+.callout p:last-child { margin-bottom: 0; }
+.metric.metric--with-detail { display: block; padding: 11px 14px; }
+.metric.metric--with-detail .metric-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.metric.metric--with-detail .metric-breakdown {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-style: italic;
+  line-height: 1.4;
+}
 .business-row { margin-bottom: 22px; }
 .business-row:last-child { margin-bottom: 0; }
 .business-row__head {

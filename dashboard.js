@@ -13,51 +13,60 @@ const OUTSOURCING_ACTUALS = {
   june: { revenue: 18913, costs: 16356 }
 };
 
+const VIABILITY_OVERRIDES = {
+  general: {
+    ytdCosts: 648498,
+    ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 20% $33,000'
+  }
+};
+
 const BUSINESS_META = {
-  general:     { name: 'General',     tag: 'Managed',     tagCls: 'general' },
-  life:        { name: 'Life',        tag: 'Managed',     tagCls: 'life' },
-  outsourcing: { name: 'Outsourcing', tag: 'Early stage', tagCls: 'outsourcing' }
+  general:     { name: 'General' },
+  life:        { name: 'Life' },
+  outsourcing: { name: 'Outsourcing' }
 };
 
 const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
+    '<strong>YTD costs ($648,498):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 20% share $33,000.',
     'Receives half of the shared income pool.',
-    'Receives half of the shared cost pool (after the $50,000 Outsourcing carve-out).',
-    'Includes the Jo $60,000 expense transfer received from Life.'
+    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
     'Receives half of the shared income pool.',
-    'Receives half of the shared cost pool (after the $50,000 Outsourcing carve-out).',
-    'Reduced by the Jo $60,000 expense transfer to General.'
+    '<strong>Operations base:</strong> total operations $408,945 (rent, compliance, Leah & Dimple salaries; excludes Jo\'s pre-March salary). 50% allocated here.',
+    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing. <em>Life dollar share to be applied once Jo\'s full salary base is confirmed.</em>'
   ],
   outsourcing: [
-    'Income shown: YTD to 30 April $48,137, May $18,913, June $18,913.',
-    'Expenses shown: YTD to 30 April $48,795, May $16,356, June $16,356.',
-    '<strong>10% of Jo\'s salary</strong> is allocated to IAS Outsourcing. <em>Jo\'s salary: $22,000 · Allocation to Outsourcing: $2,200</em>',
-    '<strong>20% of Leah\'s salary</strong> is allocated to IAS Outsourcing. <em>Leah\'s salary: $25,000 · Allocation to Outsourcing: $5,000</em>',
-    '<strong>Combined salary allocation to IAS Outsourcing: $7,200.</strong>'
+    'Income shown: YTD to 30 April $48,137 · May $18,913 · June $18,913.',
+    'Expenses shown: YTD to 30 April $48,795 · May $16,356 · June $16,356.',
+    '<strong>20% of Leah\'s salary</strong> ($25,000) → $5,000 allocated to IAS Outsourcing.',
+    '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing. <em>Outsourcing dollar share to be applied once Jo\'s full salary base is confirmed.</em>'
   ]
 };
 
 function profitClass(v) { return v == null ? null : (v >= 0 ? 'profit' : 'loss'); }
 
-function metricCell(label, value, cls) {
+function metricCell(label, value, cls, breakdown) {
   if (value == null) {
     return `<div class="metric"><span>${label}</span><strong class="placeholder">—</strong></div>`;
   }
   const c = cls ? ` class="${cls}"` : '';
+  if (breakdown) {
+    return `<div class="metric metric--with-detail"><div class="metric-main"><span>${label}</span><strong${c}>${moneyRound(value)}</strong></div><div class="metric-breakdown">${breakdown}</div></div>`;
+  }
   return `<div class="metric"><span>${label}</span><strong${c}>${moneyRound(value)}</strong></div>`;
 }
 
-function buildCard(businessKey, period, periodSub, revenue, costs) {
+function buildCard(businessKey, period, periodSub, revenue, costs, costBreakdown) {
   const profit = (revenue == null || costs == null) ? null : revenue - costs;
   return `<article class="card kpi-card ${businessKey}">
     <div class="kpi-head"><h3>${period}</h3>${periodSub ? `<span class="period-sub">${periodSub}</span>` : ''}</div>
     <div class="metric-row">
       ${metricCell('Revenue', revenue)}
-      ${metricCell('Costs', costs)}
+      ${metricCell('Costs', costs, null, costBreakdown)}
       ${metricCell('Net Profit', profit, profitClass(profit))}
     </div>
   </article>`;
@@ -69,19 +78,21 @@ function getBusinessFigures(businessKey) {
     return {
       ytdRevenue: a.ytd.revenue,
       ytdCosts: a.ytd.costs,
+      ytdCostBreakdown: null,
       mayJuneRevenue: a.may.revenue + a.june.revenue,
-      mayJuneCosts: a.may.costs + a.june.costs,
-      mayJuneCostNote: 'Forward estimate'
+      mayJuneCosts: a.may.costs + a.june.costs
     };
   }
   const b = getBusiness(businessKey);
   const fwd = FORWARD_REVENUE[businessKey];
+  const v = VIABILITY_OVERRIDES[businessKey];
+  const ytdCosts = v && v.ytdCosts != null ? v.ytdCosts : b.costs;
   return {
     ytdRevenue: b.tradingIncome,
-    ytdCosts: b.costs,
+    ytdCosts,
+    ytdCostBreakdown: v ? v.ytdCostBreakdown : null,
     mayJuneRevenue: fwd.may + fwd.june,
-    mayJuneCosts: (b.costs / 10) * 2,
-    mayJuneCostNote: 'Forward estimate'
+    mayJuneCosts: (ytdCosts / 10) * 2
   };
 }
 
@@ -92,8 +103,8 @@ function buildBusinessRow(businessKey) {
   const fyCosts = f.ytdCosts + f.mayJuneCosts;
 
   const cards = [
-    buildCard(businessKey, 'YTD to 30 April', '10 months actual', f.ytdRevenue, f.ytdCosts),
-    buildCard(businessKey, 'May + June', f.mayJuneCostNote, f.mayJuneRevenue, f.mayJuneCosts),
+    buildCard(businessKey, 'YTD to 30 April', '10 months actual', f.ytdRevenue, f.ytdCosts, f.ytdCostBreakdown),
+    buildCard(businessKey, 'May + June', 'Forward estimate', f.mayJuneRevenue, f.mayJuneCosts),
     buildCard(businessKey, 'Potential FY total', 'YTD + estimate', fyRevenue, fyCosts)
   ].join('');
 
