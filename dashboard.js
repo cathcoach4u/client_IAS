@@ -15,12 +15,12 @@ const OUTSOURCING_ACTUALS = {
 
 const VIABILITY_OVERRIDES = {
   general: {
-    ytdCosts: 664998,
-    ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 30% $49,500'
+    ytdCosts: 670498,
+    ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 30% $55,000'
   },
   life: {
-    ytdCosts: 638188,
-    ytdCostBreakdown: 'April YTD: Xero $483,215 · Operations 50% $204,473 · less $49,500'
+    ytdCosts: 632688,
+    ytdCostBreakdown: 'April YTD: Xero $483,215 · Operations 50% $204,473 · less $55,000'
   }
 };
 
@@ -38,13 +38,13 @@ const COMMON_ASSUMPTIONS = [
 const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
-    '<strong>YTD costs ($664,998):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 30% share $49,500.',
+    '<strong>YTD costs ($670,498):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 30% share $55,000 (annual salary $220,000).',
     ...COMMON_ASSUMPTIONS,
     '<span class="question">Does the lead of the General team expect to end the year with the figures above? Any accounts in danger?</span>'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
-    '<strong>YTD costs ($638,188):</strong> Xero $483,215 + Operations 50% $204,473 − $49,500.',
+    '<strong>YTD costs ($632,688):</strong> Xero $483,215 + Operations 50% $204,473 − $55,000.',
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
@@ -105,9 +105,9 @@ function getBusinessFigures(businessKey) {
     mayJuneRevenue: fwd.may + fwd.june,
     mayJuneCosts,
     mayJuneCostBreakdown: businessKey === 'general'
-      ? 'Pro-rata from YTD $664,998 ÷ 10 × 2 (expenses fairly consistent month to month)'
+      ? 'Pro-rata from YTD $670,498 ÷ 10 × 2 (expenses fairly consistent month to month)'
       : (businessKey === 'life'
-          ? 'Pro-rata from YTD $638,188 ÷ 10 × 2 (expenses fairly consistent month to month)'
+          ? 'Pro-rata from YTD $632,688 ÷ 10 × 2 (expenses fairly consistent month to month)'
           : null)
   };
 }
