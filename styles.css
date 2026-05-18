@@ -39,7 +39,7 @@ h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.03; letter-s
 .kpi-card.general::before, .tag.general { background: var(--general); }
 .kpi-card.life::before, .tag.life { background: var(--life); }
 .kpi-card.outsourcing::before, .tag.outsourcing { background: var(--outsourcing); }
-.kpi-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+.kpi-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
 .kpi-head h2, .card h2, .card h3 { margin: 0; letter-spacing: -.025em; }
 .tag { color: white; border-radius: 999px; padding: 7px 10px; font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .08em; background: var(--accent); }
 .metric-row { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
@@ -47,7 +47,7 @@ h1 { margin: 0; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.03; letter-s
 .metric span { display: block; color: var(--muted); font-size: .76rem; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; }
 .metric strong { display: block; margin-top: 5px; font-size: 1.15rem; letter-spacing: -.03em; }
 .profit { color: var(--life); } .loss { color: var(--costs); }
-.forecast-line { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .9rem; }
+.forecast-line { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .85rem; line-height: 1.3; }
 .forecast-line strong { color: var(--text); }
 .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 16px 0 20px; }
 .selector { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--border); padding: 10px 14px; border-radius: 16px; box-shadow: var(--shadow); }
@@ -82,24 +82,31 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 /* Readability refinements: keep board KPI figures clear and prevent currency values from being squeezed. */
 .kpi-grid { grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); }
 .kpi-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.kpi-card { padding: 26px; min-height: 242px; }
-.kpi-card .metric-row { grid-template-columns: 1fr; gap: 14px; }
+.kpi-card { padding: 20px; min-height: 0; }
+.kpi-card .metric-row { grid-template-columns: 1fr; gap: 10px; }
 .kpi-card .metric {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  min-height: 66px;
-  padding: 15px 18px;
+  gap: 14px;
+  min-height: 0;
+  padding: 11px 14px;
 }
 .kpi-card .metric strong {
-  font-size: clamp(1.28rem, 1.55vw, 1.72rem);
+  font-size: clamp(1.3rem, 1.7vw, 1.8rem);
   line-height: 1.1;
   text-align: right;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
 }
-.kpi-card .metric span { flex: 0 0 auto; }
+.kpi-card .metric span {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  line-height: 1.25;
+  font-size: .72rem;
+}
 .single-kpi-card { min-height: 0; }
 .single-kpi-card .metric-row { grid-template-columns: repeat(3, minmax(220px, 1fr)); }
 .single-kpi-card .metric {
