@@ -207,6 +207,11 @@ function rowChange(prior, projected, isCost) {
   return formatPctChange((projected - prior) / prior * 100, !!isCost);
 }
 
+function netCls(v) {
+  if (v == null) return '';
+  return v >= 0 ? 'pct-up' : 'pct-down';
+}
+
 function buildSummaryPill(label, key, priorRevenue, projRevenue, priorCosts, projCosts) {
   const priorNet = (priorRevenue != null && priorCosts != null) ? priorRevenue - priorCosts : null;
   const projNet  = (projRevenue  != null && projCosts  != null) ? projRevenue  - projCosts  : null;
@@ -224,7 +229,7 @@ function buildSummaryPill(label, key, priorRevenue, projRevenue, priorCosts, pro
       <tbody>
         <tr><th>Revenue</th><td>${fmt(priorRevenue)}</td><td>${fmt(projRevenue)}</td><td class="${revChange.cls}">${revChange.text}</td></tr>
         <tr><th>Costs</th><td>${fmt(priorCosts)}</td><td>${fmt(projCosts)}</td><td class="${costChange.cls}">${costChange.text}</td></tr>
-        <tr class="net-row"><th>Net Profit</th><td>${fmt(priorNet)}</td><td>${fmt(projNet)}</td><td class="${netChange.cls}">${netChange.text}</td></tr>
+        <tr class="net-row"><th>Net Profit</th><td class="${netCls(priorNet)}">${fmt(priorNet)}</td><td class="${netCls(projNet)}">${fmt(projNet)}</td><td class="${netChange.cls}">${netChange.text}</td></tr>
       </tbody>
     </table>
   </article>`;
