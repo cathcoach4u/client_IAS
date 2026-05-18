@@ -95,6 +95,13 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 .card-growth.up { background: rgba(16,185,129,0.12); color: #047857; }
 .card-growth.down { background: rgba(220,38,38,0.12); color: #B91C1C; }
 
+.pill-section-title {
+  margin: 18px 4px 12px;
+  font-size: 1.1rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
