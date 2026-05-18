@@ -48,9 +48,10 @@ const ASSUMPTIONS = {
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
-    'Income shown: YTD to 30 April $48,137 · May $18,913 · June $18,913.',
-    'Expenses shown: YTD to 30 April $48,795 · May $16,356 · June $16,356.',
+    '<strong>Forward revenue:</strong> May $18,913 + June $18,913 = $37,826 of additional invoiced revenue expected.',
+    '<strong>YTD costs ($48,795):</strong> as supplied · includes 20% of Leah\'s salary $5,000. Jo\'s 10% allocation pending salary base.',
     '<strong>20% of Leah\'s salary</strong> ($25,000) → $5,000 allocated to IAS Outsourcing.',
+    'May and June expenses use the supplied figures rather than the YTD pro-rata applied to General and Life.',
     ...COMMON_ASSUMPTIONS
   ]
 };
@@ -86,9 +87,10 @@ function getBusinessFigures(businessKey) {
     return {
       ytdRevenue: a.ytd.revenue,
       ytdCosts: a.ytd.costs,
-      ytdCostBreakdown: null,
+      ytdCostBreakdown: 'April YTD: as supplied · includes 20% of Leah\'s salary $5,000',
       mayJuneRevenue: a.may.revenue + a.june.revenue,
-      mayJuneCosts: a.may.costs + a.june.costs
+      mayJuneCosts: a.may.costs + a.june.costs,
+      mayJuneCostBreakdown: 'May $16,356 + June $16,356 (supplied figures, not pro-rata)'
     };
   }
   const b = getBusiness(businessKey);
