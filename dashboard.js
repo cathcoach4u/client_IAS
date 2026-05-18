@@ -100,7 +100,7 @@ function buildBusinessRow(businessKey) {
   const assumptionItems = ASSUMPTIONS[businessKey].map(t => `<li>${t}</li>`).join('');
 
   return `<section class="business-row">
-    <header class="business-row__head"><h2>${meta.name}</h2><span class="tag ${meta.tagCls}">${meta.tag}</span></header>
+    <header class="business-row__head"><h2>${meta.name}</h2></header>
     <div class="grid kpi-grid kpi-grid--three">${cards}</div>
     <aside class="card business-assumptions ${businessKey}">
       <h3>${meta.name} — assumptions</h3>
