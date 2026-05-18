@@ -39,12 +39,14 @@ const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
     '<strong>YTD costs ($622,100):</strong> Current Xero costs $411,025 + 50% of operations (post-carve-out) $156,075 + Jo\'s salary 30% share $55,000.',
+    '<strong>Prior FY cost assumption:</strong> last year\'s total costs $1,701,459 are split 50/50 between General and Life ($850,730 each), since no per-business prior cost breakdown was supplied.',
     ...COMMON_ASSUMPTIONS,
     '<span class="question">Does the lead of the General team expect to end the year with the figures above? Any accounts in danger?</span>'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
     '<strong>YTD costs ($584,290):</strong> Xero $483,215 + Operations 50% (post-carve-out) $156,075 − $55,000.',
+    '<strong>Prior FY cost assumption:</strong> last year\'s total costs $1,701,459 are split 50/50 between General and Life ($850,730 each), since no per-business prior cost breakdown was supplied.',
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
@@ -158,8 +160,8 @@ function buildBusinessRow(businessKey) {
 
 const PRIOR_FY = { revenue: 1703016, costs: 1701459 };
 const PRIOR_FY_BUSINESS = {
-  general: { revenue: 982642, costs: null },
-  life:    { revenue: 719671, costs: null }
+  general: { revenue: 982642, costs: PRIOR_FY.costs / 2 },
+  life:    { revenue: 719671, costs: PRIOR_FY.costs / 2 }
 };
 
 function buildTotalRow() {
