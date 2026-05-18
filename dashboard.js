@@ -15,12 +15,12 @@ const OUTSOURCING_ACTUALS = {
 
 const VIABILITY_OVERRIDES = {
   general: {
-    ytdCosts: 648498,
-    ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 20% $33,000'
+    ytdCosts: 664998,
+    ytdCostBreakdown: 'April YTD: Xero $411,025 · Operations 50% $204,473 · Jo\'s salary 30% $49,500'
   },
   life: {
-    ytdCosts: 654688,
-    ytdCostBreakdown: 'April YTD: Xero $483,215 · Operations 50% $204,473 · less $33,000'
+    ytdCosts: 638188,
+    ytdCostBreakdown: 'April YTD: Xero $483,215 · Operations 50% $204,473 · less $49,500'
   }
 };
 
@@ -32,19 +32,19 @@ const BUSINESS_META = {
 
 const COMMON_ASSUMPTIONS = [
   '<strong>Operations base:</strong> total operations $408,945 (rent, compliance, Leah &amp; Dimple salaries; excludes Jo\'s pre-March salary). 50% allocated to each of General and Life.',
-  '<strong>Jo\'s salary split:</strong> 70% FP/Life · 20% General · 10% Outsourcing.'
+  '<strong>Jo\'s salary split:</strong> 60% FP/Life · 30% General · 10% Outsourcing.'
 ];
 
 const ASSUMPTIONS = {
   general: [
     '<strong>Forward revenue:</strong> May $76,300 + June $153,600 = $229,900 of additional invoiced revenue expected.',
-    '<strong>YTD costs ($648,498):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 20% share $33,000.',
+    '<strong>YTD costs ($664,998):</strong> Current Xero costs $411,025 + 50% of operations $204,473 + Jo\'s salary 30% share $49,500.',
     ...COMMON_ASSUMPTIONS,
     '<span class="question">Does the lead of the General team expect to end the year with the figures above? Any accounts in danger?</span>'
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
-    '<strong>YTD costs ($654,688):</strong> Xero $483,215 + Operations 50% $204,473 − $33,000.',
+    '<strong>YTD costs ($638,188):</strong> Xero $483,215 + Operations 50% $204,473 − $49,500.',
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
@@ -105,9 +105,9 @@ function getBusinessFigures(businessKey) {
     mayJuneRevenue: fwd.may + fwd.june,
     mayJuneCosts,
     mayJuneCostBreakdown: businessKey === 'general'
-      ? 'Pro-rata from YTD $648,498 ÷ 10 × 2 (expenses fairly consistent month to month)'
+      ? 'Pro-rata from YTD $664,998 ÷ 10 × 2 (expenses fairly consistent month to month)'
       : (businessKey === 'life'
-          ? 'Pro-rata from YTD $654,688 ÷ 10 × 2 (expenses fairly consistent month to month)'
+          ? 'Pro-rata from YTD $638,188 ÷ 10 × 2 (expenses fairly consistent month to month)'
           : null)
   };
 }
@@ -136,9 +136,34 @@ function buildBusinessRow(businessKey) {
   </section>`;
 }
 
+function buildTotalRow() {
+  const keys = ['general', 'life', 'outsourcing'];
+  const figs = keys.map(getBusinessFigures);
+  const totals = figs.reduce((acc, f) => ({
+    ytdRevenue: acc.ytdRevenue + (f.ytdRevenue || 0),
+    ytdCosts: acc.ytdCosts + (f.ytdCosts || 0),
+    mayJuneRevenue: acc.mayJuneRevenue + (f.mayJuneRevenue || 0),
+    mayJuneCosts: acc.mayJuneCosts + (f.mayJuneCosts || 0)
+  }), { ytdRevenue: 0, ytdCosts: 0, mayJuneRevenue: 0, mayJuneCosts: 0 });
+  const fyRevenue = totals.ytdRevenue + totals.mayJuneRevenue;
+  const fyCosts = totals.ytdCosts + totals.mayJuneCosts;
+  const partsCost = `General ${moneyRound(figs[0].ytdCosts)} · Life ${moneyRound(figs[1].ytdCosts)} · Outsourcing ${moneyRound(figs[2].ytdCosts)}`;
+  const partsCostMJ = `General ${moneyRound(figs[0].mayJuneCosts)} · Life ${moneyRound(figs[1].mayJuneCosts)} · Outsourcing ${moneyRound(figs[2].mayJuneCosts)}`;
+  const partsCostFY = `General ${moneyRound(figs[0].ytdCosts + figs[0].mayJuneCosts)} · Life ${moneyRound(figs[1].ytdCosts + figs[1].mayJuneCosts)} · Outsourcing ${moneyRound(figs[2].ytdCosts + figs[2].mayJuneCosts)}`;
+  const cards = [
+    buildCard('total', 'YTD to 30 April', 'All businesses · 10 months actual', totals.ytdRevenue, totals.ytdCosts, partsCost),
+    buildCard('total', 'May + June', 'All businesses · forward estimate', totals.mayJuneRevenue, totals.mayJuneCosts, partsCostMJ),
+    buildCard('total', 'Potential FY total', 'All businesses · YTD + estimate', fyRevenue, fyCosts, partsCostFY)
+  ].join('');
+  return `<section class="business-row business-row--total">
+    <header class="business-row__head"><h2>IAS Total — whole business</h2></header>
+    <div class="grid kpi-grid kpi-grid--three">${cards}</div>
+  </section>`;
+}
+
 function renderKpis() {
   const wrap = document.getElementById('kpiGrid');
   if (!wrap) return;
-  wrap.innerHTML = ['general', 'life', 'outsourcing'].map(buildBusinessRow).join('');
+  wrap.innerHTML = buildTotalRow() + ['general', 'life', 'outsourcing'].map(buildBusinessRow).join('');
 }
 document.addEventListener('DOMContentLoaded', renderKpis);
