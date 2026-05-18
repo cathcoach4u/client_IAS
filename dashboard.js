@@ -243,13 +243,16 @@ function renderKpis() {
   const totalFYCost = figs.reduce((acc, f) => acc + (f.ytdCosts || 0) + (f.mayJuneCosts || 0), 0);
   const priorRev = b => PRIOR_FY_BUSINESS[b] && PRIOR_FY_BUSINESS[b].revenue;
   const priorCost = b => PRIOR_FY_BUSINESS[b] && PRIOR_FY_BUSINESS[b].costs;
-  const pills = [
-    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFYRev, PRIOR_FY.costs, totalFYCost),
+  const totalPill = buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFYRev, PRIOR_FY.costs, totalFYCost);
+  const businessPills = [
     buildSummaryPill('General', 'general', priorRev('general'), figs[0].ytdRevenue + figs[0].mayJuneRevenue, priorCost('general'), figs[0].ytdCosts + figs[0].mayJuneCosts),
     buildSummaryPill('Life', 'life', priorRev('life'), figs[1].ytdRevenue + figs[1].mayJuneRevenue, priorCost('life'), figs[1].ytdCosts + figs[1].mayJuneCosts),
     buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue, null, figs[2].ytdCosts + figs[2].mayJuneCosts)
   ];
-  wrap.innerHTML = `<div class="summary-grid">${pills.join('')}</div>`;
+  wrap.innerHTML = `
+    <div class="total-row">${totalPill}</div>
+    <div class="summary-grid summary-grid--three">${businessPills.join('')}</div>
+  `;
 }
 function renderBusinessViability() {
   const wrap = document.getElementById('businessViability');
