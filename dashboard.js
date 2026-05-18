@@ -188,27 +188,43 @@ function buildTotalRow() {
   </section>`;
 }
 
-function buildSummaryPill(label, key, priorValue, projectedValue, mode) {
-  const isCost = mode === 'costs';
-  const hasPrior = priorValue != null && priorValue > 0;
-  const pct = hasPrior ? ((projectedValue - priorValue) / priorValue) * 100 : null;
-  const sign = pct != null && pct >= 0 ? '+' : '';
-  // For costs: a decrease (negative pct) is good (green/up), an increase is bad (red/down)
-  const growthClass = pct != null
-    ? (isCost ? (pct <= 0 ? 'up' : 'down') : (pct >= 0 ? 'up' : 'down'))
-    : 'none';
-  const growthDisplay = pct != null ? `${sign}${pct.toFixed(1)}%` : 'n/a';
-  const priorLabel = isCost ? 'Last FY costs' : 'Last FY revenue';
-  const projLabel = isCost ? 'Projected FY costs' : 'Projected FY revenue';
-  const growthLabel = isCost ? 'Change vs prior FY' : 'Growth vs prior FY';
-  return `<article class="card summary-pill ${key} ${isCost ? 'pill-costs' : 'pill-revenue'}" data-area="${key}">
+function formatPctChange(pct, isCost) {
+  const sign = pct >= 0 ? '+' : '';
+  const text = `${sign}${pct.toFixed(1)}%`;
+  const isGood = isCost ? pct <= 0 : pct >= 0;
+  return { text, cls: isGood ? 'pct-up' : 'pct-down' };
+}
+
+function formatDollarChange(diff) {
+  const sign = diff >= 0 ? '+' : '';
+  return { text: `${sign}${moneyRound(diff)}`, cls: diff >= 0 ? 'pct-up' : 'pct-down' };
+}
+
+function rowChange(prior, projected, isCost) {
+  if (prior == null || prior <= 0 || projected == null) return { text: 'n/a', cls: '' };
+  return formatPctChange((projected - prior) / prior * 100, !!isCost);
+}
+
+function buildSummaryPill(label, key, priorRevenue, projRevenue, priorCosts, projCosts) {
+  const priorNet = (priorRevenue != null && priorCosts != null) ? priorRevenue - priorCosts : null;
+  const projNet  = (projRevenue  != null && projCosts  != null) ? projRevenue  - projCosts  : null;
+  const fmt = v => v != null ? moneyRound(v) : '—';
+  const revChange = rowChange(priorRevenue, projRevenue, false);
+  const costChange = rowChange(priorCosts, projCosts, true);
+  const netChange = (priorNet != null && projNet != null) ? formatDollarChange(projNet - priorNet) : { text: 'n/a', cls: '' };
+  return `<article class="card summary-pill ${key}" data-area="${key}">
     <header class="summary-head">
       <h3>${label}</h3>
       <button class="print-btn" type="button" onclick="printArea('${key}')">Print PDF</button>
     </header>
-    <div class="pill-stat"><span>${priorLabel}</span><strong>${hasPrior ? moneyRound(priorValue) : '—'}</strong></div>
-    <div class="pill-stat"><span>${projLabel}</span><strong>${moneyRound(projectedValue)}</strong></div>
-    <div class="pill-growth ${growthClass}"><span class="pill-growth-label">${growthLabel}</span><strong>${growthDisplay}</strong></div>
+    <table class="pill-table">
+      <thead><tr><th></th><th>Last FY</th><th>Projected</th><th>Change</th></tr></thead>
+      <tbody>
+        <tr><th>Revenue</th><td>${fmt(priorRevenue)}</td><td>${fmt(projRevenue)}</td><td class="${revChange.cls}">${revChange.text}</td></tr>
+        <tr><th>Costs</th><td>${fmt(priorCosts)}</td><td>${fmt(projCosts)}</td><td class="${costChange.cls}">${costChange.text}</td></tr>
+        <tr class="net-row"><th>Net Profit</th><td>${fmt(priorNet)}</td><td>${fmt(projNet)}</td><td class="${netChange.cls}">${netChange.text}</td></tr>
+      </tbody>
+    </table>
   </article>`;
 }
 
@@ -225,24 +241,15 @@ function renderKpis() {
   const figs = keys.map(getBusinessFigures);
   const totalFYRev = figs.reduce((acc, f) => acc + (f.ytdRevenue || 0) + (f.mayJuneRevenue || 0), 0);
   const totalFYCost = figs.reduce((acc, f) => acc + (f.ytdCosts || 0) + (f.mayJuneCosts || 0), 0);
-  const revenuePills = [
-    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFYRev, 'revenue'),
-    buildSummaryPill('General', 'general', PRIOR_FY_BUSINESS.general && PRIOR_FY_BUSINESS.general.revenue, figs[0].ytdRevenue + figs[0].mayJuneRevenue, 'revenue'),
-    buildSummaryPill('Life', 'life', PRIOR_FY_BUSINESS.life && PRIOR_FY_BUSINESS.life.revenue, figs[1].ytdRevenue + figs[1].mayJuneRevenue, 'revenue'),
-    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue, 'revenue')
+  const priorRev = b => PRIOR_FY_BUSINESS[b] && PRIOR_FY_BUSINESS[b].revenue;
+  const priorCost = b => PRIOR_FY_BUSINESS[b] && PRIOR_FY_BUSINESS[b].costs;
+  const pills = [
+    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFYRev, PRIOR_FY.costs, totalFYCost),
+    buildSummaryPill('General', 'general', priorRev('general'), figs[0].ytdRevenue + figs[0].mayJuneRevenue, priorCost('general'), figs[0].ytdCosts + figs[0].mayJuneCosts),
+    buildSummaryPill('Life', 'life', priorRev('life'), figs[1].ytdRevenue + figs[1].mayJuneRevenue, priorCost('life'), figs[1].ytdCosts + figs[1].mayJuneCosts),
+    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue, null, figs[2].ytdCosts + figs[2].mayJuneCosts)
   ];
-  const costPills = [
-    buildSummaryPill('IAS Total', 'total', PRIOR_FY.costs, totalFYCost, 'costs'),
-    buildSummaryPill('General', 'general', null, figs[0].ytdCosts + figs[0].mayJuneCosts, 'costs'),
-    buildSummaryPill('Life', 'life', null, figs[1].ytdCosts + figs[1].mayJuneCosts, 'costs'),
-    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdCosts + figs[2].mayJuneCosts, 'costs')
-  ];
-  wrap.innerHTML = `
-    <h2 class="pill-section-title">Revenue</h2>
-    <div class="summary-grid">${revenuePills.join('')}</div>
-    <h2 class="pill-section-title">Costs</h2>
-    <div class="summary-grid">${costPills.join('')}</div>
-  `;
+  wrap.innerHTML = `<div class="summary-grid">${pills.join('')}</div>`;
 }
 function renderBusinessViability() {
   const wrap = document.getElementById('businessViability');

@@ -156,6 +156,43 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 .summary-pill .pill-growth.up { background: rgba(16,185,129,0.15); color: #047857; }
 .summary-pill .pill-growth.down { background: rgba(220,38,38,0.15); color: #B91C1C; }
 
+.pill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 4px;
+  font-size: .85rem;
+}
+.pill-table th, .pill-table td {
+  padding: 9px 4px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.pill-table thead th {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+.pill-table thead th:first-child { text-align: left; }
+.pill-table tbody th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--text);
+}
+.pill-table tbody tr { border-bottom: 1px solid var(--border); }
+.pill-table tbody tr.net-row {
+  background: rgba(0,0,0,0.04);
+  border-top: 2px solid var(--text);
+  border-bottom: 0;
+}
+.pill-table tbody tr.net-row th,
+.pill-table tbody tr.net-row td { font-weight: 800; padding: 11px 4px; }
+.pill-table .pct-up { color: #047857; font-weight: 800; }
+.pill-table .pct-down { color: #B91C1C; font-weight: 800; }
+
 @media print {
   body > nav, body > main > .hero { display: none !important; }
   body[class*="printing-"] .summary-grid { display: block !important; }
