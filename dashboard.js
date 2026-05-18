@@ -188,20 +188,27 @@ function buildTotalRow() {
   </section>`;
 }
 
-function buildSummaryPill(label, key, priorRevenue, projectedRevenue) {
-  const hasPrior = priorRevenue != null && priorRevenue > 0;
-  const pct = hasPrior ? ((projectedRevenue - priorRevenue) / priorRevenue) * 100 : null;
+function buildSummaryPill(label, key, priorValue, projectedValue, mode) {
+  const isCost = mode === 'costs';
+  const hasPrior = priorValue != null && priorValue > 0;
+  const pct = hasPrior ? ((projectedValue - priorValue) / priorValue) * 100 : null;
   const sign = pct != null && pct >= 0 ? '+' : '';
-  const growthClass = pct != null ? (pct >= 0 ? 'up' : 'down') : 'none';
+  // For costs: a decrease (negative pct) is good (green/up), an increase is bad (red/down)
+  const growthClass = pct != null
+    ? (isCost ? (pct <= 0 ? 'up' : 'down') : (pct >= 0 ? 'up' : 'down'))
+    : 'none';
   const growthDisplay = pct != null ? `${sign}${pct.toFixed(1)}%` : 'n/a';
-  return `<article class="card summary-pill ${key}" data-area="${key}">
+  const priorLabel = isCost ? 'Last FY costs' : 'Last FY revenue';
+  const projLabel = isCost ? 'Projected FY costs' : 'Projected FY revenue';
+  const growthLabel = isCost ? 'Change vs prior FY' : 'Growth vs prior FY';
+  return `<article class="card summary-pill ${key} ${isCost ? 'pill-costs' : 'pill-revenue'}" data-area="${key}">
     <header class="summary-head">
       <h3>${label}</h3>
       <button class="print-btn" type="button" onclick="printArea('${key}')">Print PDF</button>
     </header>
-    <div class="pill-stat"><span>Last FY revenue</span><strong>${hasPrior ? moneyRound(priorRevenue) : '—'}</strong></div>
-    <div class="pill-stat"><span>Projected FY revenue</span><strong>${moneyRound(projectedRevenue)}</strong></div>
-    <div class="pill-growth ${growthClass}"><span class="pill-growth-label">Growth vs prior FY</span><strong>${growthDisplay}</strong></div>
+    <div class="pill-stat"><span>${priorLabel}</span><strong>${hasPrior ? moneyRound(priorValue) : '—'}</strong></div>
+    <div class="pill-stat"><span>${projLabel}</span><strong>${moneyRound(projectedValue)}</strong></div>
+    <div class="pill-growth ${growthClass}"><span class="pill-growth-label">${growthLabel}</span><strong>${growthDisplay}</strong></div>
   </article>`;
 }
 
@@ -216,13 +223,36 @@ function renderKpis() {
   if (!wrap) return;
   const keys = ['general', 'life', 'outsourcing'];
   const figs = keys.map(getBusinessFigures);
-  const totalFY = figs.reduce((acc, f) => acc + (f.ytdRevenue || 0) + (f.mayJuneRevenue || 0), 0);
-  const pills = [
-    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFY),
-    buildSummaryPill('General', 'general', PRIOR_FY_BUSINESS.general && PRIOR_FY_BUSINESS.general.revenue, figs[0].ytdRevenue + figs[0].mayJuneRevenue),
-    buildSummaryPill('Life', 'life', PRIOR_FY_BUSINESS.life && PRIOR_FY_BUSINESS.life.revenue, figs[1].ytdRevenue + figs[1].mayJuneRevenue),
-    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue)
+  const totalFYRev = figs.reduce((acc, f) => acc + (f.ytdRevenue || 0) + (f.mayJuneRevenue || 0), 0);
+  const totalFYCost = figs.reduce((acc, f) => acc + (f.ytdCosts || 0) + (f.mayJuneCosts || 0), 0);
+  const revenuePills = [
+    buildSummaryPill('IAS Total', 'total', PRIOR_FY.revenue, totalFYRev, 'revenue'),
+    buildSummaryPill('General', 'general', PRIOR_FY_BUSINESS.general && PRIOR_FY_BUSINESS.general.revenue, figs[0].ytdRevenue + figs[0].mayJuneRevenue, 'revenue'),
+    buildSummaryPill('Life', 'life', PRIOR_FY_BUSINESS.life && PRIOR_FY_BUSINESS.life.revenue, figs[1].ytdRevenue + figs[1].mayJuneRevenue, 'revenue'),
+    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdRevenue + figs[2].mayJuneRevenue, 'revenue')
   ];
-  wrap.innerHTML = `<div class="summary-grid">${pills.join('')}</div>`;
+  const costPills = [
+    buildSummaryPill('IAS Total', 'total', PRIOR_FY.costs, totalFYCost, 'costs'),
+    buildSummaryPill('General', 'general', null, figs[0].ytdCosts + figs[0].mayJuneCosts, 'costs'),
+    buildSummaryPill('Life', 'life', null, figs[1].ytdCosts + figs[1].mayJuneCosts, 'costs'),
+    buildSummaryPill('Outsourcing', 'outsourcing', null, figs[2].ytdCosts + figs[2].mayJuneCosts, 'costs')
+  ];
+  wrap.innerHTML = `
+    <h2 class="pill-section-title">Revenue</h2>
+    <div class="summary-grid">${revenuePills.join('')}</div>
+    <h2 class="pill-section-title">Costs</h2>
+    <div class="summary-grid">${costPills.join('')}</div>
+  `;
 }
-document.addEventListener('DOMContentLoaded', renderKpis);
+function renderBusinessViability() {
+  const wrap = document.getElementById('businessViability');
+  if (!wrap) return;
+  const businessKey = document.body.dataset.business;
+  if (!businessKey || !BUSINESS_META[businessKey]) return;
+  wrap.innerHTML = buildBusinessRow(businessKey);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderKpis();
+  renderBusinessViability();
+});
