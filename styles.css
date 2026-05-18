@@ -141,6 +141,52 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
   .kpi-card .metric, .single-kpi-card .metric { display: block; min-height: auto; }
   .kpi-card .metric strong, .single-kpi-card .metric strong { text-align: left; white-space: normal; }
 }
+.callout {
+  border-left: 6px solid var(--accent);
+  background: #EFF6FF;
+  margin-bottom: 22px;
+  padding: 18px 22px;
+}
+.callout h2 {
+  color: var(--accent);
+  font-size: .82rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.callout p { margin: 0; color: var(--text); line-height: 1.55; }
+.business-row { margin-bottom: 22px; }
+.business-row:last-child { margin-bottom: 0; }
+.business-row__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 4px 12px;
+}
+.business-row__head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -.025em;
+}
+.business-row .kpi-card .kpi-head { display: block; margin-bottom: 12px; }
+.business-row .kpi-card .kpi-head h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  letter-spacing: -.015em;
+}
+.business-row .kpi-card .kpi-head .period-sub {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.metric .placeholder {
+  color: var(--muted);
+  font-weight: 800;
+}
 @media (max-width: 520px) {
   .breakdown { grid-template-columns: 1fr; }
   .line-item { grid-template-columns: 1fr; gap: 6px; }
