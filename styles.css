@@ -210,6 +210,16 @@ select, input { border: 1px solid var(--border); border-radius: 12px; background
 .business-assumptions.general { border-left-color: var(--general); }
 .business-assumptions.life { border-left-color: var(--life); }
 .business-assumptions.outsourcing { border-left-color: var(--outsourcing); }
+.business-row--total {
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 2px dashed var(--border);
+}
+.business-row--total .business-row__head h2 {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+.kpi-card.total::before { background: var(--accent); }
 .business-assumptions h3 {
   margin: 0 0 10px;
   font-size: 1rem;
