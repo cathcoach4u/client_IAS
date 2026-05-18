@@ -20,7 +20,7 @@ const VIABILITY_OVERRIDES = {
   },
   life: {
     ytdCosts: 654688,
-    ytdCostBreakdown: 'April YTD: Xero $483,215 · 50% of operations less $33,000'
+    ytdCostBreakdown: 'April YTD: Xero $483,215 · Operations 50% $204,473 · less $33,000'
   }
 };
 
@@ -44,7 +44,7 @@ const ASSUMPTIONS = {
   ],
   life: [
     '<strong>Forward revenue:</strong> May $66,500 + June $63,850 = $130,350 of additional invoiced revenue expected.',
-    '<strong>YTD costs ($654,688):</strong> Current Xero costs $483,215 + 50% of operations less $33,000.',
+    '<strong>YTD costs ($654,688):</strong> Xero $483,215 + Operations 50% $204,473 − $33,000.',
     ...COMMON_ASSUMPTIONS
   ],
   outsourcing: [
